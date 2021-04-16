@@ -1,0 +1,21 @@
+name: early_Wuhan_SARS-CoV-2
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+
+dependencies:
+  - altair=4.1
+  - bbmap=38.90
+  - biopython=1.78
+  - bwa-mem2=2.1
+  - jupyterlab>=3
+  - mamba
+  - pandas=1.2.3
+  - plotnine=0.8.0
+  - pysam=0.16.0.1
+  - python=3.8
+  - samtools=1.11
+  - snakemake=6.1.1
+  - star=2.7.8a
+  - sra-tools=2.10.9
