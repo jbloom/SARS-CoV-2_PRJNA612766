@@ -7,16 +7,11 @@ configfile: 'config.yaml'
 
 rule all:
     input:
-        expand("results/alignments/{aligner}/{genome}/{accession}_sorted.bam",
+        expand("results/pileup/{aligner}/{genome}/{accession}.csv",
                aligner=config['aligners'],
                accession=config['accessions'],
                genome=config['genomes'],
                ),
-        expand("results/alignments/{aligner}/{genome}/{accession}_sorted.bam.bai",
-               aligner=config['aligners'],
-               accession=config['accessions'],
-               genome=config['genomes'],
-               )
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -66,14 +61,14 @@ rule download_accession:
 rule bbmap_genome:
     """Build ``bbmap`` reference genome."""
     input:
-        ref=(rules.trim3_polyA.output.fasta
-             if config['genome_trim3_polyA'] else
-             rules.get_genome_fasta.output.fasta)
+        fasta=(rules.trim3_polyA.output.fasta
+               if config['genome_trim3_polyA'] else
+               rules.get_genome_fasta.output.fasta)
     output: path=directory("results/genomes/bbmap_{genome}")
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
-        "bbmap.sh ref={input.ref} path={output.path} threads={threads}"
+        "bbmap.sh ref={input.fasta} path={output.path} threads={threads}"
 
 rule bwa_mem2_genome:
     """Build ``bwa-mem2`` reference genome."""
@@ -95,7 +90,7 @@ rule align_bbmap:
     input:
         fastq=rules.download_accession.output.fastq_gz,
         path=rules.bbmap_genome.output.path,
-        ref=rules.bbmap_genome.input.ref,
+        ref=rules.bbmap_genome.input.fasta,
     output:
         sam=temp("results/alignments/bbmap/{genome}/{accession}.sam"),
         bamscript=temp("results/alignments/bbmap/{genome}/{accession}_bamscript.sam"),
@@ -153,3 +148,28 @@ rule index_bam:
     conda: 'environment.yml'
     shell:
         "samtools index -b -m {threads} {input.bam} {output.bai}"
+
+rule bam_pileup:
+    """Make BAM pileup CSVs with mutations."""
+    output:
+        pileup_csv="results/pileup/{aligner}/{genome}/{accession}.csv",
+    input:
+        bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
+                        'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        }[wc.aligner],
+        bai=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
+                        'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        }[wc.aligner] + '.bai',
+        ref_fasta=lambda wc: {'bbmap': rules.bbmap_genome.input.fasta,
+                              'bwa-mem2': rules.bwa_mem2_genome.input.fasta,
+                              }[wc.aligner],
+    conda: 'environment.yml'
+    shell:
+        """
+        python scripts/bam_pileup.py \
+            --bam {input.bam} \
+            --bai {input.bai} \
+            --ref {wildcards.genome} \
+            --ref_fasta {input.ref_fasta} \
+            --pileup_csv {output.pileup_csv}
+        """
