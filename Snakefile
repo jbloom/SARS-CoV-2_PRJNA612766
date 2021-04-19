@@ -11,6 +11,11 @@ rule all:
                aligner=config['aligners'],
                accession=config['accessions'],
                genome=config['genomes'],
+               ),
+        expand("results/alignments/{aligner}/{genome}/{accession}_sorted.bam.bai",
+               aligner=config['aligners'],
+               accession=config['accessions'],
+               genome=config['genomes'],
                )
 
 rule get_genome_fasta:
@@ -130,3 +135,12 @@ rule align_bwa_mem2:
         samtools view -b -F 4 -o {output.unsorted_bam} {output.sam}
         samtools sort -o {output.bam} {output.unsorted_bam}
         """
+
+rule index_bam:
+    """Create BAI file for BAMs."""
+    input: bam="{bampath}_sorted.bam"
+    output: bai="{bampath}_sorted.bam.bai"
+    threads: config['max_cpus']
+    conda: 'environment.yml'
+    shell:
+        "samtools index -b -m {threads} {input.bam} {output.bai}"
