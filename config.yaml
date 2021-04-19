@@ -15,40 +15,40 @@ scratch_dir: results/_scratch/  # put scratch files here
 accessions:
   SRR10971381:
     study_url: https://www.nature.com/articles/s41586-020-2008-3
-    description: WH-Human 1 (Wu et al)
+    sample_description: WH-Human 1 (Wu et al)
   SRR11092056:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV06 (Zhou et al)
+    sample_description: WIV06 (Zhou et al)
   SRR11092057:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV04 (Zhou et al)
+    sample_description: WIV04 (Zhou et al)
   SRR11092058:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV02 (Zhou et al)
+    sample_description: WIV02 (Zhou et al)
   SRR11092059:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV07-02 (Zhou et al)
+    sample_description: WIV07-02 (Zhou et al)
   SRR11092060:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV06-02 (Zhou et al)    
+    sample_description: WIV06-02 (Zhou et al)    
   SRR11092061:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV05 (Zhou et al)
+    sample_description: WIV05 (Zhou et al)
   SRR11092062:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV04-02 (Zhou et al)
+    sample_description: WIV04-02 (Zhou et al)
   SRR11092063:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV02-02 (Zhou et al)
+    sample_description: WIV02-02 (Zhou et al)
   SRR11092064:
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    description: WIV07 (Zhou et al)
+    sample_description: WIV07 (Zhou et al)
   SRR10903401:
     study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
-    description: WHU02 (Chen et al)
+    sample_description: WHU02 (Chen et al)
   SRR10903402:
     study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
-    description: WHU01 (Chen et al) 
+    sample_description: WHU01 (Chen et al) 
   SRR11177792:
     study_url: https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30067-0/fulltext
-    description: Nepal student (Bastola et al)
+    sample_description: Nepal student (Bastola et al)

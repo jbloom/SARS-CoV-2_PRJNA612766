@@ -26,6 +26,7 @@ def bam_pileup(bam,
                pileup_csv,
                minq=20,
                bai=None,
+               add_cols=None,
                ):
     """Pileup and nucleotide identity calls from BAM."""
     if not os.path.isfile(bam):
@@ -67,6 +68,10 @@ def bam_pileup(bam,
                 )
         [['site', 'ref_nt', 'depth', 'mut_depth', *nt_cols]]
         )
+    for col_name, col_val in add_cols:
+        if col_name in set(count_df.columns):
+            raise ValueError(f"column {col_name} already in output CSV")
+        count_df[col_name] = col_val
 
     count_df.to_csv(pileup_csv, index=False)
 
@@ -97,6 +102,12 @@ if __name__ == '__main__':
                         )
     parser.add_argument('--bai',
                         help='BAI file, if none then BAM file suffixed by .bai'
+                        )
+    parser.add_argument('--add_cols',
+                        nargs=2,
+                        metavar=('col_name', 'col_value'),
+                        action='append',
+                        help='columns to add to pileup CSV, can use >1 times',
                         )
     args = vars(parser.parse_args())
     bam_pileup(**args)

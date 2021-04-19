@@ -7,11 +7,7 @@ configfile: 'config.yaml'
 
 rule all:
     input:
-        expand("results/pileup/{aligner}/{genome}/{accession}.csv",
-               aligner=config['aligners'],
-               accession=config['accessions'],
-               genome=config['genomes'],
-               ),
+        'results/pileup/merged.csv'
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -163,6 +159,9 @@ rule bam_pileup:
         ref_fasta=lambda wc: {'bbmap': rules.bbmap_genome.input.fasta,
                               'bwa-mem2': rules.bwa_mem2_genome.input.fasta,
                               }[wc.aligner],
+    params:
+        sample_description=lambda wc: (config['accessions'][wc.accession]
+                                       ['sample_description'])
     conda: 'environment.yml'
     shell:
         """
@@ -171,5 +170,22 @@ rule bam_pileup:
             --bai {input.bai} \
             --ref {wildcards.genome} \
             --ref_fasta {input.ref_fasta} \
-            --pileup_csv {output.pileup_csv}
+            --pileup_csv {output.pileup_csv} \
+            --add_cols aligner {wildcards.aligner} \
+            --add_cols genome {wildcards.genome} \
+            --add_cols accession {wildcards.accession} \
+            --add_cols sample_description "{params.sample_description}"
         """
+
+rule merge_pileup_csv:
+    output:
+        merged_csv='results/pileup/merged.csv'
+    input:
+        expand("results/pileup/{aligner}/{genome}/{accession}.csv",
+               aligner=config['aligners'],
+               accession=config['accessions'],
+               genome=config['genomes'],
+               ),
+    conda: 'environment.yml'
+    script:
+        'scripts/merge_csvs.py'
