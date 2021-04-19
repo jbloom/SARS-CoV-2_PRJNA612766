@@ -7,12 +7,11 @@ configfile: 'config.yaml'
 
 rule all:
     input:
-        expand("results/genomes/{aligner}_{genome}",
+        expand("results/alignments/{aligner}/{genome}/{accession}_sorted.bam",
                aligner=config['aligners'],
+               accession=config['accessions'],
                genome=config['genomes'],
-               ),
-        expand("results/sra_downloads/{accession}.fastq.gz",
-               accession=config['accessions'])
+               )
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -75,4 +74,59 @@ rule bwa_mem2_genome:
         """
         mkdir -p {output.prefix}
         bwa-mem2 index -p {output.prefix}/index {input.fasta}
+        """
+
+rule align_bbmap:
+    """Align using ``bbmap``."""
+    input:
+        fastq=rules.download_accession.output.fastq_gz,
+        path=rules.bbmap_genome.output.path,
+        ref=rules.bbmap_genome.input.ref,
+    output:
+        sam=temp("results/alignments/bbmap/{genome}/{accession}.sam"),
+        bamscript=temp("results/alignments/bbmap/{genome}/{accession}_bamscript.sam"),
+        bam="results/alignments/bbmap/{genome}/{accession}_sorted.bam",
+    conda: 'environment.yml'
+    threads: config['max_cpus']
+    shell:
+        """
+        bbmap.sh \
+            in={input.fastq} \
+            ref={input.ref} \
+            path={input.path} \
+            minid=0.8 \
+            maxlen=500 \
+            threads={threads} \
+            outm={output.sam} \
+            idtag=t \
+            mdtag=t \
+            nmtag=t \
+            ignorebadquality=t \
+            nullifybrokenquality=t \
+            ignorejunk=t \
+            overwrite=t \
+            bamscript={output.bamscript}
+        source {output.bamscript}
+        """
+
+rule align_bwa_mem2:
+    """Align using ``bwa-mem2``."""
+    input:
+        fastq=rules.download_accession.output.fastq_gz,
+        prefix=rules.bwa_mem2_genome.output.prefix,
+    output:
+        sam=temp("results/alignments/bwa-mem2/{genome}/{accession}.sam"),
+        unsorted_bam=temp("results/alignments/bwa-mem2/{genome}/{accession}.bam"),
+        bam="results/alignments/bwa-mem2/{genome}/{accession}_sorted.bam",
+    threads: config['max_cpus']
+    conda: 'environment.yml'
+    shell:
+        # https://www.biostars.org/p/395057/
+        """
+        bwa-mem2 mem \
+            -t {threads} \
+            {input.prefix}/index \
+            {input.fastq} > {output.sam}
+        samtools view -b -F 4 -o {output.unsorted_bam} {output.sam}
+        samtools sort -o {output.bam} {output.unsorted_bam}
         """

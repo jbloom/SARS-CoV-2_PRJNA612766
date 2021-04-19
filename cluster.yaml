@@ -9,3 +9,6 @@ __default__:
 download_accession:
   cpus: 4
   time: 2-0
+
+align_bbmap:
+  cpus: 4
