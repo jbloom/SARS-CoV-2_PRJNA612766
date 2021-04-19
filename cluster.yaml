@@ -12,3 +12,7 @@ download_accession:
 
 align_bbmap:
   cpus: 4
+
+align_bwa_mem2:
+  cpus: 4
+
