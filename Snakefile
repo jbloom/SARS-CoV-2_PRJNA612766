@@ -23,7 +23,16 @@ rule get_genome_fasta:
    output: fasta="results/genomes/untrimmed/{genome}.fa"
    params: ftp=lambda wildcards: config['genomes'][wildcards.genome]['fasta']
    conda: 'environment.yml'
-   shell: "wget -O - {params.ftp} | gunzip -c > {output}"
+   shell:
+        # rename FASTA to {genome} wildcard name
+        """
+        wget -O - {params.ftp} | gunzip -c > {output}
+        if [ $(grep '^>' {output} | wc -l) != 1 ]; then
+            echo "more than one entry in {output}" 1>&2
+            exit 1
+        fi
+        sed -i 's/^>.*$/>{wildcards.genome}/g' {output}
+        """
 
 rule trim3_polyA:
     """Trim 3' polyA nucleotides from FASTA."""
