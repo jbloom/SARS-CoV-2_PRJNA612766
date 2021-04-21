@@ -7,7 +7,11 @@ configfile: 'config.yaml'
 
 rule all:
     input:
-        'results/pileup/merged.csv'
+        'results/pileup/merged.csv',
+        expand("results/genbank/{genbank}.fa",
+               genbank=[config['accessions'][accession]['genbank']
+                        for accession in config['accessions']],
+               )
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -15,14 +19,9 @@ rule get_genome_fasta:
    params: ftp=lambda wildcards: config['genomes'][wildcards.genome]['fasta']
    conda: 'environment.yml'
    shell:
-        # rename FASTA to {genome} wildcard name
         """
         wget -O - {params.ftp} | gunzip -c > {output}
-        if [ $(grep '^>' {output} | wc -l) != 1 ]; then
-            echo "more than one entry in {output}" 1>&2
-            exit 1
-        fi
-        sed -i 's/^>.*$/>{wildcards.genome}/g' {output}
+        python scripts/strip_fasta_head_to_id.py --fasta {output.fasta}
         """
 
 rule trim3_polyA:
@@ -175,6 +174,19 @@ rule bam_pileup:
             --add_cols genome {wildcards.genome} \
             --add_cols accession {wildcards.accession} \
             --add_cols sample_description "{params.sample_description}"
+        """
+
+rule get_genbank_fasta:
+    """Get fasta from Genbank."""
+    output: fasta="results/genbank/{genbank}.fa"
+    conda: 'environment.yml'
+    shell:
+        """
+        efetch \
+            -format fasta \
+            -db nuccore \
+            -id {wildcards.genbank} \
+            > {output.fasta}
         """
 
 rule merge_pileup_csv:

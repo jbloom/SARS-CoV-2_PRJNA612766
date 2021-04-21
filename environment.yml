@@ -9,6 +9,7 @@ dependencies:
   - bbmap=38.90
   - biopython=1.78
   - bwa-mem2=2.2.1
+  - entrez-direct=13.9
   - jupyterlab>=3
   - mamba
   - pandas=1.2.3
