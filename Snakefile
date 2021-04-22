@@ -8,10 +8,10 @@ configfile: 'config.yaml'
 rule all:
     input:
         'results/pileup/merged.csv',
-        expand("results/genbank/{genbank}.fa",
-               genbank=[config['accessions'][accession]['genbank']
-                        for accession in config['accessions']],
-               )
+        expand("results/consensus/{aligner}/{genome}/{accession}.fa",
+               aligner=config['aligners'],
+               genome=config['genomes'],
+               accession=config['accessions'])
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -175,6 +175,27 @@ rule bam_pileup:
             --add_cols genome {wildcards.genome} \
             --add_cols accession {wildcards.accession} \
             --add_cols sample_description "{params.sample_description}"
+        """
+
+rule consensus_from_pileup:
+    """Make consensus sequence from BAM pileup."""
+    input:
+        pileup=rules.bam_pileup.output.pileup_csv
+    output:
+        consensus="results/consensus/{aligner}/{genome}/{accession}.fa"
+    params:
+        fasta_header = "{aligner}_{genome}_{accession}",
+        min_coverage=config['consensus_min_coverage'],
+        min_frac=config['consensus_min_frac']
+    conda: 'environment.yml'
+    shell:
+        """
+        python scripts/consensus_from_pileup.py \
+            --pileup {input.pileup} \
+            --consensus {output.consensus} \
+            --fasta_header {params.fasta_header} \
+            --min_coverage {params.min_coverage} \
+            --min_frac {params.min_frac}
         """
 
 rule get_genbank_fasta:
