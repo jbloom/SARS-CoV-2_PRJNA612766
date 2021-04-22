@@ -34,11 +34,7 @@ def genome_fasta(wc):
 rule all:
     input:
         'results/pileup/merged.csv',
-        expand('results/consensus_to_genbank_alignments/' +
-               "{aligner}/{genome}/{accession}.fa",
-               aligner=config['aligners'],
-               genome=config['genomes'],
-               accession=config['accessions']),
+        '_temp.txt',
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -255,20 +251,17 @@ rule align_consensus_to_genbank:
 
 rule analyze_consensus:
     """Analyze consensus sequences from pileup versus Genbank."""
+    output: '_temp.txt'
     input:
-        consensus_seqs=expand(rules.consensus_from_pileup.output.consensus,
-                              aligner=config['aligners'],
-                              genome=config['genomes'],
-                              accession=config['accessions'],
-                              ),
-        genbanks=[f"results/genbank/{config['accessions'][accession]['genbank']}.fa"
-                  for _, _, accession
-                  in itertools.product(config['aligners'],
-                                       config['genomes'],
-                                       config['accessions'])
-                  ]
+        alignments=expand(rules.align_consensus_to_genbank.output.alignment,
+                          aligner=config['aligners'],
+                          genome=config['genomes'],
+                          accession=config['accessions'],
+                          ),
     params:
-        descriptors=[{'aligner': aligner, 'genome': genome, 'accession': accession}
+        descriptors=[{'aligner': aligner,
+                      'genome': genome,
+                      'accession': accession}
                      for aligner, genome, accession
                      in itertools.product(config['aligners'],
                                           config['genomes'],
@@ -276,9 +269,11 @@ rule analyze_consensus:
                      ]
     log:
         notebook='results/logs/notebooks/analyze_consensus.ipynb'
-    conda: 'environment.yml'
-    notebook:
-        'notebooks/analyze_consensus.py.ipynb'
+#    conda: 'environment.yml'
+#    notebook:
+#        'notebooks/analyze_consensus.py.ipynb'
+    run:
+        print(input.alignments)
 
 rule merge_pileup_csv:
     output:
