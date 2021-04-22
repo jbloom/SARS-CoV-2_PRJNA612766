@@ -20,69 +20,89 @@ consensus_min_coverage: 2  # require >= this coverage
 consensus_min_frac: 0.5  # require most common base > this fraction
 
 # information on samples, organized by SRA accession
-accessions:
-  SRR10971381:
+samples:
+  Wuhan-Hu-1_Wu_et_al:
+    accessions: [SRR10971381]
     study_url: https://www.nature.com/articles/s41586-020-2008-3
-    sample_description: WH-Human 1 (Wu et al)
     genbank: MN908947
     sex: male
-  SRR11092056:
+  WIV02_Zhou_et_al:
+    accessions: [SRR11092058, SRR11092063]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV06 (Zhou et al)
-    genbank: MN996530
-    sex: male
-  SRR11092057:
-    study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV04 (Zhou et al)
-    genbank: MN996528
-    sex: female
-  SRR11092058:
-    study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV02 (Zhou et al)
     genbank: MN996527
     sex: male
-  SRR11092059:
+  WIV02-01_Zhou_et_al:
+    accessions: [SRR11092058]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV07-02 (Zhou et al)
-    genbank: MN996531
+    genbank: MN996527
     sex: male
-  SRR11092060:
+  WIV02-02_Zhou_et_al:
+    accessions: [SRR11092063]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV06-02 (Zhou et al)    
-    genbank: MN996530
+    genbank: MN996527
     sex: male
-  SRR11092061:
+  WIV04_Zhou_et_al:
+    accessions: [SRR11092057, SRR11092062]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV05 (Zhou et al)
+    genbank: MN996528
+    sex: female
+  WIV04-01_Zhou_et_al:
+    accessions: [SRR11092057]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
+    genbank: MN996528
+    sex: female
+  WIV04-02_Zhou_et_al:
+    accessions: [SRR11092062]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
+    genbank: MN996528
+    sex: female
+  WIV05_Zhou_et_al:
+    accessions: [SRR11092061]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996529
     sex: female
-  SRR11092062:
+  WIV06_Zhou_et_al:
+    accessions: [SRR11092056, SRR11092060]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV04-02 (Zhou et al)
-    genbank: MN996528
-    sex: female
-  SRR11092063:
-    study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV02-02 (Zhou et al)
-    genbank: MN996527
+    genbank: MN996530
     sex: male
-  SRR11092064:
+  WIV06-01_Zhou_et_al:
+    accessions: [SRR11092056]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
-    sample_description: WIV07 (Zhou et al)
+    genbank: MN996530
+    sex: male
+  WIV06-02_Zhou_et_al:
+    accessions: [SRR11092060]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
+    genbank: MN996530
+    sex: male
+  WIV07_Zhou_et_al:
+    accessions: [SRR11092064, SRR11092059]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996531
     sex: male
-  SRR10903401:
+  WIV07-01_Zhou_et_al:
+    accessions: [SRR11092064]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
+    genbank: MN996531
+    sex: male
+  WIV07-02_Zhou_et_al:
+    accessions: [SRR11092059]
+    study_url: https://www.nature.com/articles/s41586-020-2012-7
+    genbank: MN996531
+    sex: male
+  WHU01_Chen_et_al:
+    accessions: [SRR10903402]
     study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
-    sample_description: WHU02 (Chen et al)
-    genbank: MN988669
-    sex: female
-  SRR10903402:
-    study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
-    sample_description: WHU01 (Chen et al) 
     genbank: MN988668
     sex: male
-  SRR11177792:
+  WHU02_Chen_et_al:
+    accessions: [SRR10903401]
+    study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
+    genbank: MN988669
+    sex: female
+  Nepal-student_Bastola_et_al:
+    accessions: [SRR11177792]
     study_url: https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30067-0/fulltext
-    sample_description: Nepal student (Bastola et al)
     genbank: MT072688
     sex: male

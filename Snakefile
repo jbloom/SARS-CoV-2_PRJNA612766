@@ -16,6 +16,8 @@ min_version('6.1.1')
 
 configfile: 'config.yaml'
 
+samples = config['samples']  # read samples from config
+
 #----------------------------------------------------------------------------
 # helper functions
 #----------------------------------------------------------------------------
@@ -100,19 +102,28 @@ rule bwa_mem2_genome:
 rule align_bbmap:
     """Align using ``bbmap``."""
     input:
-        fastq=rules.download_accession.output.fastq_gz,
+        fastqs=lambda wc: [f"results/sra_downloads/{accession}.fastq.gz"
+                           for accession in samples[wc.sample]['accessions']],
         path=rules.bbmap_genome.output.path,
         ref=genome_fasta
     output:
-        sam=temp("results/alignments/bbmap/{genome}/{accession}.sam"),
-        bamscript=temp("results/alignments/bbmap/{genome}/{accession}_bamscript.sam"),
-        bam="results/alignments/bbmap/{genome}/{accession}_sorted.bam",
+        concat_fastq=temp("results/alignments/bbmap/{genome}/_{sample}" +
+                          '_concat.fastq.gz'),
+        sam=temp("results/alignments/bbmap/{genome}/{sample}.sam"),
+        bamscript=temp("results/alignments/bbmap/{genome}/{sample}" +
+                       '_bamscript.sam'),
+        bam="results/alignments/bbmap/{genome}/{sample}_sorted.bam",
     conda: 'environment.yml'
     threads: config['max_cpus']
     shell:
         """
+        echo "concatenating {input.fastqs}"
+        cat {input.fastqs} > {output.concat_fastq}
+        echo "done concatenating"
+        ls -lh {output.concat_fastq}
+        echo "mapping {input.fastqs}"
         bbmap.sh \
-            in={input.fastq} \
+            in={output.concat_fastq} \
             ref={input.ref} \
             path={input.path} \
             minid=0.8 \
@@ -128,26 +139,32 @@ rule align_bbmap:
             overwrite=t \
             bamscript={output.bamscript}
         source {output.bamscript}
+        echo "done mapping"
+        ls -lh {output.concat_fastq}
         """
 
 rule align_bwa_mem2:
     """Align using ``bwa-mem2``."""
     input:
-        fastq=rules.download_accession.output.fastq_gz,
+        fastqs=lambda wc: [f"results/sra_downloads/{accession}.fastq.gz"
+                           for accession in samples[wc.sample]['accessions']],
         prefix=rules.bwa_mem2_genome.output.prefix,
     output:
-        sam=temp("results/alignments/bwa-mem2/{genome}/{accession}.sam"),
-        unsorted_bam=temp("results/alignments/bwa-mem2/{genome}/{accession}.bam"),
-        bam="results/alignments/bwa-mem2/{genome}/{accession}_sorted.bam",
+        concat_fastq=temp("results/alignments/bwa-mem2/{genome}/_{sample}" +
+                          '_concat.fastq.gz'),
+        sam=temp("results/alignments/bwa-mem2/{genome}/{sample}.sam"),
+        unsorted_bam=temp("results/alignments/bwa-mem2/{genome}/{sample}.bam"),
+        bam="results/alignments/bwa-mem2/{genome}/{sample}_sorted.bam",
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
         # https://www.biostars.org/p/395057/
         """
+        cat {input.fastqs} > {output.concat_fastq}
         bwa-mem2 mem \
             -t {threads} \
             {input.prefix}/index \
-            {input.fastq} > {output.sam}
+            {output.concat_fastq} > {output.sam}
         samtools view -b -F 4 -o {output.unsorted_bam} {output.sam}
         samtools sort -o {output.bam} {output.unsorted_bam}
         """
@@ -164,7 +181,7 @@ rule index_bam:
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
     output:
-        pileup_csv="results/pileup/{aligner}/{genome}/{accession}.csv",
+        pileup_csv="results/pileup/{aligner}/{genome}/{sample}.csv",
     input:
         bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
@@ -172,12 +189,8 @@ rule bam_pileup:
         bai=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
                         }[wc.aligner] + '.bai',
-        ref_fasta=lambda wc: {'bbmap': rules.bbmap_genome.input.fasta,
-                              'bwa-mem2': rules.bwa_mem2_genome.input.fasta,
-                              }[wc.aligner],
+        ref_fasta=genome_fasta
     params:
-        sample_description=lambda wc: (config['accessions'][wc.accession]
-                                       ['sample_description']),
         ref=lambda wc: config['genomes'][wc.genome]['name']
     conda: 'environment.yml'
     shell:
@@ -190,8 +203,7 @@ rule bam_pileup:
             --pileup_csv {output.pileup_csv} \
             --add_cols aligner {wildcards.aligner} \
             --add_cols genome {wildcards.genome} \
-            --add_cols accession {wildcards.accession} \
-            --add_cols sample_description "{params.sample_description}"
+            --add_cols sample "{wildcards.sample}"
         """
 
 rule consensus_from_pileup:
@@ -199,9 +211,9 @@ rule consensus_from_pileup:
     input:
         pileup=rules.bam_pileup.output.pileup_csv
     output:
-        consensus="results/consensus/{aligner}/{genome}/{accession}.fa"
+        consensus="results/consensus/{aligner}/{genome}/{sample}.fa"
     params:
-        fasta_header = "{aligner}_{genome}_{accession}",
+        fasta_header = "{aligner}_{genome}_{sample}",
         min_coverage=config['consensus_min_coverage'],
         min_frac=config['consensus_min_frac']
     conda: 'environment.yml'
@@ -233,13 +245,13 @@ rule align_consensus_to_genbank:
     input:
         consensus=rules.consensus_from_pileup.output.consensus,
         genbank=lambda wc: ('results/genbank/' +
-                            config['accessions'][wc.accession]['genbank'] +
+                            samples[wc.sample]['genbank'] +
                             '.fa')
     output:
         concat_fasta=temp('results/consensus_to_genbank_alignments/' +
-                          "{aligner}/{genome}/_{accession}_to_align.fa"),
+                          "{aligner}/{genome}/_{sample}_to_align.fa"),
         alignment=('results/consensus_to_genbank_alignments/' +
-                   "{aligner}/{genome}/{accession}.fa")
+                   "{aligner}/{genome}/{sample}.fa")
     conda: 'environment.yml'
     shell:
         # insert newline between FASTA files when concatenating:
@@ -256,16 +268,16 @@ rule analyze_consensus:
         alignments=expand(rules.align_consensus_to_genbank.output.alignment,
                           aligner=config['aligners'],
                           genome=config['genomes'],
-                          accession=config['accessions'],
+                          sample=config['samples'],
                           ),
     params:
         descriptors=[{'aligner': aligner,
                       'genome': genome,
-                      'accession': accession}
-                     for aligner, genome, accession
+                      'sample': sample}
+                     for aligner, genome, sample
                      in itertools.product(config['aligners'],
                                           config['genomes'],
-                                          config['accessions'])
+                                          samples)
                      ]
     log:
         notebook='results/logs/notebooks/analyze_consensus.ipynb'
@@ -279,9 +291,9 @@ rule merge_pileup_csv:
     output:
         merged_csv='results/pileup/merged.csv'
     input:
-        expand("results/pileup/{aligner}/{genome}/{accession}.csv",
+        expand("results/pileup/{aligner}/{genome}/{sample}.csv",
                aligner=config['aligners'],
-               accession=config['accessions'],
+               sample=samples,
                genome=config['genomes'],
                ),
     conda: 'environment.yml'
