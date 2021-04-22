@@ -160,14 +160,15 @@ rule bam_pileup:
                               }[wc.aligner],
     params:
         sample_description=lambda wc: (config['accessions'][wc.accession]
-                                       ['sample_description'])
+                                       ['sample_description']),
+        ref=lambda wc: config['genomes'][wc.genome]['name']
     conda: 'environment.yml'
     shell:
         """
         python scripts/bam_pileup.py \
             --bam {input.bam} \
             --bai {input.bai} \
-            --ref {wildcards.genome} \
+            --ref {params.ref} \
             --ref_fasta {input.ref_fasta} \
             --pileup_csv {output.pileup_csv} \
             --add_cols aligner {wildcards.aligner} \

@@ -1,9 +1,12 @@
 max_cpus: 4  # max CPUs for any single job
 
+scratch_dir: results/_scratch/  # put scratch files here
+
 # genome against which we align data
 genomes:
   SARS-CoV-2:
     fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
+    name: NC_045512.2
 
 genome_trim3_polyA: true  # do we trim A nucleotides from 3' end of genome?
 
@@ -12,7 +15,9 @@ aligners:
   - bbmap
   - bwa-mem2
 
-scratch_dir: results/_scratch/  # put scratch files here
+# criteria used to call consensus
+consensus_min_coverage: 2  # require >= this coverage
+consensus_min_frac: 0.5  # require most common base > this fraction
 
 # information on samples, organized by SRA accession
 accessions:
