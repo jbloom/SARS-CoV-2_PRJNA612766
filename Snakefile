@@ -34,7 +34,8 @@ def genome_fasta(wc):
 rule all:
     input:
         'results/pileup/merged.csv',
-        expand("results/consensus/{aligner}/{genome}/{accession}.fa",
+        expand('results/consensus_to_genbank_alignments/' +
+               "{aligner}/{genome}/{accession}.fa",
                aligner=config['aligners'],
                genome=config['genomes'],
                accession=config['accessions']),
@@ -229,6 +230,27 @@ rule get_genbank_fasta:
             -db nuccore \
             -id {wildcards.genbank} \
             > {output.fasta}
+        """
+
+rule align_consensus_to_genbank:
+    """Align pileup consensus to its Genbank."""
+    input:
+        consensus=rules.consensus_from_pileup.output.consensus,
+        genbank=lambda wc: ('results/genbank/' +
+                            config['accessions'][wc.accession]['genbank'] +
+                            '.fa')
+    output:
+        concat_fasta=temp('results/consensus_to_genbank_alignments/' +
+                          "{aligner}/{genome}/_{accession}_to_align.fa"),
+        alignment=('results/consensus_to_genbank_alignments/' +
+                   "{aligner}/{genome}/{accession}.fa")
+    conda: 'environment.yml'
+    shell:
+        # insert newline between FASTA files when concatenating:
+        # https://stackoverflow.com/a/23549826
+        """
+        cat {input.consensus} <(echo) {input.genbank} > {output.concat_fasta}
+        mafft {output.concat_fasta} > {output.alignment}
         """
 
 rule analyze_consensus:
