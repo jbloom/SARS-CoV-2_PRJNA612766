@@ -3,7 +3,33 @@
 Written by Jesse Bloom.
 """
 
+
+import itertools
+
+from snakemake.utils import min_version
+
+min_version('6.1.1')
+
+#----------------------------------------------------------------------------
+# Configuration
+#----------------------------------------------------------------------------
+
 configfile: 'config.yaml'
+
+#----------------------------------------------------------------------------
+# helper functions
+#----------------------------------------------------------------------------
+
+def genome_fasta(wc):
+    """Get genome FASTA (trimmed or untrimmed)."""
+    if config['genome_trim3_polyA']:
+        return rules.trim3_polyA.output.fasta
+    else:
+        return rules.get_genome_fasta.output.fasta
+
+#----------------------------------------------------------------------------
+# Rules
+#----------------------------------------------------------------------------
 
 rule all:
     input:
@@ -11,7 +37,7 @@ rule all:
         expand("results/consensus/{aligner}/{genome}/{accession}.fa",
                aligner=config['aligners'],
                genome=config['genomes'],
-               accession=config['accessions'])
+               accession=config['accessions']),
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -55,10 +81,7 @@ rule download_accession:
 
 rule bbmap_genome:
     """Build ``bbmap`` reference genome."""
-    input:
-        fasta=(rules.trim3_polyA.output.fasta
-               if config['genome_trim3_polyA'] else
-               rules.get_genome_fasta.output.fasta)
+    input: fasta=genome_fasta
     output: path=directory("results/genomes/bbmap_{genome}")
     threads: config['max_cpus']
     conda: 'environment.yml'
@@ -67,10 +90,7 @@ rule bbmap_genome:
 
 rule bwa_mem2_genome:
     """Build ``bwa-mem2`` reference genome."""
-    input:
-        fasta=(rules.trim3_polyA.output.fasta
-               if config['genome_trim3_polyA'] else
-               rules.get_genome_fasta.output.fasta)
+    input: fasta=genome_fasta
     output: prefix=directory("results/genomes/bwa-mem2_{genome}/")
     threads: config['max_cpus']
     conda: 'environment.yml'
@@ -85,7 +105,7 @@ rule align_bbmap:
     input:
         fastq=rules.download_accession.output.fastq_gz,
         path=rules.bbmap_genome.output.path,
-        ref=rules.bbmap_genome.input.fasta,
+        ref=genome_fasta
     output:
         sam=temp("results/alignments/bbmap/{genome}/{accession}.sam"),
         bamscript=temp("results/alignments/bbmap/{genome}/{accession}_bamscript.sam"),
@@ -210,6 +230,33 @@ rule get_genbank_fasta:
             -id {wildcards.genbank} \
             > {output.fasta}
         """
+
+rule analyze_consensus:
+    """Analyze consensus sequences from pileup versus Genbank."""
+    input:
+        consensus_seqs=expand(rules.consensus_from_pileup.output.consensus,
+                              aligner=config['aligners'],
+                              genome=config['genomes'],
+                              accession=config['accessions'],
+                              ),
+        genbanks=[f"results/genbank/{config['accessions'][accession]['genbank']}.fa"
+                  for _, _, accession
+                  in itertools.product(config['aligners'],
+                                       config['genomes'],
+                                       config['accessions'])
+                  ]
+    params:
+        descriptors=[{'aligner': aligner, 'genome': genome, 'accession': accession}
+                     for aligner, genome, accession
+                     in itertools.product(config['aligners'],
+                                          config['genomes'],
+                                          config['accessions'])
+                     ]
+    log:
+        notebook='results/logs/notebooks/analyze_consensus.ipynb'
+    conda: 'environment.yml'
+    notebook:
+        'notebooks/analyze_consensus.py.ipynb'
 
 rule merge_pileup_csv:
     output:
