@@ -37,7 +37,10 @@ rule all:
     input:
         'results/consensus_to_genbank_alignments/stats.csv',
         'results/consensus_to_genbank_alignments/chart.html',
-        'results/pileup/merged.csv',
+        'results/pileup/merged_pileup.csv',
+        'results/pileup/merged_aligner_key.csv',
+        'results/pileup/merged_genome_key.csv',
+        'results/pileup/merged_sample_key.csv',
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -204,9 +207,6 @@ rule bam_pileup:
             --ref_fasta {input.ref_fasta} \
             --minq {params.minq} \
             --pileup_csv {output.pileup_csv} \
-            --add_cols aligner {wildcards.aligner} \
-            --add_cols genome {wildcards.genome} \
-            --add_cols sample "{wildcards.sample}"
         """
 
 rule consensus_from_pileup:
@@ -290,15 +290,28 @@ rule analyze_consensus_vs_genbank:
     notebook:
         'notebooks/analyze_consensus_vs_genbank.py.ipynb'
 
-rule merge_pileup_csv:
+rule merge_pileups:
+    """Create merged pileup represented compactly."""
     output:
-        merged_csv='results/pileup/merged.csv'
+        pileup='results/pileup/merged_pileup.csv',
+        aligner_key='results/pileup/merged_aligner_key.csv',
+        genome_key='results/pileup/merged_genome_key.csv',
+        sample_key='results/pileup/merged_sample_key.csv',
     input:
-        expand("results/pileup/{aligner}/{genome}/{sample}.csv",
-               aligner=config['aligners'],
-               sample=samples,
-               genome=config['genomes'],
-               ),
+        csvs=expand("results/pileup/{aligner}/{genome}/{sample}.csv",
+                    aligner=config['aligners'],
+                    genome=config['genomes'],
+                    sample=samples,
+                    ),
+    params:
+        descriptors=[{'aligner': aligner,
+                      'genome': genome,
+                      'sample': sample}
+                     for aligner, genome, sample
+                     in itertools.product(config['aligners'],
+                                          config['genomes'],
+                                          samples)
+                     ]
     conda: 'environment.yml'
     script:
-        'scripts/merge_csvs.py'
+        'scripts/merge_pileups.py'

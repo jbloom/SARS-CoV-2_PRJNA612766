@@ -68,6 +68,8 @@ def bam_pileup(bam,
                 )
         [['site', 'ref_nt', 'depth', 'mut_depth', *nt_cols]]
         )
+    if add_cols is None:
+        add_cols = []
     for col_name, col_val in add_cols:
         if col_name in set(count_df.columns):
             raise ValueError(f"column {col_name} already in output CSV")
@@ -99,6 +101,8 @@ if __name__ == '__main__':
                         )
     parser.add_argument('--minq',
                         help='only count bases with Q >= this',
+                        type=int,
+                        default=20,
                         )
     parser.add_argument('--bai',
                         help='BAI file, if none then BAM file suffixed by .bai'
