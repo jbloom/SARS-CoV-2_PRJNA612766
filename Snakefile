@@ -35,8 +35,9 @@ def genome_fasta(wc):
 
 rule all:
     input:
+        'results/consensus_to_genbank_alignments/stats.csv',
+        'results/consensus_to_genbank_alignments/chart.html',
         'results/pileup/merged.csv',
-        '_temp.txt',
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -191,7 +192,8 @@ rule bam_pileup:
                         }[wc.aligner] + '.bai',
         ref_fasta=genome_fasta
     params:
-        ref=lambda wc: config['genomes'][wc.genome]['name']
+        ref=lambda wc: config['genomes'][wc.genome]['name'],
+        minq=config['minq'],
     conda: 'environment.yml'
     shell:
         """
@@ -200,6 +202,7 @@ rule bam_pileup:
             --bai {input.bai} \
             --ref {params.ref} \
             --ref_fasta {input.ref_fasta} \
+            --minq {params.minq} \
             --pileup_csv {output.pileup_csv} \
             --add_cols aligner {wildcards.aligner} \
             --add_cols genome {wildcards.genome} \
@@ -261,9 +264,11 @@ rule align_consensus_to_genbank:
         mafft {output.concat_fasta} > {output.alignment}
         """
 
-rule analyze_consensus:
+rule analyze_consensus_vs_genbank:
     """Analyze consensus sequences from pileup versus Genbank."""
-    output: '_temp.txt'
+    output:
+        csv='results/consensus_to_genbank_alignments/stats.csv',
+        chart='results/consensus_to_genbank_alignments/chart.html',
     input:
         alignments=expand(rules.align_consensus_to_genbank.output.alignment,
                           aligner=config['aligners'],
@@ -280,12 +285,10 @@ rule analyze_consensus:
                                           samples)
                      ]
     log:
-        notebook='results/logs/notebooks/analyze_consensus.ipynb'
-#    conda: 'environment.yml'
-#    notebook:
-#        'notebooks/analyze_consensus.py.ipynb'
-    run:
-        print(input.alignments)
+        notebook='results/logs/notebooks/analyze_consensus_vs_genbank.ipynb'
+    conda: 'environment.yml'
+    notebook:
+        'notebooks/analyze_consensus_vs_genbank.py.ipynb'
 
 rule merge_pileup_csv:
     output:

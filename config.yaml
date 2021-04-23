@@ -15,6 +15,8 @@ aligners:
   - bbmap
   - bwa-mem2
 
+minq: 20  # in pileups, only consider when Q score >= this
+
 # criteria used to call consensus
 consensus_min_coverage: 2  # require >= this coverage
 consensus_min_frac: 0.5  # require most common base > this fraction
