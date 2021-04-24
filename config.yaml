@@ -15,13 +15,14 @@ aligners:
   - bbmap
   - bwa-mem2
 
-minq: 20  # in pileups, only consider when Q score >= this
+minq: 20  # in pileups, only consider sites where Q score >= this
 
-# criteria used to call consensus
-consensus_min_coverage: 2  # require >= this coverage
-consensus_min_frac: 0.5  # require most common base > this fraction
+# Criteria used to call consensus from pileup, and then determine
+# if different from reference or Genbank.
+consensus_min_coverage: 5  # require >= this coverage
+consensus_min_frac: 0.75  # require most common base > this fraction
 
-# information on samples, organized by SRA accession
+# information on samples to analyze
 samples:
   Wuhan-Hu-1_Wu_et_al:
     accessions: [SRR10971381]

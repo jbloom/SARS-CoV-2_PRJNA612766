@@ -315,3 +315,22 @@ rule merge_pileups:
     conda: 'environment.yml'
     script:
         'scripts/merge_pileups.py'
+
+rule analyze_pilups:
+    """Analyze and plot BAM pileups."""
+    input:
+        pileup=snakemake.rules.merge_pileups.output.pileup,
+        aligner_key=snakemake.rules.merge_pileups.output.aligner_key,
+        genome_key=snakemake.rules.merge_pileups.output.genome_key,
+        sample_key=snakemake.rules.merge_pileups.output.sample_key,
+    output:
+        chart='results/pileup/merged_interactive_pileup_chart.html',
+        diffs_from_reference='results/pileup/merged_diffs_from_reference.csv',
+    params:
+        consensus_min_frac=config['consensus_min_frac'],
+        consensus_min_coverage=config['consensus_min_coverage'],
+    log:
+        notebook='results/logs/notebooks/analyze_pileups.ipynb'
+    conda: 'environment.yml'
+    notebook:
+        'notebooks/analyze_pileups.py.ipynb'
