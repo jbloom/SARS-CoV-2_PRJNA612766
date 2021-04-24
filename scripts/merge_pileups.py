@@ -15,7 +15,7 @@ for csv_file, descriptor in zip(snakemake.input.csvs,
             else:
                 prior_code = 0
             code_d[descriptor[code_type]] = prior_code + 1
-        csv_codes[f"{code_type}_code"] = code_d[descriptor[code_type]]
+        csv_codes[code_type] = code_d[descriptor[code_type]]
 
     # read data, keep columns of interest, and add codes
     df = df.append(pd.read_csv(csv_file)
@@ -27,8 +27,8 @@ df.to_csv(snakemake.output.pileup, index=False)
 for code_type, code_d in codes.items():
     outfile = getattr(snakemake.output, f"{code_type}_key")
     (pd.Series(code_d)
-     .rename_axis(code_type)
-     .rename(f"{code_type}_code")
+     .rename_axis(f"{code_type}_name")
+     .rename(code_type)
      .to_csv(outfile)
      )
      
