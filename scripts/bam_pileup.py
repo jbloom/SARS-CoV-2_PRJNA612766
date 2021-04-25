@@ -58,15 +58,10 @@ def bam_pileup(bam,
     assert count_df.columns.tolist() == nt_cols
     count_df = (
         count_df
-        .assign(depth=lambda x: x[nt_cols].sum(axis=1),
-                site=lambda x: x.index + 1,
-                ref_nt=lambda x: list(ref_seq.upper()),
-                mut_depth=lambda x: x.apply(
-                                lambda r: sum(r[nt] for nt in nt_cols
-                                              if nt != r['ref_nt']),
-                                axis=1)
+        .assign(site=lambda x: x.index + 1,
+                reference=lambda x: list(ref_seq.upper()),
                 )
-        [['site', 'ref_nt', 'depth', 'mut_depth', *nt_cols]]
+        [['site', 'reference', *nt_cols]]
         )
     if add_cols is None:
         add_cols = []

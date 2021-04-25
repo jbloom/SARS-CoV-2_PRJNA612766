@@ -319,10 +319,10 @@ rule merge_pileups:
 rule analyze_pilups:
     """Analyze and plot BAM pileups."""
     input:
-        pileup=snakemake.rules.merge_pileups.output.pileup,
-        aligner_key=snakemake.rules.merge_pileups.output.aligner_key,
-        genome_key=snakemake.rules.merge_pileups.output.genome_key,
-        sample_key=snakemake.rules.merge_pileups.output.sample_key,
+        pileup=rules.merge_pileups.output.pileup,
+        aligner_key=rules.merge_pileups.output.aligner_key,
+        genome_key=rules.merge_pileups.output.genome_key,
+        sample_key=rules.merge_pileups.output.sample_key,
     output:
         chart='results/pileup/merged_interactive_pileup_chart.html',
         diffs_from_reference='results/pileup/merged_diffs_from_reference.csv',

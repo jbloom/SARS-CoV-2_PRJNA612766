@@ -13,39 +13,37 @@ def consensus_from_pileup(pileup,
                           ):
     """Call consensus from pileup CSV."""
     nts = ['A', 'C', 'G', 'T']
-    cols = ['site', 'depth'] + nts
+    cols = ['site', *nts]
     pileup = pd.read_csv(pileup)
     if not set(cols).issubset(set(pileup.columns)):
         raise ValueError(f"{pileup} lacks columns {nts}")
     if len(pileup) != len(pileup[cols].drop_duplicates()):
-        raise ValueError(f"duplicated columns in {pileup}")
+        raise ValueError(f"duplicated rows in {pileup}")
 
     first_site = pileup['site'].min()
     last_site = pileup['site'].max()
     if set(pileup['site']) != set(range(first_site, last_site + 1)):
         raise ValueError(f"{pileup} does not contain sequential sites")
 
-    site_to_nt = (
+    seq = ''.join(
         pileup
-        .melt(id_vars=['site', 'depth'],
-              value_vars=nts,
-              var_name='nt',
-              value_name='count',
-              )
-        .assign(frac=lambda x: x['count'] / x['depth'])
-        .query('count > @min_coverage')
-        .query('frac > @min_frac')
-        .sort_values(['site', 'count'], ascending=[True, False])
-        .groupby('site')
-        .aggregate({'nt': 'first'})
-        ['nt']
-        .to_dict()
+        .sort_values('site')
+        .assign(depth=lambda x: x[nts].sum(axis=1),
+                most_common=lambda x: x[nts].idxmax(axis=1),
+                most_common_depth=lambda x: x[nts].max(axis=1),
+                most_common_frac=lambda x: x['most_common_depth'] / x['depth'],
+                meets_criteria=lambda x: (
+                            (x['most_common_depth'] >= min_coverage) &
+                            (x['most_common_frac'] > min_frac)),
+                consensus=lambda x: x['most_common'].where(x['meets_criteria'],
+                                                           'N')
+                )
+        ['consensus']
+        .tolist()
         )
 
-    seq = ''.join([site_to_nt[r] if r in site_to_nt else 'N'
-                   for r in range(first_site, last_site + 1)])
     with open(consensus, 'w') as f:
-        f.write(f">{fasta_header}\n{seq}")
+        f.write(f">{fasta_header}\n{seq}\n")
 
 
 if __name__ == '__main__':

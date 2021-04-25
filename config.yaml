@@ -20,7 +20,7 @@ minq: 20  # in pileups, only consider sites where Q score >= this
 # Criteria used to call consensus from pileup, and then determine
 # if different from reference or Genbank.
 consensus_min_coverage: 5  # require >= this coverage
-consensus_min_frac: 0.75  # require most common base > this fraction
+consensus_min_frac: 0.5  # require most common base > this fraction
 
 # information on samples to analyze
 samples:
