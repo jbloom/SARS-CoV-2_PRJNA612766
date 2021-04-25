@@ -3,10 +3,10 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euo pipefail
 
-printf "Running snakemake"
-
 slurm_scratch_dir="results/_scratch/slurm_logs/"
 mkdir -p $slurm_scratch_dir
+
+printf "Running snakemake...\n"
 
 snakemake \
     -j 100 \
@@ -16,4 +16,11 @@ snakemake \
     --use-conda \
     --rerun-incomplete
 
-printf "Script complete."
+printf "Run of snakemake complete.\n"
+
+# https://snakemake.readthedocs.io/en/stable/snakefiles/reporting.html
+printf "\nCreating snakemake report...\n"
+
+snakemake --report report.html
+
+printf "Finished creating snakemake report..."

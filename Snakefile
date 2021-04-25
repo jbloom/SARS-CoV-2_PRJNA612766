@@ -18,6 +18,8 @@ configfile: 'config.yaml'
 
 samples = config['samples']  # read samples from config
 
+report: 'report/workflow.rst'
+
 #----------------------------------------------------------------------------
 # helper functions
 #----------------------------------------------------------------------------
@@ -267,8 +269,8 @@ rule align_consensus_to_genbank:
 rule analyze_consensus_vs_genbank:
     """Analyze consensus sequences from pileup versus Genbank."""
     output:
-        csv='results/consensus_to_genbank_alignments/stats.csv',
-        chart='results/consensus_to_genbank_alignments/chart.html',
+        csv=report('results/consensus_to_genbank_alignments/stats.csv'),
+        chart=report('results/consensus_to_genbank_alignments/chart.html'),
     input:
         alignments=expand(rules.align_consensus_to_genbank.output.alignment,
                           aligner=config['aligners'],
@@ -298,7 +300,7 @@ rule analyze_pileups:
                        aligner=config['aligners'],
                        allow_missing=True)
     output:
-        chart="results/pileup/{sample}/interactive_pileup_chart.html",
+        chart=report("results/pileup/{sample}/interactive_pileup_chart.html"),
         diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
     params:
         consensus_min_frac=config['consensus_min_frac'],
