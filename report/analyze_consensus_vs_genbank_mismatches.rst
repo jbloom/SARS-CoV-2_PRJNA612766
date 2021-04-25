@@ -1,2 +1,1 @@
-Mismatches between deep sequencing consensus and Genbank sequence.
-The "intersection all aligners" category refers to mismatches that are present for deep sequencing alignments using all of the different aligners for that sample and reference genome.
+Mismatches between deep sequencing consensus and Genbank sequence, only considering mismatches that are called by **all** aligners and also showing identities in comparator sequences at mismatched sites.

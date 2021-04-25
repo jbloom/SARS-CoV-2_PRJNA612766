@@ -22,6 +22,7 @@ Consensus sequences from the deep sequencing were called by requiring a depth of
 Indels are ignored, so the analysis is only identifying nucleotide substitutions.
 
 The consensus from the deep sequencing was then aligned to the Genbank sequence reported for each sample to see if any sites differed in the deep sequencing from what was reported as the Genbank sequence.
-These differences are summarized in `Deep sequencing vs Genbank`_.
+At sites where there were differences, the identities in closely related comparator coronavirus genomes were also analyzed.
+These deep-sequencing consensus versus Genbank comparisons are summarized in `Deep sequencing vs Genbank`_.
 
 The full workflow is schematized below and the rest of this report contains more details about the configuration, etc.

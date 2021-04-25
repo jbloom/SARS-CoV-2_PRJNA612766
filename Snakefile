@@ -300,7 +300,8 @@ rule analyze_consensus_vs_genbank:
                      in itertools.product(config['aligners'],
                                           config['genomes'],
                                           samples)
-                     ]
+                     ],
+        comparators=list(config['comparator_genomes'])
     log:
         notebook='results/logs/notebooks/analyze_consensus_vs_genbank.ipynb'
     conda: 'environment.yml'
