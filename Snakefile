@@ -37,13 +37,15 @@ def genome_fasta(wc):
 
 rule all:
     input:
-        'results/consensus_to_genbank_alignments/stats.csv',
-        'results/consensus_to_genbank_alignments/chart.html',
-        'results/consensus_to_genbank_alignments/mismatches.csv',
+        'results/consensus_vs_genbank/stats.csv',
+        'results/consensus_vs_genbank/chart.html',
+        'results/consensus_vs_genbank/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
         expand("results/pileup/{sample}/diffs_from_ref.csv",
-               sample=samples)
+               sample=samples),
+        comparators=[f"results/genbank/{d['genbank']}.fa"
+                     for d in config['comparator_genomes'].values()],
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -247,38 +249,40 @@ rule get_genbank_fasta:
         """
 
 rule align_consensus_to_genbank:
-    """Align pileup consensus to its Genbank."""
+    """Align pileup consensus to its Genbank and other comparators."""
     input:
         consensus=rules.consensus_from_pileup.output.consensus,
         genbank=lambda wc: ('results/genbank/' +
                             samples[wc.sample]['genbank'] +
-                            '.fa')
+                            '.fa'),
+        comparators=[f"results/genbank/{d['genbank']}.fa"
+                     for d in config['comparator_genomes'].values()],
     output:
-        concat_fasta=temp('results/consensus_to_genbank_alignments/' +
+        concat_fasta=temp('results/consensus_vs_genbank/' +
                           "{sample}/_{genome}_{aligner}_to_align.fa"),
-        alignment=('results/consensus_to_genbank_alignments/' +
+        alignment=('results/consensus_vs_genbank/' +
                    "{sample}/alignment_{genome}_{aligner}.fa")
     conda: 'environment.yml'
     shell:
         # insert newline between FASTA files when concatenating:
-        # https://stackoverflow.com/a/23549826
+        # https://stackoverflow.com/a/25030513/4191652
         """
-        cat {input.consensus} <(echo) {input.genbank} > {output.concat_fasta}
+        awk 1 {input} > {output.concat_fasta}
         mafft {output.concat_fasta} > {output.alignment}
         """
 
 rule analyze_consensus_vs_genbank:
     """Analyze consensus sequences from pileup versus Genbank."""
     output:
-        csv=report('results/consensus_to_genbank_alignments/stats.csv',
+        csv=report('results/consensus_vs_genbank/stats.csv',
                    category='Deep sequencing vs Genbank',
                    caption='report/analyze_consensus_vs_genbank_csv.rst',
                    ),
-        chart=report('results/consensus_to_genbank_alignments/chart.html',
+        chart=report('results/consensus_vs_genbank/chart.html',
                      category='Deep sequencing vs Genbank',
                      caption='report/analyze_consensus_vs_genbank_chart.rst',
                      ),
-        mismatches=report('results/consensus_to_genbank_alignments/mismatches.csv',
+        mismatches=report('results/consensus_vs_genbank/mismatches.csv',
                           category='Deep sequencing vs Genbank',
                           caption='report/analyze_consensus_vs_genbank_mismatches.rst',
                           )
