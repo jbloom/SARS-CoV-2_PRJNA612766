@@ -40,7 +40,7 @@ rule all:
         'results/consensus_to_genbank_alignments/stats.csv',
         'results/consensus_to_genbank_alignments/chart.html',
         'results/consensus_to_genbank_alignments/mismatches.csv',
-        expand("results/pileup/{sample}/interactive_pileup_chart.html",
+        expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
         expand("results/pileup/{sample}/diffs_from_ref.csv",
                sample=samples)
@@ -270,9 +270,18 @@ rule align_consensus_to_genbank:
 rule analyze_consensus_vs_genbank:
     """Analyze consensus sequences from pileup versus Genbank."""
     output:
-        csv=report('results/consensus_to_genbank_alignments/stats.csv'),
-        chart=report('results/consensus_to_genbank_alignments/chart.html'),
-        mismatches=report('results/consensus_to_genbank_alignments/mismatches.csv')
+        csv=report('results/consensus_to_genbank_alignments/stats.csv',
+                   category='Deep sequencing vs Genbank',
+                   caption='report/analyze_consensus_vs_genbank_csv.rst',
+                   ),
+        chart=report('results/consensus_to_genbank_alignments/chart.html',
+                     category='Deep sequencing vs Genbank',
+                     caption='report/analyze_consensus_vs_genbank_chart.rst',
+                     ),
+        mismatches=report('results/consensus_to_genbank_alignments/mismatches.csv',
+                          category='Deep sequencing vs Genbank',
+                          caption='report/analyze_consensus_vs_genbank_mismatches.rst',
+                          )
     input:
         alignments=expand(rules.align_consensus_to_genbank.output.alignment,
                           aligner=config['aligners'],
@@ -302,8 +311,16 @@ rule analyze_pileups:
                        aligner=config['aligners'],
                        allow_missing=True)
     output:
-        chart=report("results/pileup/{sample}/interactive_pileup_chart.html"),
-        diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
+        chart=report("results/pileup/{sample}/interactive_pileup.html",
+                     category='Pileups',
+                     subcategory="{sample}",
+                     caption='report/analyze_pileups_interactive_pileup.rst',
+                     ),
+        diffs_from_ref=report("results/pileup/{sample}/diffs_from_ref.csv",
+                              category='Pileups',
+                              subcategory="{sample}",
+                              caption='report/analyze_pileups_diffs_from_ref.rst',
+                              ),
     params:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],

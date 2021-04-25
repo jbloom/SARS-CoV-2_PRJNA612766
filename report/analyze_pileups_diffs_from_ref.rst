@@ -1,0 +1,2 @@
+All sites for which the consensus called for {{ snakemake.wildcards.sample }} from the deep sequencing differs by a nucleotide mismatch mutation from the reference genome (indels are not included here).
+A site is called from the consensus if the depth at that site is at least {{ snakemake.config.consensus_min_coverage }} and more than {{ snakemake.config.consensus_min_frac }} of the base calls agree on the consensus identity.
