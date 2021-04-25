@@ -35,12 +35,12 @@ def genome_fasta(wc):
 
 rule all:
     input:
-        'results/consensus_to_genbank_alignments/stats.csv',
-        'results/consensus_to_genbank_alignments/chart.html',
-        'results/pileup/merged_pileup.csv',
-        'results/pileup/merged_aligner_key.csv',
-        'results/pileup/merged_genome_key.csv',
-        'results/pileup/merged_sample_key.csv',
+        #'results/consensus_to_genbank_alignments/stats.csv',
+        #'results/consensus_to_genbank_alignments/chart.html',
+        expand("results/pileup/{sample}/interactive_pileup_chart.html",
+               sample=samples),
+        expand("results/pileup/{sample}/diffs_from_ref.csv",
+               sample=samples)
 
 rule get_genome_fasta:
    """Download reference genome fasta."""
@@ -185,7 +185,7 @@ rule index_bam:
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
     output:
-        pileup_csv="results/pileup/{aligner}/{genome}/{sample}.csv",
+        pileup_csv="results/pileup/{sample}/pileup_{genome}_{aligner}.csv",
     input:
         bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
@@ -214,9 +214,9 @@ rule consensus_from_pileup:
     input:
         pileup=rules.bam_pileup.output.pileup_csv
     output:
-        consensus="results/consensus/{aligner}/{genome}/{sample}.fa"
+        consensus="results/consensus/{sample}/consensus_{genome}_{aligner}.fa"
     params:
-        fasta_header = "{aligner}_{genome}_{sample}",
+        fasta_header = "{sample}_{genome}_{aligner}",
         min_coverage=config['consensus_min_coverage'],
         min_frac=config['consensus_min_frac']
     conda: 'environment.yml'
@@ -252,9 +252,9 @@ rule align_consensus_to_genbank:
                             '.fa')
     output:
         concat_fasta=temp('results/consensus_to_genbank_alignments/' +
-                          "{aligner}/{genome}/_{sample}_to_align.fa"),
+                          "{sample}/_{genome}_{aligner}_to_align.fa"),
         alignment=('results/consensus_to_genbank_alignments/' +
-                   "{aligner}/{genome}/{sample}.fa")
+                   "{sample}/alignment_{genome}_{aligner}.fa")
     conda: 'environment.yml'
     shell:
         # insert newline between FASTA files when concatenating:
@@ -290,47 +290,28 @@ rule analyze_consensus_vs_genbank:
     notebook:
         'notebooks/analyze_consensus_vs_genbank.py.ipynb'
 
-rule merge_pileups:
-    """Create merged pileup represented compactly."""
-    output:
-        pileup='results/pileup/merged_pileup.csv',
-        aligner_key='results/pileup/merged_aligner_key.csv',
-        genome_key='results/pileup/merged_genome_key.csv',
-        sample_key='results/pileup/merged_sample_key.csv',
-    input:
-        csvs=expand("results/pileup/{aligner}/{genome}/{sample}.csv",
-                    aligner=config['aligners'],
-                    genome=config['genomes'],
-                    sample=samples,
-                    ),
-    params:
-        descriptors=[{'aligner': aligner,
-                      'genome': genome,
-                      'sample': sample}
-                     for aligner, genome, sample
-                     in itertools.product(config['aligners'],
-                                          config['genomes'],
-                                          samples)
-                     ]
-    conda: 'environment.yml'
-    script:
-        'scripts/merge_pileups.py'
-
-rule analyze_pilups:
+rule analyze_pileups:
     """Analyze and plot BAM pileups."""
     input:
-        pileup=rules.merge_pileups.output.pileup,
-        aligner_key=rules.merge_pileups.output.aligner_key,
-        genome_key=rules.merge_pileups.output.genome_key,
-        sample_key=rules.merge_pileups.output.sample_key,
+        pileups=expand(rules.bam_pileup.output.pileup_csv,
+                       genome=config['genomes'],
+                       aligner=config['aligners'],
+                       allow_missing=True)
     output:
-        chart='results/pileup/merged_interactive_pileup_chart.html',
-        diffs_from_reference='results/pileup/merged_diffs_from_reference.csv',
+        chart="results/pileup/{sample}/interactive_pileup_chart.html",
+        diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
     params:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],
+        descriptors=[{'genome': genome,
+                      'aligner': aligner}
+                     for genome, aligner
+                     in itertools.product(config['genomes'],
+                                          config['aligners'])
+                     ],
+        chart_title="{sample}"
     log:
-        notebook='results/logs/notebooks/analyze_pileups.ipynb'
+        notebook="results/logs/notebooks/analyze_pileups_{sample}.ipynb"
     conda: 'environment.yml'
     notebook:
         'notebooks/analyze_pileups.py.ipynb'
