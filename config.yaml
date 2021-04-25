@@ -4,7 +4,7 @@ scratch_dir: results/_scratch/  # put scratch files here
 
 # genome against which we align data
 genomes:
-  SARS-CoV-2:
+  Wuhan-Hu-1_NC_045512.2:
     fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
     name: NC_045512.2
 
@@ -19,7 +19,7 @@ minq: 20  # in pileups, only consider sites where Q score >= this
 
 # Criteria used to call consensus from pileup, and then determine
 # if different from reference or Genbank.
-consensus_min_coverage: 5  # require >= this coverage
+consensus_min_coverage: 2  # require >= this coverage
 consensus_min_frac: 0.5  # require most common base > this fraction
 
 # information on samples to analyze
