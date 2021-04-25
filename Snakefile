@@ -35,8 +35,8 @@ def genome_fasta(wc):
 
 rule all:
     input:
-        #'results/consensus_to_genbank_alignments/stats.csv',
-        #'results/consensus_to_genbank_alignments/chart.html',
+        'results/consensus_to_genbank_alignments/stats.csv',
+        'results/consensus_to_genbank_alignments/chart.html',
         expand("results/pileup/{sample}/interactive_pileup_chart.html",
                sample=samples),
         expand("results/pileup/{sample}/diffs_from_ref.csv",
