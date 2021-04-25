@@ -39,6 +39,7 @@ rule all:
     input:
         'results/consensus_to_genbank_alignments/stats.csv',
         'results/consensus_to_genbank_alignments/chart.html',
+        'results/consensus_to_genbank_alignments/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup_chart.html",
                sample=samples),
         expand("results/pileup/{sample}/diffs_from_ref.csv",
@@ -271,6 +272,7 @@ rule analyze_consensus_vs_genbank:
     output:
         csv=report('results/consensus_to_genbank_alignments/stats.csv'),
         chart=report('results/consensus_to_genbank_alignments/chart.html'),
+        mismatches=report('results/consensus_to_genbank_alignments/mismatches.csv')
     input:
         alignments=expand(rules.align_consensus_to_genbank.output.alignment,
                           aligner=config['aligners'],
