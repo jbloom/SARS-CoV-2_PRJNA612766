@@ -163,3 +163,52 @@ samples:
     genbank: MT072688
     sex: male
     collection_date: 2020-01-13
+  # -----------------------------------------------------------------
+  # From this BioProject:
+  # https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA616446
+  # -----------------------------------------------------------------
+  HBCDC-HB-01_2019:
+    accessions: [SRR11454614]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479128
+    collection_date: 2019-12-30
+  HBCDC-HB-02_2019:
+    accessions: [SRR11454615]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479127
+    collection_date: 2019-12-30
+  HBCDC-HB-03_2019:
+    accessions: [SRR11454613]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479129
+    collection_date: 2019-12-30
+  HBCDC-HB-04_2019:
+    accessions: [SRR11454612]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479130
+    collection_date: 2019-12-30
+  HBCDC-HB-01_2020:
+    accessions: [SRR11454608]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479134
+    collection_date: 2020-01-08
+  HBCDC-HB-02_2020:
+    accessions: [SRR11454609]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479133
+    collection_date: 2020-01-17
+  HBCDC-HB-03_2020:
+    accessions: [SRR11454610]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479132
+    collection_date: 2020-01-18
+  HBCDC-HB-04_2020:
+    accessions: [SRR11454611]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479131
+    collection_date: 2020-01-18
+  HBCDC-HB-06_2020:
+    accessions: [SRR11454607]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479135
+    collection_date: 2020-02-07
+  HBCDC-HB-07_2020:
+    accessions: [SRR11454606]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/14479136
+    collection_date: 2020-02-08
+  # -----------------------------------------------------------------
+  # Beijing Genome Institute samples from this BioProject
+  # https://www.ncbi.nlm.nih.gov/bioproject/PRJEB36487
+  # do not have raw data: these are WH1, WH2, WH3, and WH4.
+  # -----------------------------------------------------------------
