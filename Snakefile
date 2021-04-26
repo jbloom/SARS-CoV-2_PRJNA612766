@@ -324,11 +324,13 @@ rule analyze_pileups:
                        aligner=config['aligners'],
                        allow_missing=True)
     output:
-        chart=report("results/pileup/{sample}/interactive_pileup.html",
-                     category='Pileups',
-                     subcategory="{sample}",
-                     caption='report/analyze_pileups_interactive_pileup.rst',
-                     ),
+        chart=(report("results/pileup/{sample}/interactive_pileup.html",
+                      category='Pileups',
+                      subcategory="{sample}",
+                      caption='report/analyze_pileups_interactive_pileup.rst',
+                      )
+               if config['pileup_charts_in_report'] else
+               "results/pileup/{sample}/interactive_pileup.html"),
         diffs_from_ref=report("results/pileup/{sample}/diffs_from_ref.csv",
                               category='Pileups',
                               subcategory="{sample}",
