@@ -2,11 +2,13 @@ max_cpus: 4  # max CPUs for any single job
 
 scratch_dir: results/_scratch/  # put scratch files here
 
-# genome(s) against which we align data
+# viral genome(s) against which we align viral data
 genomes:
   Wuhan-Hu-1:
     fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
     name: NC_045512.2
+
+genome_trim3_polyA: true  # do we trim A nucleotides from 3' end of viral genomes?
 
 # comparator genomes: when we find mismatches, are they also present in these?
 comparator_genomes:
@@ -21,7 +23,13 @@ comparator_genomes:
   ZC45:
     genbank: MG772933.1
 
-genome_trim3_polyA: true  # do we trim A nucleotides from 3' end of genomes?
+# host genomes to align reads to; only look for perfect matches to these
+host_genomes:
+  human:
+    fasta: ftp://ftp.ensembl.org/pub/release-99/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+    sex_chromosomes:
+      male: Y
+      female: X
 
 # short-read aligners to use
 aligners:
@@ -35,90 +43,123 @@ minq: 20  # in pileups, only consider sites where Q score >= this
 consensus_min_coverage: 2  # require >= this coverage
 consensus_min_frac: 0.75  # require most common base > this fraction
 
-# information on samples to analyze
+# -----------------------------------------------------------------
+# Samples on SRA to analyze.
+# Also see WHO report (Table 6):
+# https://www.who.int/health-topics/coronavirus/origins-of-the-virus
+# -----------------------------------------------------------------
 samples:
+  # -----------------------------------------------------------------
+  # From Wu et al paper reporting Wuhan-Hu-1
+  # -----------------------------------------------------------------
   Wuhan-Hu-1_Wu_et_al:
     accessions: [SRR10971381]
     study_url: https://www.nature.com/articles/s41586-020-2008-3
     genbank: MN908947
     sex: male
+    collection_date: 2020-01-02
+  # -----------------------------------------------------------------
+  # From Wuhan Institute of Virology Zhou et al paper
+  # -----------------------------------------------------------------
   WIV02_Zhou_et_al:
     accessions: [SRR11092058, SRR11092063]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996527
     sex: male
+    collection_date: 2019-12-30
   WIV02-01_Zhou_et_al:
     accessions: [SRR11092058]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996527
     sex: male
+    collection_date: 2019-12-30
   WIV02-02_Zhou_et_al:
     accessions: [SRR11092063]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996527
     sex: male
+    collection_date: 2019-12-30
   WIV04_Zhou_et_al:
     accessions: [SRR11092057, SRR11092062]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996528
     sex: female
+    collection_date: 2019-12-30
   WIV04-01_Zhou_et_al:
     accessions: [SRR11092057]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996528
     sex: female
+    collection_date: 2019-12-30
   WIV04-02_Zhou_et_al:
     accessions: [SRR11092062]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996528
     sex: female
+    collection_date: 2019-12-30
   WIV05_Zhou_et_al:
     accessions: [SRR11092061]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996529
     sex: female
+    collection_date: 2019-12-30
   WIV06_Zhou_et_al:
     accessions: [SRR11092056, SRR11092060]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996530
     sex: male
+    collection_date: 2019-12-30
   WIV06-01_Zhou_et_al:
     accessions: [SRR11092056]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996530
     sex: male
+    collection_date: 2019-12-30
   WIV06-02_Zhou_et_al:
     accessions: [SRR11092060]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996530
     sex: male
+    collection_date: 2019-12-30
   WIV07_Zhou_et_al:
     accessions: [SRR11092064, SRR11092059]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996531
     sex: male
+    collection_date: 2019-12-30
   WIV07-01_Zhou_et_al:
     accessions: [SRR11092064]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996531
     sex: male
+    collection_date: 2019-12-30
   WIV07-02_Zhou_et_al:
     accessions: [SRR11092059]
     study_url: https://www.nature.com/articles/s41586-020-2012-7
     genbank: MN996531
     sex: male
+    collection_date: 2019-12-30
+  # -----------------------------------------------------------------
+  # From Wuhan University Chen et al paper
+  # -----------------------------------------------------------------
   WHU01_Chen_et_al:
     accessions: [SRR10903402]
     study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
     genbank: MN988668
     sex: male
+    collection_date: 2020-01-02
   WHU02_Chen_et_al:
     accessions: [SRR10903401]
     study_url: https://www.tandfonline.com/doi/full/10.1080/22221751.2020.1725399
     genbank: MN988669
     sex: female
+    collection_date: 2020-01-02
+  # -----------------------------------------------------------------
+  # From first case in Nepal
+  # -----------------------------------------------------------------
   Nepal-student_Bastola_et_al:
     accessions: [SRR11177792]
     study_url: https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30067-0/fulltext
     genbank: MT072688
     sex: male
+    collection_date: 2020-01-13

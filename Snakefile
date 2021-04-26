@@ -26,7 +26,7 @@ report: 'report/workflow.rst'
 
 def genome_fasta(wc):
     """Get genome FASTA (trimmed or untrimmed)."""
-    if config['genome_trim3_polyA']:
+    if wc.genome in config['genomes'] and config['genome_trim3_polyA']:
         return rules.trim3_polyA.output.fasta
     else:
         return rules.get_genome_fasta.output.fasta
@@ -37,22 +37,27 @@ def genome_fasta(wc):
 
 rule all:
     input:
-        'results/consensus_vs_genbank/stats.csv',
-        'results/consensus_vs_genbank/chart.html',
-        'results/consensus_vs_genbank/mismatches.csv',
+        #'results/consensus_vs_genbank/stats.csv',
+        #'results/consensus_vs_genbank/chart.html',
+        #'results/consensus_vs_genbank/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
         expand("results/pileup/{sample}/diffs_from_ref.csv",
                sample=samples),
-        comparators=[f"results/genbank/{d['genbank']}.fa"
-                     for d in config['comparator_genomes'].values()],
+        expand("results/sex_chromosome/{aligner}/{host_genome}/{sample}.csv",
+               aligner=config['aligners'],
+               host_genome=config['host_genomes'],
+               sample=samples),
 
 rule get_genome_fasta:
-   """Download reference genome fasta."""
-   output: fasta="results/genomes/untrimmed/{genome}.fa"
-   params: ftp=lambda wildcards: config['genomes'][wildcards.genome]['fasta']
-   conda: 'environment.yml'
-   shell:
+    """Download reference genome fasta."""
+    output: fasta="results/genomes/untrimmed/{genome}.fa"
+    params:
+        ftp=lambda wildcards: (config['genomes'][wildcards.genome]['fasta']
+                               if wildcards.genome in config['genomes'] else
+                               config['host_genomes'][wildcards.genome]['fasta'])
+    conda: 'environment.yml'
+    shell:
         """
         wget -O - {params.ftp} | gunzip -c > {output}
         python scripts/strip_fasta_head_to_id.py --fasta {output.fasta}
@@ -122,6 +127,8 @@ rule align_bbmap:
         bamscript=temp("results/alignments/bbmap/{genome}/{sample}" +
                        '_bamscript.sam'),
         bam="results/alignments/bbmap/{genome}/{sample}_sorted.bam",
+    params:
+        perfectmode=lambda wc: 'f' if wc.genome in config['genomes'] else 't'
     conda: 'environment.yml'
     threads: config['max_cpus']
     shell:
@@ -136,6 +143,7 @@ rule align_bbmap:
             ref={input.ref} \
             path={input.path} \
             minid=0.8 \
+            perfectmode={params.perfectmode} \
             maxlen=500 \
             threads={threads} \
             outm={output.sam} \
@@ -341,3 +349,38 @@ rule analyze_pileups:
     conda: 'environment.yml'
     notebook:
         'notebooks/analyze_pileups.py.ipynb'
+
+rule sex_chromosome_counts:
+    """Count reads mapping perfectly to each host genome sex chromosome."""
+    input:
+        bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
+                        'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        }[wc.aligner],
+        bai=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
+                        'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        }[wc.aligner] + '.bai',
+    output:
+        counts="results/sex_chromosome/{aligner}/{genome}/{sample}.csv",
+    params:
+        male=lambda wc: (config['host_genomes'][wc.genome]
+                               ['sex_chromosomes']['male']),
+        female=lambda wc: (config['host_genomes'][wc.genome]
+                                 ['sex_chromosomes']['female']),
+    conda: 'environment.yml'
+    shell:
+        # get just primary alignments with no mismatches:
+        # -F 256 is primary only: https://www.biostars.org/p/259963/#259965
+        # NM tag should be 0: https://www.biostars.org/p/148858/#148879
+        # the grep command is set to avoid error on empty:
+        # https://unix.stackexchange.com/a/427598
+        r"""
+        printf "sex,chromosome,count\n" > {output.counts}
+        printf "male,{params.male}," >> {output.counts}
+        samtools view -F 256 {input.bam} {params.male} | \
+            ( grep -P '\bNM:i:0\b' || [[ $? == 1 ]] ) | \
+            wc -l >> {output.counts}
+        printf "female,{params.female}," >> {output.counts}
+        samtools view -F 256 {input.bam} {params.female} | \
+            ( grep -P '\bNM:i:0\b' || [[ $? == 1 ]] ) | \
+            wc -l >> {output.counts}
+        """
