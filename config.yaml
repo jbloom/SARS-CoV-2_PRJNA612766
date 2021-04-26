@@ -1,8 +1,17 @@
+# -----------------------------------------------------------------
+# General options related to pipeline setup
+# -----------------------------------------------------------------
 max_cpus: 4  # max CPUs for any single job
 
 scratch_dir: results/_scratch/  # put scratch files here
 
-# viral genome(s) against which we align viral data
+# include pileup charts in report? Bloats report size.
+pileup_charts_in_report: false
+
+# -----------------------------------------------------------------
+# Viral reference genomes
+# -----------------------------------------------------------------
+# align against these genomes
 genomes:
   Wuhan-Hu-1:
     fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
@@ -23,7 +32,9 @@ comparator_genomes:
   ZC45:
     genbank: MG772933.1
 
-# host genomes to align reads to; only look for perfect matches to these
+# -----------------------------------------------------------------
+# Host genomes used for calling sex of patient
+# -----------------------------------------------------------------
 host_genomes:
   human:
     fasta: ftp://ftp.ensembl.org/pub/release-99/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
@@ -31,6 +42,9 @@ host_genomes:
       male: Y
       female: X
 
+# -----------------------------------------------------------------
+# General alignment and consensus calling options
+# -----------------------------------------------------------------
 # short-read aligners to use
 aligners:
   - bbmap
@@ -45,8 +59,6 @@ consensus_min_frac: 0.75  # require most common base > this fraction
 
 # -----------------------------------------------------------------
 # Samples on SRA to analyze.
-# Also see WHO report (Table 6):
-# https://www.who.int/health-topics/coronavirus/origins-of-the-virus
 # -----------------------------------------------------------------
 samples:
   # -----------------------------------------------------------------
@@ -211,4 +223,9 @@ samples:
   # Beijing Genome Institute samples from this BioProject
   # https://www.ncbi.nlm.nih.gov/bioproject/PRJEB36487
   # do not have raw data: these are WH1, WH2, WH3, and WH4.
+  # -----------------------------------------------------------------
+
+  # -----------------------------------------------------------------
+  # I have not yet found raw data for the Lu et al Lancet paper
+  # https://www.thelancet.com/article/S0140-6736(20)30251-8/fulltext
   # -----------------------------------------------------------------
