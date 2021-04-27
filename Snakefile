@@ -44,10 +44,8 @@ rule all:
                sample=samples),
         expand("results/pileup/{sample}/diffs_from_ref.csv",
                sample=samples),
-        expand("results/sex_chromosome/{aligner}/{host_genome}/{sample}.csv",
-               aligner=config['aligners'],
-               host_genome=config['host_genomes'],
-               sample=samples),
+        stats='results/sex_chromosome/stats.csv',
+        chart='results/sex_chromosome/chart.html',
 
 rule get_genome_fasta:
     """Download reference genome fasta."""
@@ -386,3 +384,30 @@ rule sex_chromosome_counts:
             ( grep -P '\bNM:i:0\b' || [[ $? == 1 ]] ) | \
             wc -l >> {output.counts}
         """
+
+rule analyze_sex:
+    """Analyze the sex of the patients."""
+    input:
+        counts=expand(rules.sex_chromosome_counts.output.counts,
+                      aligner=config['aligners'],
+                      genome=config['host_genomes'],
+                      sample=samples)
+    output:
+        stats='results/sex_chromosome/stats.csv',
+        chart='results/sex_chromosome/chart.html',
+    params:
+        descriptors=[{'aligner': aligner,
+                      'host_genome': host_genome,
+                      'sample': sample}
+                     for aligner, host_genome, sample
+                     in itertools.product(config['aligners'],
+                                          config['host_genomes'],
+                                          samples)
+                     ],
+        reported_sex={sample: sample_d['sex'] if 'sex' in sample_d else 'unknown'
+                      for sample, sample_d in samples.items()},
+    log:
+        notebook='results/logs/notebooks/analyze_sex.ipynb'
+    conda: 'environment.yml'
+    notebook:
+        'notebooks/analyze_sex.py.ipynb'
