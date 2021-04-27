@@ -42,8 +42,8 @@ rule all:
         #'results/consensus_vs_genbank/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
-        expand("results/pileup/{sample}/frac_coverage.csv",
-               sample=samples),
+        frac_coverage_stats='results/pileup/frac_coverage.csv',
+        frac_coverage_chart='results/pileup/frac_coverage.html',
         stats='results/sex_chromosome/stats.csv',
         chart='results/sex_chromosome/chart.html',
 
@@ -356,10 +356,21 @@ rule aggregate_pileup_analysis:
         frac_coverage=expand(rules.analyze_pileups.output.frac_coverage,
                              sample=samples)
     output:
+        frac_coverage_stats=report(
+                'results/pileup/frac_coverage.csv',
+                caption='report/aggregate_pileup_analysis_frac_coverage_stats.rst',
+                category='Viral deep sequencing analysis'),
+        frac_coverage_chart=report(
+                'results/pileup/frac_coverage.html',
+                caption='report/aggregate_pileup_analysis_frac_coverage_chart.rst',
+                category='Viral deep sequencing analysis'),
     params:
+        samples=samples
     conda: 'environment.yml'
+    log:
+        notebook='results/logs/notebooks/aggregate_pileup_analysis.ipynb'
     notebook:
-        'pass'
+        'notebooks/aggregate_pileup_analysis.py.ipynb'
 
 rule sex_chromosome_counts:
     """Count reads mapping perfectly to each host genome sex chromosome."""

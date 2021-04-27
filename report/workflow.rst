@@ -1,31 +1,28 @@
 This report summarizes an analysis of early SARS-CoV-2 sequences by Jesse Bloom.
 The goal of the analysis is to re-analyze the primary deep sequencing data of early viral samples to see if they shed any light on the origin and spread of the virus.
 
-Briefly, the deep sequencing data for the following samples were downloaded from the `NCBI Sequence Read Archive <https://www.ncbi.nlm.nih.gov/sra>`_ (see the *Configuration* section for more details):
-{% for sample, sample_d in snakemake.config['samples'].items() %}
- - `{{sample}} <{{sample_d['study_url']}}>`_
-{% endfor %}
+The workflow briefly works like this:
 
-The reads were then aligned to the following reference viral genome(s):
-{% for genome in snakemake.config['genomes'] %}
- - {{genome}}
-{% endfor %}
+ - Deep sequencing data for viral samples are downloaded from the `NCBI Sequence Read Archive <https://www.ncbi.nlm.nih.gov/sra>`_
 
-The alignments were done using following short-read aligners.
-{% for aligner in snakemake.config['aligners'] %}
- - {{aligner}}
-{% endfor %}
+ - The deep sequencing data are aligned to the reference viral genome(s) using short-read aligner(s).
 
-For analysis of the viral deep sequencing, any base calls corresponding to read sites with a Q-score of at least {{snakemake.config['minq']}} were retained, lower-quality base calls were ignored for the rest of the analysis.
-Consensus sequences from the deep sequencing were called by requiring a depth of {{ snakemake.config['min_consensus_coverage'] }} and more than {{ snakemake.config['min_consensus_coverage'] }} of the base calls to agree on the consensus identity.
-Indels relative to the consensus are ignored, so the analysis is only identifying nucleotide substitutions.
-The results are summarized in `Viral deep sequencing analysis`_.
+ - Pileup files are generated from the alignments ingoring any base calls with a Q score <{{snakemake.config['minq']}}.
+   Indels are also ignored (so this workflow only analyzes substitutions).
+   Consensus sequences from the deep sequencing are then called by requiring a depth of at least {{ snakemake.config['consensus_min_coverage'] }} and more than {{ snakemake.config['consensus_min_frac'] }} of the base calls to agree on the consensus identity.
+   The results are summarized in `Viral deep sequencing analysis`_, which includes analyses of:
+
+     - Coverage statistics over the viral genome.
+     - Mutations relative to the reference viral genome.
+     - Whether the mutations are to nucleotide identities found in other related comparator viral genomes.
+
+ - To try to determine the sex (male or female) of the patient from which the viral samples were taken, reads are also mapped to the host genome (requiring exact primary matches).
+   The results in `Sex of patients`_ quantifies the mapping to each sex chromosome.
 
 The consensus from the deep sequencing was then aligned to the Genbank sequence reported for each sample to see if any sites differed in the deep sequencing from what was reported as the Genbank sequence.
 At sites where there were differences, the identities in closely related comparator coronavirus genomes were also analyzed.
 These deep-sequencing consensus versus Genbank comparisons are summarized in `Deep sequencing vs Genbank`_.
 
-In addition, reads were mapped to the host genome (requiring exact primary matches) and relative mapping to the sex chromosomes was used to assess the sex (e.g., male or female) of the patients for which the viral reads were derived.
-These results are summarized in `Sex of patients`_.
+The *Configuration* section has details about the samples, read aligners, reference genomes, and other settings.
 
-The full workflow is schematized below and the rest of this report contains more details about the configuration, etc.
+The graph immediately below schematizes the workflow.
