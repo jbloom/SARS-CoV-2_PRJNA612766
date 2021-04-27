@@ -5,8 +5,8 @@ max_cpus: 4  # max CPUs for any single job
 
 scratch_dir: results/_scratch/  # put scratch files here
 
-# include pileup charts in report? Bloats report size.
-pileup_charts_in_report: false
+# Include per-sample pileup charts in report? Bloats report size.
+per_sample_pileups_in_report: false
 
 # -----------------------------------------------------------------
 # Viral reference genomes
@@ -52,6 +52,9 @@ minq: 20  # in pileups, only consider sites where Q score >= this
 # if different from reference or Genbank.
 consensus_min_coverage: 4  # require >= this coverage
 consensus_min_frac: 0.75  # require most common base > this fraction
+
+# report fraction viral genome covered at >= following depths
+report_frac_coverage: [1, 2, 4, 10, 20, 50, 100]
 
 # -----------------------------------------------------------------
 # Samples on SRA to analyze.

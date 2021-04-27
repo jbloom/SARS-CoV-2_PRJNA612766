@@ -42,7 +42,7 @@ rule all:
         #'results/consensus_vs_genbank/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
-        expand("results/pileup/{sample}/diffs_from_ref.csv",
+        expand("results/pileup/{sample}/frac_coverage.csv",
                sample=samples),
         stats='results/sex_chromosome/stats.csv',
         chart='results/sex_chromosome/chart.html',
@@ -315,7 +315,7 @@ rule analyze_consensus_vs_genbank:
         'notebooks/analyze_consensus_vs_genbank.py.ipynb'
 
 rule analyze_pileups:
-    """Analyze and plot BAM pileups."""
+    """Analyze and plot BAM pileups per sample."""
     input:
         pileups=expand(rules.bam_pileup.output.pileup_csv,
                        genome=config['genomes'],
@@ -323,20 +323,18 @@ rule analyze_pileups:
                        allow_missing=True)
     output:
         chart=(report("results/pileup/{sample}/interactive_pileup.html",
-                      category='Pileups',
-                      subcategory="{sample}",
+                      category='Viral deep sequencing analysis',
+                      subcategory='Per-sample pileup files',
                       caption='report/analyze_pileups_interactive_pileup.rst',
                       )
-               if config['pileup_charts_in_report'] else
+               if config['per_sample_pileups_in_report'] else
                "results/pileup/{sample}/interactive_pileup.html"),
-        diffs_from_ref=report("results/pileup/{sample}/diffs_from_ref.csv",
-                              category='Pileups',
-                              subcategory="{sample}",
-                              caption='report/analyze_pileups_diffs_from_ref.rst',
-                              ),
+        diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
+        frac_coverage="results/pileup/{sample}/frac_coverage.csv",
     params:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],
+        report_frac_coverage=config['report_frac_coverage'],
         descriptors=[{'genome': genome,
                       'aligner': aligner}
                      for genome, aligner
@@ -349,6 +347,19 @@ rule analyze_pileups:
     conda: 'environment.yml'
     notebook:
         'notebooks/analyze_pileups.py.ipynb'
+
+rule aggregate_pileup_analysis:
+    """Analyze viral deep sequencing aggregated across samples."""
+    input:
+        diffs_from_ref=expand(rules.analyze_pileups.output.diffs_from_ref,
+                              sample=samples),
+        frac_coverage=expand(rules.analyze_pileups.output.frac_coverage,
+                             sample=samples)
+    output:
+    params:
+    conda: 'environment.yml'
+    notebook:
+        'pass'
 
 rule sex_chromosome_counts:
     """Count reads mapping perfectly to each host genome sex chromosome."""
