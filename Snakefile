@@ -42,10 +42,12 @@ rule all:
         #'results/consensus_vs_genbank/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
-        frac_coverage_stats='results/pileup/frac_coverage.csv',
-        frac_coverage_chart='results/pileup/frac_coverage.html',
-        stats='results/sex_chromosome/stats.csv',
-        chart='results/sex_chromosome/chart.html',
+        'results/pileup/frac_coverage.csv',
+        'results/pileup/frac_coverage.html',
+        'results/pileup/diffs_from_ref.csv',
+        'results/pileup/diffs_from_ref.html',
+        'results/sex_chromosome/stats.csv',
+        'results/sex_chromosome/chart.html',
 
 rule get_genome_fasta:
     """Download reference genome fasta."""
@@ -254,6 +256,37 @@ rule get_genbank_fasta:
             > {output.fasta}
         """
 
+rule genome_comparator_alignment:
+    """Align genome to comparators."""
+    input:
+        genome=genome_fasta,
+        comparators=[f"results/genbank/{d['genbank']}.fa"
+                     for d in config['comparator_genomes'].values()],
+    output:
+        concat_fasta=temp('results/genome_to_comparator/' +
+                          "{genome}/to_align.fa"),
+        alignment="results/genome_to_comparator/{genome}/alignment.fa"
+    conda: 'environment.yml'
+    shell:
+        # insert newline between FASTA files when concatenating:
+        # https://stackoverflow.com/a/25030513/4191652
+        """
+        awk 1 {input} > {output.concat_fasta}
+        mafft {output.concat_fasta} > {output.alignment}
+        """
+
+rule genome_comparator_map:
+    """Map sites in viral genome to comparator identities."""
+    input:
+        alignment=rules.genome_comparator_alignment.output.alignment
+    output:
+        site_map="results/geome_to_comparator/{genome}/site_identity_map.csv"
+    params:
+        comparators=list(config['comparator_genomes'])
+    conda: 'environment.yml'
+    script:
+        'scripts/genome_comparator_map.py'
+
 rule align_consensus_to_genbank:
     """Align pileup consensus to its Genbank and other comparators."""
     input:
@@ -354,7 +387,9 @@ rule aggregate_pileup_analysis:
         diffs_from_ref=expand(rules.analyze_pileups.output.diffs_from_ref,
                               sample=samples),
         frac_coverage=expand(rules.analyze_pileups.output.frac_coverage,
-                             sample=samples)
+                             sample=samples),
+        comparator_map=expand(rules.genome_comparator_map.output.site_map,
+                              genome=config['genomes']),
     output:
         frac_coverage_stats=report(
                 'results/pileup/frac_coverage.csv',
@@ -364,8 +399,11 @@ rule aggregate_pileup_analysis:
                 'results/pileup/frac_coverage.html',
                 caption='report/aggregate_pileup_analysis_frac_coverage_chart.rst',
                 category='Viral deep sequencing analysis'),
+        diffs_from_ref_stats='results/pileup/diffs_from_ref.csv',
+        diffs_from_ref_chart='results/pileup/diffs_from_ref.html',
     params:
-        samples=samples
+        samples=list(samples),
+        genomes=list(config['genomes']),
     conda: 'environment.yml'
     log:
         notebook='results/logs/notebooks/aggregate_pileup_analysis.ipynb'
