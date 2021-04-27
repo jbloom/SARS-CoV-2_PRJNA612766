@@ -19,18 +19,14 @@ genomes:
 
 genome_trim3_polyA: true  # do we trim A nucleotides from 3' end of viral genomes?
 
-# comparator genomes: when we find mismatches, are they also present in these?
+# when mismatches, are they also present in these close-ish viral relatives?
 comparator_genomes:
-  Wuhan-Hu-1:
-    genbank: NC_045512.2
   RaTG13:
     genbank: MN996532.2
   GD_Pangolin_MP789:
     genbank: MT121216.1
   RacCS203:
     genbank: MW251308.1
-  ZC45:
-    genbank: MG772933.1
 
 # -----------------------------------------------------------------
 # Host genomes used for calling sex of patient
@@ -54,7 +50,7 @@ minq: 20  # in pileups, only consider sites where Q score >= this
 
 # Criteria used to call consensus from pileup, and then determine
 # if different from reference or Genbank.
-consensus_min_coverage: 2  # require >= this coverage
+consensus_min_coverage: 4  # require >= this coverage
 consensus_min_frac: 0.75  # require most common base > this fraction
 
 # -----------------------------------------------------------------
