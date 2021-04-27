@@ -32,5 +32,5 @@ assert 'site' not in comparators
                })
  .assign(site=lambda x: x.index + 1)
  [['site', 'reference', *comparators]]
- .to_csv(site_map)
+ .to_csv(site_map, index=False)
  )
