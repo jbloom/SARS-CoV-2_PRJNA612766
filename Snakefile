@@ -393,8 +393,12 @@ rule analyze_sex:
                       genome=config['host_genomes'],
                       sample=samples)
     output:
-        stats='results/sex_chromosome/stats.csv',
-        chart='results/sex_chromosome/chart.html',
+        stats=report('results/sex_chromosome/stats.csv',
+                     category='Sex of patients',
+                     caption='report/analyze_sex_stats.rst'),
+        chart=report('results/sex_chromosome/chart.html',
+                     category='Sex of patients',
+                     caption='report/analyze_sex_chart.rst'),
     params:
         descriptors=[{'aligner': aligner,
                       'host_genome': host_genome,
