@@ -19,9 +19,8 @@ The workflow briefly works like this:
  - To try to determine the sex (male or female) of the patient from which the viral samples were taken, reads are also mapped to the host genome (requiring exact primary matches).
    The results in `Sex of patients`_ quantifies the mapping to each sex chromosome.
 
-The consensus from the deep sequencing was then aligned to the Genbank sequence reported for each sample to see if any sites differed in the deep sequencing from what was reported as the Genbank sequence.
-At sites where there were differences, the identities in closely related comparator coronavirus genomes were also analyzed.
-These deep-sequencing consensus versus Genbank comparisons are summarized in `Deep sequencing vs Genbank`_.
+ - We also compared the deep sequencing consensus to the consensus sequence deposited in Genbank when available.
+   These comparisons are summarized in `Deep sequencing vs Genbank`_.
 
 The *Configuration* section has details about the samples, read aligners, reference genomes, and other settings.
 

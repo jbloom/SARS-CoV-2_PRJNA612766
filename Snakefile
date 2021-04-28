@@ -37,9 +37,9 @@ def genome_fasta(wc):
 
 rule all:
     input:
-        #'results/consensus_vs_genbank/stats.csv',
-        #'results/consensus_vs_genbank/chart.html',
-        #'results/consensus_vs_genbank/mismatches.csv',
+        'results/consensus_vs_genbank/stats.csv',
+        'results/consensus_vs_genbank/chart.html',
+        'results/consensus_vs_genbank/mismatches.csv',
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
         'results/pileup/frac_coverage.csv',
@@ -329,7 +329,7 @@ rule analyze_consensus_vs_genbank:
         alignments=expand(rules.align_consensus_to_genbank.output.alignment,
                           aligner=config['aligners'],
                           genome=config['genomes'],
-                          sample=config['samples'],
+                          sample=[s for s in samples if 'genbank' in samples[s]],
                           ),
     params:
         descriptors=[{'aligner': aligner,
@@ -338,7 +338,7 @@ rule analyze_consensus_vs_genbank:
                      for aligner, genome, sample
                      in itertools.product(config['aligners'],
                                           config['genomes'],
-                                          samples)
+                                          [s for s in samples if 'genbank' in samples[s]])
                      ],
         comparators=list(config['comparator_genomes'])
     log:
@@ -399,8 +399,14 @@ rule aggregate_pileup_analysis:
                 'results/pileup/frac_coverage.html',
                 caption='report/aggregate_pileup_analysis_frac_coverage_chart.rst',
                 category='Viral deep sequencing analysis'),
-        diffs_from_ref_stats='results/pileup/diffs_from_ref.csv',
-        diffs_from_ref_chart='results/pileup/diffs_from_ref.html',
+        diffs_from_ref_stats=report(
+                'results/pileup/diffs_from_ref.csv',
+                caption='report/aggregate_pileup_analysis_diffs_from_ref_stats.rst',
+                category='Viral deep sequencing analysis'),
+        diffs_from_ref_chart=report(
+                'results/pileup/diffs_from_ref.html',
+                caption='report/aggregate_pileup_analysis_diffs_from_ref_chart.rst',
+                category='Viral deep sequencing analysis'),
     params:
         samples=list(samples),
         genomes=list(config['genomes']),
