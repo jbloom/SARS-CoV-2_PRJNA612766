@@ -46,7 +46,10 @@ aligners:
   - bbmap
   - bwa-mem2
 
-minq: 20  # in pileups, only consider sites where Q score >= this
+# in pileups, only consider sites where Q score >= this; also used for `fastp` preprocessing
+minq: 20
+# in `fastp` pre-processing require at least this read length
+min_read_length: 20
 
 # Criteria used to call consensus from pileup, and then determine
 # if different from reference or Genbank.

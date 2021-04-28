@@ -71,7 +71,7 @@ rule trim3_polyA:
     script:
         "scripts/trim3_polyA.py"
 
-rule download_accession:
+rule download_sra:
     """Download SRA accession to gzipped FASTQ."""
     output:
         fastq=temp("results/sra_downloads/{accession}.fastq"),
@@ -90,6 +90,35 @@ rule download_accession:
             --force \
             --temp {params.tempdir}
         gzip --keep {output.fastq}
+        """
+
+rule preprocess_fastq:
+    """Pre-process the FASTQ files by trimming adaptors etc with ``fastp``."""
+    input:
+        fastq_gz=rules.download_sra.output.fastq_gz
+    output:
+        fastq_gz=temp("results/preprocessed_fastqs/{accession}.fastq.gz"),
+        html="results/preprocessed_fastqs/{accession}.html",
+        json="results/preprocessed_fastqs/{accession}.json",
+    params:
+        minq=config['minq'],
+        min_read_length=config['min_read_length'],
+    threads: config['max_cpus']
+    conda: 'environment.yml'
+    shell:
+        # filter if >40% of read has quality < minq, if read shorter
+        # than minimum read-length, and polyG / polyX tails.
+        """
+        fastp \
+            -i {input.fastq_gz} \
+            -q {params.minq} \
+            -u 40 \
+            -l 20 {params.min_read_length} \
+            --trim_poly_g \
+            --trim_poly_x \
+            -o {output.fastq_gz} \
+            --html {output.html} \
+            --json {output.json}
         """
 
 rule bbmap_genome:
@@ -116,8 +145,9 @@ rule bwa_mem2_genome:
 rule align_bbmap:
     """Align using ``bbmap``."""
     input:
-        fastqs=lambda wc: [f"results/sra_downloads/{accession}.fastq.gz"
-                           for accession in samples[wc.sample]['accessions']],
+        fastqs=lambda wc: expand(rules.preprocess_fastq.output.fastq_gz,
+                                 accession=samples[wc.sample]['accessions']),
+        prefix=rules.bwa_mem2_genome.output.prefix,
         path=rules.bbmap_genome.output.path,
         ref=genome_fasta
     output:
@@ -163,8 +193,8 @@ rule align_bbmap:
 rule align_bwa_mem2:
     """Align using ``bwa-mem2``."""
     input:
-        fastqs=lambda wc: [f"results/sra_downloads/{accession}.fastq.gz"
-                           for accession in samples[wc.sample]['accessions']],
+        fastqs=lambda wc: expand(rules.preprocess_fastq.output.fastq_gz,
+                                 accession=samples[wc.sample]['accessions']),
         prefix=rules.bwa_mem2_genome.output.prefix,
     output:
         concat_fastq=temp("results/alignments/bwa-mem2/{genome}/_{sample}" +
@@ -280,7 +310,7 @@ rule genome_comparator_map:
     input:
         alignment=rules.genome_comparator_alignment.output.alignment
     output:
-        site_map="results/geome_to_comparator/{genome}/site_identity_map.csv"
+        site_map="results/genome_to_comparator/{genome}/site_identity_map.csv"
     params:
         comparators=list(config['comparator_genomes'])
     conda: 'environment.yml'

@@ -10,6 +10,7 @@ dependencies:
   - biopython=1.78
   - bwa-mem2=2.2.1
   - entrez-direct=13.9
+  - fastp=0.20.1
   - jupyterlab>=3
   - mafft=7.475
   - mamba
