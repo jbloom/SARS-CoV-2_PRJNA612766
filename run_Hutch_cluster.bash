@@ -3,7 +3,7 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euo pipefail
 
-slurm_scratch_dir="results/_scratch/slurm_logs/"
+slurm_scratch_dir="/fh/scratch/delete90/bloom_j/user/jbloom/deleted_pangolin_CoV/scratch/slurm_logs/"
 mkdir -p $slurm_scratch_dir
 
 printf "Running snakemake...\n"

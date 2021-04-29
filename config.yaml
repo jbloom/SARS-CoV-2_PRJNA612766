@@ -3,7 +3,8 @@
 # -----------------------------------------------------------------
 max_cpus: 4  # max CPUs for any single job
 
-scratch_dir: results/_scratch/  # put scratch files here
+# Put scratch files here, because pipeline makes and then deletes many files
+scratch_dir: /fh/scratch/delete90/bloom_j/user/jbloom/deleted_pangolin_CoV/scratch
 
 # Include per-sample pileup charts in report? Bloats report size.
 per_sample_pileups_in_report: false
@@ -37,6 +38,12 @@ host_genomes:
     sex_chromosomes:
       male: Y
       female: X
+
+# -----------------------------------------------------------------
+# Options related to how to do SRA downloads
+# -----------------------------------------------------------------
+# We download the *.sra from the Google API link:
+google_api_base: https://storage.googleapis.com/nih-sequence-read-archive/run
 
 # -----------------------------------------------------------------
 # General alignment and consensus calling options
