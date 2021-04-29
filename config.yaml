@@ -222,6 +222,60 @@ samples:
     study_url: https://www.ncbi.nlm.nih.gov/biosample/14479136
     collection_date: 2020-02-08
   # -----------------------------------------------------------------
+  # From this BioProject (detecting SARS-CoV02 in fecal swabs)
+  # https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA611496
+  # -----------------------------------------------------------------
+  fecal_swab_BGI:
+    accessions: [SRR11267811]
+    study_url: https://www.ncbi.nlm.nih.gov/biosample/?term=SAMN14332760
+    collection_date: 2020-02-22
+  # -----------------------------------------------------------------
+  # Samples from this BioProject:
+  # https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA605907
+  # which corresponds to this paper:
+  # https://pubmed.ncbi.nlm.nih.gov/32129843/
+  # -----------------------------------------------------------------
+  WH19001_Shen_et_al:
+    accessions: [SRR11059947]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2019-12-30
+    sex: female
+  WH19002_Shen_et_al:
+    accessions: [SRR11059946]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2019-12-30
+    sex: female
+  WH19003_Shen_et_al:
+    accessions: [SRR11059945]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2019-12-30
+    sex: male
+  WH19004_Shen_et_al:
+    accessions: [SRR11059944]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2020-01-01
+    sex: male
+  WH19010_Shen_et_al:
+    accessions: [SRR11059943]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2019-12-30
+    sex: male
+  WH19012_Shen_et_al:
+    accessions: [SRR11059942]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2019-12-30
+    sex: male
+  WH19016_Shen_et_al:
+    accessions: [SRR11059941]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2020-01-01
+    sex: female
+  WH19053_Shen_et_al:
+    accessions: [SRR11059940]
+    study_url: https://pubmed.ncbi.nlm.nih.gov/32129843/
+    collection_date: 2019-12-30
+    sex: male
+  # -----------------------------------------------------------------
   # Beijing Genome Institute samples from this BioProject
   # https://www.ncbi.nlm.nih.gov/bioproject/PRJEB36487
   # do not have raw data: these are WH1, WH2, WH3, and WH4.
