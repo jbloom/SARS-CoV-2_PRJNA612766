@@ -94,9 +94,8 @@ rule download_sra:
     conda: 'environment.yml'
     shell:
         """
-        axel {params.google_api_base}/{wildcards.accession}/{wildcards.accession} \
-            -o {output.sra_file} \
-            -n 4
+        wget {params.google_api_base}/{wildcards.accession}/{wildcards.accession} \
+            -O {output.sra_file}
         fasterq-dump \
             {output.sra_file} \
             --skip-technical \

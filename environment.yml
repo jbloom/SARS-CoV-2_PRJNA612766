@@ -6,7 +6,6 @@ channels:
 
 dependencies:
   - altair=4.1
-  - axel=2.17.10
   - bbmap=38.90
   - biopython=1.78
   - bwa-mem2=2.2.1
