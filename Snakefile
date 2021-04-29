@@ -20,13 +20,6 @@ samples = config['samples']  # read samples from config
 
 report: 'report/workflow.rst'
 
-# The scratch directory may contain an absolute path, so confirm it's
-# valid and give interpretable error if not:
-try:
-    os.makedirs(config['scratch_dir'], exist_ok=True)
-except:
-    raise ValueError(f"`scratch_dir` not valid:\n{config['scratch_dir']}")
-
 #----------------------------------------------------------------------------
 # helper functions
 #----------------------------------------------------------------------------
@@ -79,32 +72,24 @@ rule trim3_polyA:
         "scripts/trim3_polyA.py"
 
 rule download_sra:
-    """SRA accession to FASTQ; if extracts multiples FASTQs, concatenate."""
+    """Download SRA accession to gzipped FASTQ."""
     output:
-        sra_file=temp(os.path.join(config['scratch_dir'],
-                                   "sra_downloads/{accession}.sra")),
-        tempdir=temp(directory(os.path.join(config['scratch_dir'],
-                               "fasterq-dump/{accession}"))),
-        fastq_dir=temp(directory(os.path.join(config['scratch_dir'],
-                                              "sra_downloads/{accession}"))),
-        fastq_gz="results/sra_downloads/{accession}.fastq.gz",
-    params:
-        google_api_base=config['google_api_base'],
+        fastq=temp("results/sra_downloads/{accession}.fastq"),
+        fastq_gz="results/sra_downloads/{accession}.fastq.gz"
     threads: config['max_cpus']
+    params: tempdir=os.path.join(config['scratch_dir'], 'fasterq-dump-temp')
     conda: 'environment.yml'
     shell:
         """
-        wget {params.google_api_base}/{wildcards.accession}/{wildcards.accession} \
-            -O {output.sra_file}
         fasterq-dump \
-            {output.sra_file} \
+            {wildcards.accession} \
             --skip-technical \
             --split-spot \
-            --outdir {output.fastq_dir} \
+            --outfile {output.fastq} \
             --threads {threads} \
             --force \
-            --temp {output.tempdir}
-        pigz -c -p {threads} {output.fastq_dir}/*.fastq > {output.fastq_gz}
+            --temp {params.tempdir}
+        gzip --keep {output.fastq}
         """
 
 rule preprocess_fastq:
