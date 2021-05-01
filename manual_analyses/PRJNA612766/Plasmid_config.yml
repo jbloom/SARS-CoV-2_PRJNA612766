@@ -1,0 +1,451 @@
+  # -----------------------------------------------------------------
+  # BioProject PRJNA612766, host Plasmid
+  # -----------------------------------------------------------------
+  3000cp-replicate04-4h_PRJNA612766:
+    accessions: [SRR11313291]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate04-2h_PRJNA612766:
+    accessions: [SRR11313292]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate04-1h_PRJNA612766:
+    accessions: [SRR11313293]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate04-30min_PRJNA612766:
+    accessions: [SRR11313294]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate04-10min_PRJNA612766:
+    accessions: [SRR11313295]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate03-4h_PRJNA612766:
+    accessions: [SRR11313296]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate03-2h_PRJNA612766:
+    accessions: [SRR11313297]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate03-1h_PRJNA612766:
+    accessions: [SRR11313298]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate03-30min_PRJNA612766:
+    accessions: [SRR11313299]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate03-10min_PRJNA612766:
+    accessions: [SRR11313301]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate02-4h_PRJNA612766:
+    accessions: [SRR11313302]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate02-2h_PRJNA612766:
+    accessions: [SRR11313303]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate02-1h_PRJNA612766:
+    accessions: [SRR11313304]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate02-30min_PRJNA612766:
+    accessions: [SRR11313305]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate02-10min_PRJNA612766:
+    accessions: [SRR11313306]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate01-4h_PRJNA612766:
+    accessions: [SRR11313307]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate01-2h_PRJNA612766:
+    accessions: [SRR11313308]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate01-1h_PRJNA612766:
+    accessions: [SRR11313309]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate01-30min_PRJNA612766:
+    accessions: [SRR11313310]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  3000cp-replicate01-10min_PRJNA612766:
+    accessions: [SRR11313312]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate04-4h_PRJNA612766:
+    accessions: [SRR11313313]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate04-2h_PRJNA612766:
+    accessions: [SRR11313314]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate04-1h_PRJNA612766:
+    accessions: [SRR11313315]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate04-30min_PRJNA612766:
+    accessions: [SRR11313316]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate04-10min_PRJNA612766:
+    accessions: [SRR11313317]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate03-4h_PRJNA612766:
+    accessions: [SRR11313318]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate03-2h_PRJNA612766:
+    accessions: [SRR11313319]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate03-1h_PRJNA612766:
+    accessions: [SRR11313320]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate03-30min_PRJNA612766:
+    accessions: [SRR11313321]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate03-10min_PRJNA612766:
+    accessions: [SRR11313323]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate02-4h_PRJNA612766:
+    accessions: [SRR11313324]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate02-2h_PRJNA612766:
+    accessions: [SRR11313325]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate02-1h_PRJNA612766:
+    accessions: [SRR11313326]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate02-30min_PRJNA612766:
+    accessions: [SRR11313327]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate02-10min_PRJNA612766:
+    accessions: [SRR11313328]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate01-4h_PRJNA612766:
+    accessions: [SRR11313329]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate01-2h_PRJNA612766:
+    accessions: [SRR11313330]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate01-1h_PRJNA612766:
+    accessions: [SRR11313331]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate01-30min_PRJNA612766:
+    accessions: [SRR11313332]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  1000cp-replicate01-10min_PRJNA612766:
+    accessions: [SRR11313335]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate04-4h_PRJNA612766:
+    accessions: [SRR11313336]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate04-2h_PRJNA612766:
+    accessions: [SRR11313337]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate04-1h_PRJNA612766:
+    accessions: [SRR11313338]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate04-30min_PRJNA612766:
+    accessions: [SRR11313339]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate04-10min_PRJNA612766:
+    accessions: [SRR11313340]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate03-4h_PRJNA612766:
+    accessions: [SRR11313341]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate03-2h_PRJNA612766:
+    accessions: [SRR11313342]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate03-1h_PRJNA612766:
+    accessions: [SRR11313343]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate03-30min_PRJNA612766:
+    accessions: [SRR11313344]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate03-10min_PRJNA612766:
+    accessions: [SRR11313346]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate02-4h_PRJNA612766:
+    accessions: [SRR11313347]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate02-2h_PRJNA612766:
+    accessions: [SRR11313348]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate02-1h_PRJNA612766:
+    accessions: [SRR11313349]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate02-30min_PRJNA612766:
+    accessions: [SRR11313350]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate02-10min_PRJNA612766:
+    accessions: [SRR11313351]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate01-4h_PRJNA612766:
+    accessions: [SRR11313352]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate01-2h_PRJNA612766:
+    accessions: [SRR11313353]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate01-1h_PRJNA612766:
+    accessions: [SRR11313354]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate01-30min_PRJNA612766:
+    accessions: [SRR11313355]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  500cp-replicate01-10min_PRJNA612766:
+    accessions: [SRR11313357]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate04-4h_PRJNA612766:
+    accessions: [SRR11313358]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate04-2h_PRJNA612766:
+    accessions: [SRR11313359]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate04-1h_PRJNA612766:
+    accessions: [SRR11313360]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate04-30min_PRJNA612766:
+    accessions: [SRR11313361]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate03-4h_PRJNA612766:
+    accessions: [SRR11313362]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate03-2h_PRJNA612766:
+    accessions: [SRR11313363]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate03-1h_PRJNA612766:
+    accessions: [SRR11313364]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate03-30min_PRJNA612766:
+    accessions: [SRR11313365]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate03-10min_PRJNA612766:
+    accessions: [SRR11313366]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate02-4h_PRJNA612766:
+    accessions: [SRR11313368]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate02-2h_PRJNA612766:
+    accessions: [SRR11313369]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate02-1h_PRJNA612766:
+    accessions: [SRR11313370]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate02-30min_PRJNA612766:
+    accessions: [SRR11313371]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate02-10min_PRJNA612766:
+    accessions: [SRR11313372]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate01-4h_PRJNA612766:
+    accessions: [SRR11313373]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate01-2h_PRJNA612766:
+    accessions: [SRR11313374]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate01-1h_PRJNA612766:
+    accessions: [SRR11313375]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate01-30min_PRJNA612766:
+    accessions: [SRR11313376]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  100cp-replicate01-10min_PRJNA612766:
+    accessions: [SRR11313377]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate04-4h_PRJNA612766:
+    accessions: [SRR11313379]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate04-2h_PRJNA612766:
+    accessions: [SRR11313380]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate04-1h_PRJNA612766:
+    accessions: [SRR11313381]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate04-30min_PRJNA612766:
+    accessions: [SRR11313382]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate04-10min_PRJNA612766:
+    accessions: [SRR11313383]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate03-4h_PRJNA612766:
+    accessions: [SRR11313384]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate03-2h_PRJNA612766:
+    accessions: [SRR11313385]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate03-1h_PRJNA612766:
+    accessions: [SRR11313386]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate03-30min_PRJNA612766:
+    accessions: [SRR11313387]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate03-10min_PRJNA612766:
+    accessions: [SRR11313388]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate02-4h_PRJNA612766:
+    accessions: [SRR11313390]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate02-2h_PRJNA612766:
+    accessions: [SRR11313391]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate02-1h_PRJNA612766:
+    accessions: [SRR11313392]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate02-30min_PRJNA612766:
+    accessions: [SRR11313393]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate02-10min_PRJNA612766:
+    accessions: [SRR11313394]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate01-4h_PRJNA612766:
+    accessions: [SRR11313395]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate01-2h_PRJNA612766:
+    accessions: [SRR11313396]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate01-1h_PRJNA612766:
+    accessions: [SRR11313397]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate01-30min_PRJNA612766:
+    accessions: [SRR11313398]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  10cp-replicate01-10min_PRJNA612766:
+    accessions: [SRR11313399]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate04-4h_PRJNA612766:
+    accessions: [SRR11313401]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate04-2h_PRJNA612766:
+    accessions: [SRR11313402]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate04-1h_PRJNA612766:
+    accessions: [SRR11313403]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate03-4h_PRJNA612766:
+    accessions: [SRR11313404]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate03-2h_PRJNA612766:
+    accessions: [SRR11313405]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate03-1h_PRJNA612766:
+    accessions: [SRR11313407]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate03-30min_PRJNA612766:
+    accessions: [SRR11313475]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate02-4h_PRJNA612766:
+    accessions: [SRR11313476]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate02-2h_PRJNA612766:
+    accessions: [SRR11313477]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate02-1h_PRJNA612766:
+    accessions: [SRR11313478]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate02-30min_PRJNA612766:
+    accessions: [SRR11313480]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate01-4h_PRJNA612766:
+    accessions: [SRR11313481]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
+  0cp-replicate01-2h_PRJNA612766:
+    accessions: [SRR11313482]
+    collected_by: Aisi Fu
+    collection_date: 12-Feb-2020
