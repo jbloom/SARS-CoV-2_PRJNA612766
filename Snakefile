@@ -16,7 +16,11 @@ min_version('6.1.1')
 
 configfile: 'config.yaml'
 
-samples = config['samples']  # read samples from config
+# get all samples
+samples = {key: val for key, val in
+           list(config['samples_fasterq_dump'].items()) +
+           list(config['samples_wget'].items())
+           }
 
 report: 'report/workflow.rst'
 
@@ -30,6 +34,13 @@ def genome_fasta(wc):
         return rules.trim3_polyA.output.fasta
     else:
         return rules.get_genome_fasta.output.fasta
+
+def use_wget(wc):
+    """For a given accession, do we use `wget`?"""
+    for sample_d in config['samples_wget'].values():
+        if wc.accession in sample_d['accessions']:
+            return 'use_wget'
+    return 'no_wget'
 
 #----------------------------------------------------------------------------
 # Rules
@@ -72,24 +83,50 @@ rule trim3_polyA:
         "scripts/trim3_polyA.py"
 
 rule download_sra:
-    """Download SRA accession to gzipped FASTQ."""
+    """Download SRA accession to gzipped FASTQ, concat when multiple FASTQs.
+
+    Code is complicated because if sample is in `samples_wget` then we
+    use `wget` to get it, and otherwise `fasterq-dump`.
+    """
     output:
-        fastq=temp("results/sra_downloads/{accession}.fastq"),
-        fastq_gz="results/sra_downloads/{accession}.fastq.gz"
+        fastq_dir=temp(directory("results/sra_downloads/{accession}/")),
+        fastq_gz="results/sra_downloads/{accession}.fastq.gz",
+        temp_dir=temp(directory(os.path.join(config['scratch_dir'],
+                                             "fasterq-dump/{accession}"))),
+        sra_file=temp(os.path.join(config['scratch_dir'], "{accession}.sra"))
+    params:
+        use_wget=use_wget,
+        wget_paths=['https://storage.googleapis.com/nih-sequence-read-archive/run',
+                    'https://sra-pub-sars-cov2.s3.amazonaws.com/run',
+                    'https://sra-pub-run-odp.s3.amazonaws.com/sra']
     threads: config['max_cpus']
-    params: tempdir=os.path.join(config['scratch_dir'], 'fasterq-dump-temp')
     conda: 'environment.yml'
     shell:
         """
+        if [[ "{params.use_wget}" == "use_wget" ]]
+        then
+            echo "using wget for {wildcards.accession}"
+            wget {params.wget_paths[0]}/{wildcards.accession}/{wildcards.accession} \
+                -O {output.sra_file} || \
+            wget {params.wget_paths[1]}/{wildcards.accession}/{wildcards.accession} -O \
+                {output.sra_file} || \
+            wget {params.wget_paths[2]}/{wildcards.accession}/{wildcards.accession} -O \
+                {output.sra_file}
+            acc="{output.sra_file}"
+        else
+            echo "not using wget for {wildcards.accession}"
+            touch {output.sra_file}
+            acc="{wildcards.accession}"
+        fi
         fasterq-dump \
-            {wildcards.accession} \
+            $acc \
             --skip-technical \
             --split-spot \
-            --outfile {output.fastq} \
+            --outdir {output.fastq_dir} \
             --threads {threads} \
             --force \
-            --temp {params.tempdir}
-        gzip --keep {output.fastq}
+            --temp {output.temp_dir}
+        pigz -c -p {threads} {output.fastq_dir}/*.fastq > {output.fastq_gz}
         """
 
 rule preprocess_fastq:
@@ -153,41 +190,69 @@ rule align_bbmap:
     output:
         concat_fastq=temp("results/alignments/bbmap/{genome}/_{sample}" +
                           '_concat.fastq.gz'),
+        concat_fasta=temp("results/alignments/bbmap/{genome}/_{sample}" +
+                          '_concat.fasta.gz'),
         sam=temp("results/alignments/bbmap/{genome}/{sample}.sam"),
         bamscript=temp("results/alignments/bbmap/{genome}/{sample}" +
                        '_bamscript.sam'),
         bam="results/alignments/bbmap/{genome}/{sample}_sorted.bam",
     params:
+        # use perfect mode only for host reads
         perfectmode=lambda wc: 'f' if wc.genome in config['genomes'] else 't'
     conda: 'environment.yml'
     threads: config['max_cpus']
     shell:
+        # first try to align FASTQ, then FASTA if that fails. Convert like this:
+        # https://bioinformaticsworkbook.org/dataWrangling/fastaq-manipulations/converting-fastq-format-to-fasta.html#gsc.tab=0
         """
         echo "concatenating {input.fastqs}"
         cat {input.fastqs} > {output.concat_fastq}
-        echo "done concatenating"
-        ls -lh {output.concat_fastq}
-        echo "mapping {input.fastqs}"
-        bbmap.sh \
-            in={output.concat_fastq} \
-            ref={input.ref} \
-            path={input.path} \
-            minid=0.8 \
-            perfectmode={params.perfectmode} \
-            maxlen=500 \
-            threads={threads} \
-            outm={output.sam} \
-            idtag=t \
-            mdtag=t \
-            nmtag=t \
-            ignorebadquality=t \
-            nullifybrokenquality=t \
-            ignorejunk=t \
-            overwrite=t \
-            bamscript={output.bamscript}
+        (
+            (echo "mapping {output.concat_fastq}" &&
+             bbmap.sh \
+                in={output.concat_fastq} \
+                ref={input.ref} \
+                path={input.path} \
+                minid=0.8 \
+                perfectmode={params.perfectmode} \
+                maxlen=500 \
+                threads={threads} \
+                outm={output.sam} \
+                idtag=t \
+                mdtag=t \
+                nmtag=t \
+                ignorebadquality=t \
+                nullifybrokenquality=t \
+                ignorejunk=t \
+                overwrite=t \
+                bamscript={output.bamscript} &&
+             touch {output.concat_fasta}
+             ) ||
+            (echo "making {output.concat_fasta}" &&
+             zcat {output.concat_fastq} | sed -n '1~4s/^@/>/p;2~4p' - | \
+                gzip > {output.concat_fasta} &&
+             echo "mapping {output.concat_fasta}" &&
+             bbmap.sh \
+                in={output.concat_fasta} \
+                ref={input.ref} \
+                path={input.path} \
+                minid=0.8 \
+                perfectmode={params.perfectmode} \
+                maxlen=500 \
+                threads={threads} \
+                outm={output.sam} \
+                idtag=t \
+                mdtag=t \
+                nmtag=t \
+                ignorebadquality=t \
+                nullifybrokenquality=t \
+                ignorejunk=t \
+                overwrite=t \
+                bamscript={output.bamscript}
+             )
+        )
+        echo "running {output.bamscript}"
         source {output.bamscript}
-        echo "done mapping"
-        ls -lh {output.concat_fastq}
         """
 
 rule align_bwa_mem2:
