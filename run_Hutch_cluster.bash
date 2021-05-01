@@ -14,7 +14,8 @@ snakemake \
     --cluster "sbatch -c {cluster.cpus} -t {cluster.time} -J {cluster.name} --mem={cluster.memory} -o $slurm_scratch_dir/slurm-%j.out -e $slurm_scratch_dir/slurm-%j.out" \
     --latency-wait 60 \
     --use-conda \
-    --rerun-incomplete
+    --rerun-incomplete \
+    --keep-going
 
 printf "Run of snakemake complete.\n"
 
