@@ -43,8 +43,8 @@ host_genomes:
 # -----------------------------------------------------------------
 # short-read aligners to use
 aligners:
-  - bbmap
   - bwa-mem2
+  - minimap2
 
 # in pileups, only consider sites where Q score >= this; also used for `fastp` preprocessing
 minq: 20

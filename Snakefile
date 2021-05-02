@@ -179,6 +179,15 @@ rule bwa_mem2_genome:
         bwa-mem2 index -p {output.prefix}/index {input.fasta}
         """
 
+rule minimap2_genome:
+    """Build ``minimap2`` reference genome."""
+    input: fasta=genome_fasta
+    output: mmi="results/genomes/minimap2_{genome}.mmi"
+    threads: config['max_cpus']
+    conda: 'environment.yml'
+    shell:
+        "minimap2 -t {threads} -d {output.mmi} {input.fasta}"
+
 rule align_bbmap:
     """Align using ``bbmap``."""
     input:
@@ -281,6 +290,28 @@ rule align_bwa_mem2:
         samtools sort -o {output.bam} {output.unsorted_bam}
         """
 
+rule align_minimap2:
+    """Align using ``minimap2``."""
+    input:
+        fastqs=lambda wc: expand(rules.preprocess_fastq.output.fastq_gz,
+                                 accession=samples[wc.sample]['accessions']),
+        mmi=rules.minimap2_genome.output.mmi,
+    output:
+        concat_fastq=temp("results/alignments/minimap2/{genome}/_{sample}" +
+                          '_concat.fastq.gz'),
+        sam=temp("results/alignments/minimap2/{genome}/{sample}.sam"),
+        unsorted_bam=temp("results/alignments/minimap2/{genome}/{sample}.bam"),
+        bam="results/alignments/minimap2/{genome}/{sample}_sorted.bam",
+    threads: config['max_cpus']
+    conda: 'environment.yml'
+    shell:
+        """
+        cat {input.fastqs} > {output.concat_fastq}
+        minimap2 -a {input.mmi} {input.fastqs} > {output.sam}
+        samtools view -b -F 4 -o {output.unsorted_bam} {output.sam}
+        samtools sort -o {output.bam} {output.unsorted_bam}
+        """
+
 rule index_bam:
     """Create BAI file for BAMs."""
     input: bam="{bampath}_sorted.bam"
@@ -297,9 +328,11 @@ rule bam_pileup:
     input:
         bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner],
         bai=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner] + '.bai',
         ref_fasta=genome_fasta
     params:
@@ -516,9 +549,11 @@ rule sex_chromosome_counts:
     input:
         bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner],
         bai=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
                         'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner] + '.bai',
     output:
         counts="results/sex_chromosome/{aligner}/{genome}/{sample}.csv",
