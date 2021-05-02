@@ -59,6 +59,10 @@ rule all:
         'results/pileup/diffs_from_ref.html',
         'results/sex_chromosome/stats.csv',
         'results/sex_chromosome/chart.html',
+        expand("results/consensus/{sample}/consensus_{genome}_{aligner}.fa",
+               sample=samples,
+               genome=config['genomes'],
+               aligner=config['aligners']),
 
 rule get_genome_fasta:
     """Download reference genome fasta."""
