@@ -79,28 +79,8 @@ samples_fasterq_dump:
     genbank: MN996527
     sex: male
     collection_date: 2019-12-30
-  WIV02-01_Zhou_et_al:
-    accessions: [SRR11092058]
-    genbank: MN996527
-    sex: male
-    collection_date: 2019-12-30
-  WIV02-02_Zhou_et_al:
-    accessions: [SRR11092063]
-    genbank: MN996527
-    sex: male
-    collection_date: 2019-12-30
   WIV04_Zhou_et_al:
     accessions: [SRR11092057, SRR11092062]
-    genbank: MN996528
-    sex: female
-    collection_date: 2019-12-30
-  WIV04-01_Zhou_et_al:
-    accessions: [SRR11092057]
-    genbank: MN996528
-    sex: female
-    collection_date: 2019-12-30
-  WIV04-02_Zhou_et_al:
-    accessions: [SRR11092062]
     genbank: MN996528
     sex: female
     collection_date: 2019-12-30
@@ -114,28 +94,8 @@ samples_fasterq_dump:
     genbank: MN996530
     sex: male
     collection_date: 2019-12-30
-  WIV06-01_Zhou_et_al:
-    accessions: [SRR11092056]
-    genbank: MN996530
-    sex: male
-    collection_date: 2019-12-30
-  WIV06-02_Zhou_et_al:
-    accessions: [SRR11092060]
-    genbank: MN996530
-    sex: male
-    collection_date: 2019-12-30
   WIV07_Zhou_et_al:
     accessions: [SRR11092064, SRR11092059]
-    genbank: MN996531
-    sex: male
-    collection_date: 2019-12-30
-  WIV07-01_Zhou_et_al:
-    accessions: [SRR11092064]
-    genbank: MN996531
-    sex: male
-    collection_date: 2019-12-30
-  WIV07-02_Zhou_et_al:
-    accessions: [SRR11092059]
     genbank: MN996531
     sex: male
     collection_date: 2019-12-30
@@ -242,7 +202,9 @@ samples_fasterq_dump:
   # -----------------------------------------------------------------
   # Beijing Genome Institute samples from this BioProject
   # https://www.ncbi.nlm.nih.gov/bioproject/PRJEB36487
-  # do not have raw data: these are WH1, WH2, WH3, and WH4.
+  # do not have raw data: these are WH01, WH02, WH03, and WH04.
+  # These are the samples for which https://zenodo.org/record/4119263
+  # notes that the ENA records were created Dec-10-2019.
   # -----------------------------------------------------------------
 
   # -----------------------------------------------------------------
