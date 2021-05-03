@@ -9,36 +9,16 @@
     accessions: ['SRR11313271', 'SRR11313461']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A3_PRJNA612766:
-    accessions: ['SRR11313439', 'SRR11313450']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
   A4_PRJNA612766:
     accessions: ['SRR11313417', 'SRR11313428']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
-  A5_PRJNA612766:
-    accessions: ['SRR11313472', 'SRR11313501']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
   A6_PRJNA612766:
     accessions: ['SRR11313479', 'SRR11313490']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A7_PRJNA612766:
-    accessions: ['SRR11313389', 'SRR11313400']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
-  A8_PRJNA612766:
-    accessions: ['SRR11313367', 'SRR11313378']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
   A9_PRJNA612766:
     accessions: ['SRR11313345', 'SRR11313356']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
-  A10_PRJNA612766:
-    accessions: ['SRR11313457', 'SRR11313458']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
   A11_PRJNA612766:
@@ -65,10 +45,6 @@
     accessions: ['SRR11313322', 'SRR11313333']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  B5_PRJNA612766:
-    accessions: ['SRR11313447']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
   B9_PRJNA612766:
     accessions: ['SRR11313445', 'SRR11313446']
     collected_by: Renmin Hospital of Wuhan University
@@ -93,16 +69,8 @@
     accessions: ['SRR11313443', 'SRR11313444']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  D2_PRJNA612766:
-    accessions: ['SRR11313278', 'SRR11313279']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
   D9_PRJNA612766:
     accessions: ['SRR11313436', 'SRR11313437']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
-  D10_PRJNA612766:
-    accessions: ['SRR11313283', 'SRR11313284']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
   D11_PRJNA612766:
@@ -149,16 +117,8 @@
     accessions: ['SRR11313425', 'SRR11313426']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  F12_PRJNA612766:
-    accessions: ['SRR11313272', 'SRR11313273']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
   G1_PRJNA612766:
     accessions: ['SRR11313468', 'SRR11313469']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
-  G6_PRJNA612766:
-    accessions: ['SRR11313416', 'SRR11313418']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
   G11_PRJNA612766:
@@ -167,10 +127,6 @@
     collection_date: early in epidemic
   G12_PRJNA612766:
     accessions: ['SRR11313419', 'SRR11313420']
-    collected_by: Renmin Hospital of Wuhan University
-    collection_date: early in epidemic
-  H3_PRJNA612766:
-    accessions: ['SRR11313414', 'SRR11313415']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
   H9_PRJNA612766:
