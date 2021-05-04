@@ -12,6 +12,7 @@ dependencies:
   - entrez-direct=13.9
   - fastp=0.20.1
   - jupyterlab>=3
+  - ipyigv=0.1.9
   - mafft=7.475
   - mamba
   - minimap2=2.18
