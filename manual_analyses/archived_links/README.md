@@ -22,3 +22,8 @@
 
     - https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11313448 (archived 5-2-2021)
 
+- Information on how SRA submissions can be modified. These are all archived on the Wayback Machine:
+
+    - Submissions cannot be modified, and can only be deleted by e-mailing SRA staff: https://www.ncbi.nlm.nih.gov/sra/docs/submitquestions/
+
+    - More description of how runs cannot be replaced and filenames cannot be changed is here, along with more details on how deletion requires contacting SRA staff: https://www.ncbi.nlm.nih.gov/sra/docs/submitupdate/#how-do-i-withdraw-sra-data
