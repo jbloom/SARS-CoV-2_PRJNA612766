@@ -15,6 +15,7 @@ per_sample_pileups_in_report: false
 genomes:
   Wuhan-Hu-1:
     fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
+    gff: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.gff.gz
     name: NC_045512.2
 
 genome_trim3_polyA: true  # do we trim A nucleotides from 3' end of viral genomes?
@@ -39,20 +40,21 @@ host_genomes:
       female: X
 
 # -----------------------------------------------------------------
-# General alignment and consensus calling options
+# General alignment and consensus / variant calling options
 # -----------------------------------------------------------------
 # short-read aligners to use
 aligners:
   - minimap2
   - bwa-mem2
 
-# in pileups, only consider sites where Q score >= this; also used for `fastp` preprocessing
+# in pileups, only consider sites where Q score >= this;
+# also used for `fastp` preprocessing and `ivar` variant calling
 minq: 20
 # in `fastp` pre-processing require at least this read length
 min_read_length: 20
 
 # Criteria used to call consensus from pileup, and then determine
-# if different from reference or Genbank.
+# if different from reference or Genbank. Also used by ivar.
 consensus_min_coverage: 4  # require >= this coverage
 consensus_min_frac: 0.75  # require most common base > this fraction
 

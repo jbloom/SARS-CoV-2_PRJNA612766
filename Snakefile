@@ -5,6 +5,7 @@ Written by Jesse Bloom.
 
 
 import itertools
+import os
 
 from snakemake.utils import min_version
 
@@ -63,6 +64,10 @@ rule all:
                sample=samples,
                genome=config['genomes'],
                aligner=config['aligners']),
+        expand("results/ivar_variants/{sample}/{aligner}_{genome}.tsv",
+               sample=samples,
+               genome=config['genomes'],
+               aligner=config['aligners']),
 
 rule get_genome_fasta:
     """Download reference genome fasta."""
@@ -77,6 +82,14 @@ rule get_genome_fasta:
         wget -O - {params.ftp} | gunzip -c > {output}
         python scripts/strip_fasta_head_to_id.py --fasta {output.fasta}
         """
+
+rule get_genome_gff:
+    """Download reference genome GFF."""
+    output: gff="results/genomes/untrimmed/{genome}.gff"
+    params: ftp=lambda wc: config['genomes'][wc.genome]['gff']
+    conda: 'environment.yml'
+    shell:
+        "wget -O - {params.ftp} | gunzip -c > {output}"
 
 rule trim3_polyA:
     """Trim 3' polyA nucleotides from FASTA."""
@@ -324,6 +337,39 @@ rule index_bam:
     conda: 'environment.yml'
     shell:
         "samtools index -b -m {threads} {input.bam} {output.bai}"
+
+rule ivar_variants:
+    """Call variants using ``ivar``."""
+    input:
+        bam=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
+                        'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        'minimap2': rules.align_minimap2.output.bam,
+                        }[wc.aligner],
+        bai=lambda wc: {'bbmap': rules.align_bbmap.output.bam,
+                        'bwa-mem2': rules.align_bwa_mem2.output.bam,
+                        'minimap2': rules.align_minimap2.output.bam,
+                        }[wc.aligner] + '.bai',
+        ref_fasta=genome_fasta,
+        ref_gff=rules.get_genome_gff.output.gff
+    output:
+        tsv="results/ivar_variants/{sample}/{aligner}_{genome}.tsv"
+    params:
+        prefix=lambda wildcards, output: os.path.splitext(output.tsv)[0],
+        min_threshold=config['consensus_min_frac'],
+        min_depth=config['consensus_min_coverage'],
+        minq=config['minq'],
+    conda: 'environment.yml'
+    shell:
+        """
+        samtools mpileup -aa -A -d 0 -B -Q 0 \
+            --reference {input.ref_fasta} {input.bam} |
+        ivar variants -p {params.prefix} \
+            -q {params.minq} \
+            -t {params.min_threshold} \
+            -m {params.min_depth} \
+            -r {input.ref_fasta} \
+            -g {input.ref_gff}
+        """
 
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
