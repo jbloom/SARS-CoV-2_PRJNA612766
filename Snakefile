@@ -64,10 +64,7 @@ rule all:
                sample=samples,
                genome=config['genomes'],
                aligner=config['aligners']),
-        expand("results/ivar_variants/{sample}/{aligner}_{genome}.tsv",
-               sample=samples,
-               genome=config['genomes'],
-               aligner=config['aligners']),
+        'results/ivar_variants/aggregated_ivar_variants.csv'
 
 rule get_genome_fasta:
     """Download reference genome fasta."""
@@ -370,6 +367,27 @@ rule ivar_variants:
             -r {input.ref_fasta} \
             -g {input.ref_gff}
         """
+
+rule aggregate_ivar_variants:
+    """Aggregate ``ivar`` analysis of variants."""
+    input:
+        expand("results/ivar_variants/{sample}/{aligner}_{genome}.tsv",
+               aligner=config['aligners'],
+               genome=config['genomes'],
+               sample=samples),
+    output: agg_csv='results/ivar_variants/aggregated_ivar_variants.csv'
+    params:
+        descriptors=[{'aligner': aligner,
+                      'genome': genome,
+                      'sample': sample}
+                     for aligner, genome, sample
+                     in itertools.product(config['aligners'],
+                                          config['genomes'],
+                                          samples)
+                     ],
+    conda: 'environment.yml'
+    script:
+        'scripts/aggregate_ivar_variants.py'
 
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
