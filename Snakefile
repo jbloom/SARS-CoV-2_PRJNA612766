@@ -371,11 +371,13 @@ rule ivar_variants:
 rule aggregate_ivar_variants:
     """Aggregate ``ivar`` analysis of variants."""
     input:
-        expand("results/ivar_variants/{sample}/{aligner}_{genome}.tsv",
-               aligner=config['aligners'],
-               genome=config['genomes'],
-               sample=samples),
-    output: agg_csv='results/ivar_variants/aggregated_ivar_variants.csv'
+        ref_gffs=expand(rules.get_genome_gff.output.gff, genome=config['genomes']),
+        tsvs=expand("results/ivar_variants/{sample}/{aligner}_{genome}.tsv",
+                    aligner=config['aligners'],
+                    genome=config['genomes'],
+                    sample=samples),
+    output:
+        agg_csv='results/ivar_variants/aggregated_ivar_variants.csv',
     params:
         descriptors=[{'aligner': aligner,
                       'genome': genome,
@@ -385,6 +387,7 @@ rule aggregate_ivar_variants:
                                           config['genomes'],
                                           samples)
                      ],
+        genomes=config['genomes'],
     conda: 'environment.yml'
     script:
         'scripts/aggregate_ivar_variants.py'
@@ -586,6 +589,7 @@ rule aggregate_pileup_analysis:
                              sample=samples),
         comparator_map=expand(rules.genome_comparator_map.output.site_map,
                               genome=config['genomes']),
+        ivar_variants='results/ivar_variants/aggregated_ivar_variants.csv'
     output:
         frac_coverage_stats=report(
                 'results/pileup/frac_coverage.csv',
