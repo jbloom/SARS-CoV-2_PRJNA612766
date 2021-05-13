@@ -55,8 +55,8 @@ min_read_length: 20
 
 # Criteria used to call consensus from pileup, and then determine
 # if different from reference or Genbank. Also used by ivar.
-consensus_min_coverage: 4  # require >= this coverage
-consensus_min_frac: 0.75  # require most common base > this fraction
+consensus_min_coverage: 5  # require >= this coverage
+consensus_min_frac: 0.8  # require most common base > this fraction
 
 # report fraction viral genome covered at >= following depths
 report_frac_coverage: [1, 2, 4, 10, 20, 50, 100]
