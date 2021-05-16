@@ -43,6 +43,18 @@ def use_wget(wc):
             return 'use_wget'
     return 'no_wget'
 
+def comparator_fastas(wc):
+    """Get FASTA files for all comparator genomes."""
+    comparators = []
+    for key, d in config['comparator_genomes'].items():
+        if 'genbank' in d:
+            comparators.append(f"results/genbank/{d['genbank']}.fa")
+        elif 'gisaid' in d:
+            comparators.append(f"results/gisaid/{d['gisaid']}.fa")
+        else:
+            raise ValueError(f"comparator {key} lacks genbank and gisaid")
+    return comparators
+
 #----------------------------------------------------------------------------
 # Rules
 #----------------------------------------------------------------------------
@@ -455,12 +467,19 @@ rule get_genbank_fasta:
             > {output.fasta}
         """
 
+rule get_gisaid_fasta:
+    """Get FASTA from GISAID downloads."""
+    output: fasta="results/gisaid/{gisaid}.fa"
+    params: gisaid_dirs=config['gisaid_dirs']
+    conda: 'environment.yml'
+    script:
+        'scripts/get_gisaid_fasta.py'
+
 rule genome_comparator_alignment:
     """Align genome to comparators."""
     input:
         genome=genome_fasta,
-        comparators=[f"results/genbank/{d['genbank']}.fa"
-                     for d in config['comparator_genomes'].values()],
+        comparators=comparator_fastas
     output:
         concat_fasta=temp('results/genome_to_comparator/' +
                           "{genome}/to_align.fa"),
@@ -493,8 +512,7 @@ rule align_consensus_to_genbank:
         genbank=lambda wc: ('results/genbank/' +
                             samples[wc.sample]['genbank'] +
                             '.fa'),
-        comparators=[f"results/genbank/{d['genbank']}.fa"
-                     for d in config['comparator_genomes'].values()],
+        comparators=comparator_fastas,
     output:
         concat_fasta=temp('results/consensus_vs_genbank/' +
                           "{sample}/_{genome}_{aligner}_to_align.fa"),

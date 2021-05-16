@@ -31,6 +31,10 @@ comparator_genomes:
   RShSTT200:
     gisaid: EPI_ISL_852605
 
+# directories in which GISAID augur format downloads
+gisaid_dirs:
+  - data/comparator_genomes_gisaid
+
 # -----------------------------------------------------------------
 # Host genomes used for calling sex of patient
 # -----------------------------------------------------------------
