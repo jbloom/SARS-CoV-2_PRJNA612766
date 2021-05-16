@@ -26,8 +26,10 @@ comparator_genomes:
     genbank: MN996532.2
   GD_Pangolin_MP789:
     genbank: MT121216.1
-  RacCS203:
-    genbank: MW251308.1
+  RmYN02:
+    gisaid: EPI_ISL_412977
+  RShSTT200:
+    gisaid: EPI_ISL_852605
 
 # -----------------------------------------------------------------
 # Host genomes used for calling sex of patient
