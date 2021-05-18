@@ -5,7 +5,7 @@ max_cpus: 4  # max CPUs for any single job
 
 scratch_dir: results/_scratch/  # put scratch files here
 
-# Include per-sample pileup charts in report? Bloats report size.
+# include per-sample pileups in report (bloats report size)
 per_sample_pileups_in_report: false
 
 # -----------------------------------------------------------------
@@ -18,32 +18,18 @@ genomes:
     gff: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.gff.gz
     name: NC_045512.2
 
-genome_trim3_polyA: true  # do we trim A nucleotides from 3' end of viral genomes?
-
 # when mismatches, are they also present in these close-ish viral relatives?
 comparator_genomes:
   RaTG13:
     genbank: MN996532.2
-  GD_Pangolin_MP789:
-    genbank: MT121216.1
   RmYN02:
     gisaid: EPI_ISL_412977
   RShSTT200:
     gisaid: EPI_ISL_852605
 
-# directories in which GISAID augur format downloads
+# directories with GISAID augur format downloads
 gisaid_dirs:
   - data/comparator_genomes_gisaid
-
-# -----------------------------------------------------------------
-# Host genomes used for calling sex of patient
-# -----------------------------------------------------------------
-host_genomes:
-  human:
-    fasta: ftp://ftp.ensembl.org/pub/release-99/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
-    sex_chromosomes:
-      male: Y
-      female: X
 
 # -----------------------------------------------------------------
 # General alignment and consensus / variant calling options
@@ -70,169 +56,7 @@ report_frac_coverage: [1, 2, 4, 10, 20, 50, 100]
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
 # -------------------------------------------------------------------
-samples_fasterq_dump:
-  # -----------------------------------------------------------------
-  # From Wu et al paper reporting Wuhan-Hu-1
-  # -----------------------------------------------------------------
-  Wuhan-Hu-1_Wu_et_al:
-    accessions: [SRR10971381]
-    genbank: MN908947
-    sex: male
-    collection_date: 2020-01-02
-  # -----------------------------------------------------------------
-  # From Wuhan Institute of Virology Zhou et al paper
-  # -----------------------------------------------------------------
-  WIV02_Zhou_et_al:
-    accessions: [SRR11092058, SRR11092063]
-    genbank: MN996527
-    sex: male
-    collection_date: 2019-12-30
-  WIV04_Zhou_et_al:
-    accessions: [SRR11092057, SRR11092062]
-    genbank: MN996528
-    sex: female
-    collection_date: 2019-12-30
-  WIV05_Zhou_et_al:
-    accessions: [SRR11092061]
-    genbank: MN996529
-    sex: female
-    collection_date: 2019-12-30
-  WIV06_Zhou_et_al:
-    accessions: [SRR11092056, SRR11092060]
-    genbank: MN996530
-    sex: male
-    collection_date: 2019-12-30
-  WIV07_Zhou_et_al:
-    accessions: [SRR11092064, SRR11092059]
-    genbank: MN996531
-    sex: male
-    collection_date: 2019-12-30
-  # -----------------------------------------------------------------
-  # From Wuhan University Chen et al paper
-  # -----------------------------------------------------------------
-  WHU01_Chen_et_al:
-    accessions: [SRR10903402]
-    genbank: MN988668
-    sex: male
-    collection_date: 2020-01-02
-  WHU02_Chen_et_al:
-    accessions: [SRR10903401]
-    genbank: MN988669
-    sex: female
-    collection_date: 2020-01-02
-  # -----------------------------------------------------------------
-  # From first case in Nepal
-  # -----------------------------------------------------------------
-  Nepal-student_Bastola_et_al:
-    accessions: [SRR11177792]
-    genbank: MT072688
-    sex: male
-    collection_date: 2020-01-13
-  # -----------------------------------------------------------------
-  # From this BioProject:
-  # https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA616446
-  # -----------------------------------------------------------------
-  HBCDC-HB-01_2019:
-    accessions: [SRR11454614]
-    collection_date: 2019-12-30
-  HBCDC-HB-02_2019:
-    accessions: [SRR11454615]
-    collection_date: 2019-12-30
-  HBCDC-HB-03_2019:
-    accessions: [SRR11454613]
-    collection_date: 2019-12-30
-  HBCDC-HB-04_2019:
-    accessions: [SRR11454612]
-    collection_date: 2019-12-30
-  HBCDC-HB-01_2020:
-    accessions: [SRR11454608]
-    collection_date: 2020-01-08
-  HBCDC-HB-02_2020:
-    accessions: [SRR11454609]
-    collection_date: 2020-01-17
-  HBCDC-HB-03_2020:
-    accessions: [SRR11454610]
-    collection_date: 2020-01-18
-  HBCDC-HB-04_2020:
-    accessions: [SRR11454611]
-    collection_date: 2020-01-18
-  HBCDC-HB-06_2020:
-    accessions: [SRR11454607]
-    collection_date: 2020-02-07
-  HBCDC-HB-07_2020:
-    accessions: [SRR11454606]
-    collection_date: 2020-02-08
-  # -----------------------------------------------------------------
-  # From this BioProject (detecting SARS-CoV02 in fecal swabs)
-  # https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA611496
-  # -----------------------------------------------------------------
-  fecal_swab_BGI:
-    accessions: [SRR11267811]
-    collection_date: 2020-02-22
-  # -----------------------------------------------------------------
-  # Samples from this BioProject:
-  # https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA605907
-  # which corresponds to this paper:
-  # https://pubmed.ncbi.nlm.nih.gov/32129843/
-  # Sample collection dates are corroborated here:
-  # https://www.thelancet.com/article/S0140-6736(20)30251-8/fulltext#tbl1 
-  # However, for now we **ignore** these samples as they are from aligned
-  # BAMs and so we don't have the raw data prior to alignment.
-  # -----------------------------------------------------------------
-  #WH19001_Shen_et_al:
-  #  accessions: [SRR11059947]
-  #  collection_date: 2019-12-30
-  #  sex: female
-  #  study_sample_name: nCov1
-  #WH19002_Shen_et_al:
-  #  accessions: [SRR11059946]
-  #  collection_date: 2019-12-30
-  #  sex: female
-  #  study_sample_name: nCov2
-  #WH19003_Shen_et_al:
-  #  accessions: [SRR11059945]
-  #  collection_date: 2019-12-30
-  #  sex: male
-  #  study_sample_name: nCov3
-  #WH19004_Shen_et_al:
-  #  accessions: [SRR11059944]
-  #  collection_date: 2020-01-01
-  #  sex: male
-  #  study_sample_name: nCov4
-  #WH19010_Shen_et_al:
-  #  accessions: [SRR11059943]
-  #  collection_date: 2019-12-30
-  #  sex: male
-  #  study_sample_name: nCov5
-  #WH19012_Shen_et_al:
-  #  accessions: [SRR11059942]
-  #  collection_date: 2019-12-30
-  #  sex: male
-  #  study_sample_name: nCov6
-  #WH19016_Shen_et_al:
-  #  accessions: [SRR11059941]
-  #  collection_date: 2020-01-01
-  #  sex: female
-  #  study_sample_name: nCov7
-  #WH19053_Shen_et_al:
-  #  accessions: [SRR11059940]
-  #  collection_date: 2019-12-30
-  #  sex: male
-  #  study_sample_name: nCov8
-  # -----------------------------------------------------------------
-  # Beijing Genome Institute samples from this BioProject
-  # https://www.ncbi.nlm.nih.gov/bioproject/PRJEB36487
-  # do not have raw data: these are WH01, WH02, WH03, and WH04.
-  # These are the samples for which https://zenodo.org/record/4119263
-  # notes that the ENA records were created Dec-10-2019.
-  # These samples appear to be described here:
-  # https://www.thelancet.com/article/S0140-6736(20)30251-8/fulltext#tbl1 
-  # -----------------------------------------------------------------
-
-  # -----------------------------------------------------------------
-  # I have not yet found raw data for the Lu et al Lancet paper
-  # https://www.thelancet.com/article/S0140-6736(20)30251-8/fulltext
-  # -----------------------------------------------------------------
+samples_fasterq_dump: {}
 
 # -----------------------------------------------------------------
 # Samples on SRA to download using `wget`
@@ -242,207 +66,207 @@ samples_wget:
   # BioProject PRJNA612766, human samples
   # The samples commented out could not be downloaded even using wget
   # -----------------------------------------------------------------
-  A1_PRJNA612766:
+  A1:
     accessions: ['SRR11313282', 'SRR11313334']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A2_PRJNA612766:
+  A2:
     accessions: ['SRR11313271', 'SRR11313461']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A4_PRJNA612766:
+  A4:
     accessions: ['SRR11313417', 'SRR11313428']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A6_PRJNA612766:
+  A6:
 # sample SRR11313490 cannot be downloaded even using wget
 #    accessions: ['SRR11313479', 'SRR11313490']
     accessions: ['SRR11313479']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A9_PRJNA612766:
+  A9:
     accessions: ['SRR11313345', 'SRR11313356']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A11_PRJNA612766:
+  A11:
     accessions: ['SRR11313455', 'SRR11313456']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  A12_PRJNA612766:
+  A12:
     accessions: ['SRR11313473', 'SRR11313474']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  B1_PRJNA612766:
+  B1:
     accessions: ['SRR11313453', 'SRR11313454']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  B2_PRJNA612766:
+  B2:
     accessions: ['SRR11313451', 'SRR11313452']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  B3_PRJNA612766:
+  B3:
     accessions: ['SRR11313448', 'SRR11313449']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  B4_PRJNA612766:
+  B4:
     accessions: ['SRR11313322', 'SRR11313333']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  B9_PRJNA612766:
+  B9:
     accessions: ['SRR11313445', 'SRR11313446']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  C1_PRJNA612766:
+  C1:
     accessions: ['SRR11313287', 'SRR11313289']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  C2_PRJNA612766:
+  C2:
     accessions: ['SRR11313285', 'SRR11313286']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  C9_PRJNA612766:
+  C9:
     accessions: ['SRR11313441', 'SRR11313442']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  C11_PRJNA612766:
+  C11:
     accessions: ['SRR11313300', 'SRR11313311']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  C12_PRJNA612766:
+  C12:
     accessions: ['SRR11313443', 'SRR11313444']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  D9_PRJNA612766:
+  D9:
     accessions: ['SRR11313436', 'SRR11313437']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  D11_PRJNA612766:
+  D11:
     accessions: ['SRR11313438', 'SRR11313440']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  D12_PRJNA612766:
+  D12:
     accessions: ['SRR11313280', 'SRR11313281']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  E1_PRJNA612766:
+  E1:
     accessions: ['SRR11313276', 'SRR11313277']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  E3_PRJNA612766:
+  E3:
     accessions: ['SRR11313430', 'SRR11313431']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  E5_PRJNA612766:
+  E5:
     accessions: ['SRR11313274', 'SRR11313275']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  E6_PRJNA612766:
+  E6:
     accessions: ['SRR11313427', 'SRR11313429']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  E11_PRJNA612766:
+  E11:
     accessions: ['SRR11313434', 'SRR11313435']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  E12_PRJNA612766:
+  E12:
     accessions: ['SRR11313432', 'SRR11313433']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  F5_PRJNA612766:
+  F5:
     accessions: ['SRR11313270', 'SRR11313470']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  F8_PRJNA612766:
+  F8:
     accessions: ['SRR11313423', 'SRR11313424']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  F11_PRJNA612766:
+  F11:
     accessions: ['SRR11313425', 'SRR11313426']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  G1_PRJNA612766:
+  G1:
     accessions: ['SRR11313468', 'SRR11313469']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  G11_PRJNA612766:
+  G11:
     accessions: ['SRR11313421', 'SRR11313422']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  G12_PRJNA612766:
+  G12:
     accessions: ['SRR11313419', 'SRR11313420']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  H9_PRJNA612766:
+  H9:
     accessions: ['SRR11313464', 'SRR11313465']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  H12_PRJNA612766:
+  H12:
     accessions: ['SRR11313466', 'SRR11313467']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: early in epidemic
-  R01_PRJNA612766:
+  R01:
     accessions: ['SRR11313409', 'SRR11313410']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R02_PRJNA612766:
+  R02:
     accessions: ['SRR11313406', 'SRR11313408']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R03_PRJNA612766:
+  R03:
     accessions: ['SRR11313269', 'SRR11313471']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R04_PRJNA612766:
+  R04:
     accessions: ['SRR11313509']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R05_PRJNA612766:
+  R05:
     accessions: ['SRR11313507', 'SRR11313508']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R06_PRJNA612766:
+  R06:
     accessions: ['SRR11313505', 'SRR11313506']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R07_PRJNA612766:
+  R07:
     accessions: ['SRR11313503', 'SRR11313504']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R08_PRJNA612766:
+  R08:
     accessions: ['SRR11313500', 'SRR11313502']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R09_PRJNA612766:
+  R09:
 # sample SRR11313499 cannot be downloaded even using wget
 #    accessions: ['SRR11313498', 'SRR11313499']
     accessions: ['SRR11313498']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R10_PRJNA612766:
+  R10:
     accessions: ['SRR11313496', 'SRR11313497']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R11_PRJNA612766:
+  R11:
     accessions: ['SRR11313494', 'SRR11313495']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R12_PRJNA612766:
+  R12:
     accessions: ['SRR11313492', 'SRR11313493']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R13_PRJNA612766:
+  R13:
     accessions: ['SRR11313489', 'SRR11313491']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R14_PRJNA612766:
+  R14:
     accessions: ['SRR11313487', 'SRR11313488']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R15_PRJNA612766:
+  R15:
     accessions: ['SRR11313485', 'SRR11313486']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020
-  R16_PRJNA612766:
+  R16:
     accessions: ['SRR11313483', 'SRR11313484']
     collected_by: Renmin Hospital of Wuhan University
     collection_date: 12-Feb-2020

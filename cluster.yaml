@@ -10,13 +10,9 @@ download_accession:
   cpus: 4
   time: 2-0
 
-bbmap_genome:
-  memory: 100G
-
-align_bbmap:
-  cpus: 4
-  memory: 100G
-
 align_bwa_mem2:
+  cpus: 4
+
+align_minimap2:
   cpus: 4
 
