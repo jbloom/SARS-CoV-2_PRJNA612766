@@ -76,7 +76,9 @@ rule all:
                sample=samples,
                genome=config['genomes'],
                aligner=config['aligners']),
-        'results/ivar_variants/aggregated_ivar_variants.csv'
+        'results/ivar_variants/aggregated_ivar_variants.csv',
+        expand("results/comparator_annotated_gisaid_muts/{genome}.csv.gz",
+               genome=config['genomes']),
 
 rule get_genome_fasta:
     """Download reference genome fasta."""
@@ -504,6 +506,21 @@ rule genome_comparator_map:
     conda: 'environment.yml'
     script:
         'scripts/genome_comparator_map.py'
+
+rule annotate_gisaid_muts_by_comparators:
+    """Annotate GISAID mutations by comparator genomes."""
+    input:
+        comparator_map=rules.genome_comparator_map.output.site_map,
+        genome_fasta=genome_fasta,
+        gisaid_metadata='data/gisaid_mutations/metadata.tsv.gz',
+        gisaid_muts='data/gisaid_mutations/mut_summary.tsv.gz',
+    output:
+        annotated_muts="results/comparator_annotated_gisaid_muts/{genome}.csv.gz"
+    log:
+        notebook="results/logs/notebooks/{genome}_annotate_gisaid_muts_by_comparators.py.ipynb"
+    conda: 'environment.yml'
+    notebook:
+        'notebooks/annotate_gisaid_muts_by_comparators.py.ipynb'
 
 rule align_consensus_to_genbank:
     """Align pileup consensus to its Genbank and other comparators."""
