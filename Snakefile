@@ -60,34 +60,29 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        expand("results/consensus/{sample}/consensus_{genome}_{aligner}.fa",
+        expand("results/consensus/{sample}/consensus_{aligner}.fa",
                sample=samples,
-               genome=config['genomes'],
                aligner=config['aligners']),
-        expand("results/comparator_annotated_gisaid_muts/{genome}.csv.gz",
-               genome=config['genomes']),
+        'results/comparator_annotated_gisaid_muts/muts.csv.gz'
 
-rule get_genome_fasta:
+rule get_ref_genome_fasta:
     """Download reference genome fasta."""
-    output: fasta="results/genomes/{genome}.fa"
+    output: fasta="results/ref_genome/ref_genome.fa"
     params:
-        ftp=lambda wildcards: (config['genomes'][wildcards.genome]['fasta']
-                               if wildcards.genome in config['genomes'] else
-                               config['host_genomes'][wildcards.genome]['fasta'])
+        url=config['ref_genome']['fasta'],
+        name=config['ref_genome']['name'],
+        add_mutations=config['ref_genome']['add_mutations']
     conda: 'environment.yml'
-    shell:
-        """
-        wget -O - {params.ftp} | gunzip -c > {output}
-        python scripts/strip_fasta_head_to_id.py --fasta {output.fasta}
-        """
+    script:
+        'scripts/get_ref_genome_fasta.py'
 
 rule get_genome_gff:
     """Download reference genome GFF."""
-    output: gff="results/genomes/{genome}.gff"
-    params: ftp=lambda wc: config['genomes'][wc.genome]['gff']
+    output: gff="results/ref_genomes/ref_genome.gff"
+    params: url=config['ref_genome']['gff']
     conda: 'environment.yml'
     shell:
-        "wget -O - {params.ftp} | gunzip -c > {output}"
+        "wget -O - {params.url} | gunzip -c > {output}"
 
 rule download_sra:
     """Download SRA accession to gzipped FASTQ, concat when multiple FASTQs.
@@ -167,8 +162,8 @@ rule preprocess_fastq:
 
 rule bwa_mem2_genome:
     """Build ``bwa-mem2`` reference genome."""
-    input: fasta=rules.get_genome_fasta.output.fasta
-    output: prefix=directory("results/genomes/bwa-mem2_{genome}/")
+    input: fasta=rules.get_ref_genome_fasta.output.fasta
+    output: prefix=directory("results/genomes/bwa-mem2/")
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
@@ -179,8 +174,8 @@ rule bwa_mem2_genome:
 
 rule minimap2_genome:
     """Build ``minimap2`` reference genome."""
-    input: fasta=rules.get_genome_fasta.output.fasta
-    output: mmi="results/genomes/minimap2_{genome}.mmi"
+    input: fasta=rules.get_ref_genome_fasta.output.fasta
+    output: mmi="results/genomes/minimap2.mmi"
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
@@ -193,11 +188,11 @@ rule align_bwa_mem2:
                                  accession=samples[wc.sample]['accessions']),
         prefix=rules.bwa_mem2_genome.output.prefix,
     output:
-        concat_fastq=temp("results/alignments/bwa-mem2/{genome}/_{sample}" +
+        concat_fastq=temp("results/alignments/bwa-mem2/_{sample}" +
                           '_concat.fastq.gz'),
-        sam=temp("results/alignments/bwa-mem2/{genome}/{sample}.sam"),
-        unsorted_bam=temp("results/alignments/bwa-mem2/{genome}/{sample}.bam"),
-        bam="results/alignments/bwa-mem2/{genome}/{sample}_sorted.bam",
+        sam=temp("results/alignments/bwa-mem2/{sample}.sam"),
+        unsorted_bam=temp("results/alignments/bwa-mem2/{sample}.bam"),
+        bam="results/alignments/bwa-mem2/{sample}_sorted.bam",
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
@@ -219,11 +214,11 @@ rule align_minimap2:
                                  accession=samples[wc.sample]['accessions']),
         mmi=rules.minimap2_genome.output.mmi,
     output:
-        concat_fastq=temp("results/alignments/minimap2/{genome}/_{sample}" +
+        concat_fastq=temp("results/alignments/minimap2/_{sample}" +
                           '_concat.fastq.gz'),
-        sam=temp("results/alignments/minimap2/{genome}/{sample}.sam"),
-        unsorted_bam=temp("results/alignments/minimap2/{genome}/{sample}.bam"),
-        bam="results/alignments/minimap2/{genome}/{sample}_sorted.bam",
+        sam=temp("results/alignments/minimap2/{sample}.sam"),
+        unsorted_bam=temp("results/alignments/minimap2/{sample}.bam"),
+        bam="results/alignments/minimap2/{sample}_sorted.bam",
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
@@ -246,7 +241,7 @@ rule index_bam:
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
     output:
-        pileup_csv="results/pileup/{sample}/pileup_{genome}_{aligner}.csv",
+        pileup_csv="results/pileup/{sample}/pileup_{aligner}.csv",
     input:
         bam=lambda wc: {'bwa-mem2': rules.align_bwa_mem2.output.bam,
                         'minimap2': rules.align_minimap2.output.bam,
@@ -254,9 +249,9 @@ rule bam_pileup:
         bai=lambda wc: {'bwa-mem2': rules.align_bwa_mem2.output.bam,
                         'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner] + '.bai',
-        ref_fasta=rules.get_genome_fasta.output.fasta
+        ref_fasta=rules.get_ref_genome_fasta.output.fasta
     params:
-        ref=lambda wc: config['genomes'][wc.genome]['name'],
+        ref=config['ref_genome']['name'],
         minq=config['minq'],
     conda: 'environment.yml'
     shell:
@@ -275,9 +270,9 @@ rule consensus_from_pileup:
     input:
         pileup=rules.bam_pileup.output.pileup_csv
     output:
-        consensus="results/consensus/{sample}/consensus_{genome}_{aligner}.fa"
+        consensus="results/consensus/{sample}/consensus_{aligner}.fa"
     params:
-        fasta_header = "{sample}_{genome}_{aligner}",
+        fasta_header = "{sample}_{aligner}",
         min_coverage=config['consensus_min_coverage'],
         min_frac=config['consensus_min_frac']
     conda: 'environment.yml'
@@ -315,12 +310,11 @@ rule get_gisaid_fasta:
 rule genome_comparator_alignment:
     """Align genome to comparators."""
     input:
-        genome=rules.get_genome_fasta.output.fasta,
+        genome=rules.get_ref_genome_fasta.output.fasta,
         comparators=comparator_fastas
     output:
-        concat_fasta=temp('results/genome_to_comparator/' +
-                          "{genome}/to_align.fa"),
-        alignment="results/genome_to_comparator/{genome}/alignment.fa"
+        concat_fasta=temp('results/genome_to_comparator/to_align.fa'),
+        alignment="results/genome_to_comparator/alignment.fa"
     conda: 'environment.yml'
     shell:
         # insert newline between FASTA files when concatenating:
@@ -335,7 +329,7 @@ rule genome_comparator_map:
     input:
         alignment=rules.genome_comparator_alignment.output.alignment
     output:
-        site_map="results/genome_to_comparator/{genome}/site_identity_map.csv"
+        site_map="results/genome_to_comparator/site_identity_map.csv"
     params:
         comparators=list(config['comparator_genomes'])
     conda: 'environment.yml'
@@ -346,13 +340,13 @@ rule annotate_gisaid_muts_by_comparators:
     """Annotate GISAID mutations by comparator genomes."""
     input:
         comparator_map=rules.genome_comparator_map.output.site_map,
-        genome_fasta=rules.get_genome_fasta.output.fasta,
+        genome_fasta=rules.get_ref_genome_fasta.output.fasta,
         gisaid_metadata='data/gisaid_mutations/metadata.tsv.gz',
         gisaid_muts='data/gisaid_mutations/mut_summary.tsv.gz',
     output:
-        annotated_muts="results/comparator_annotated_gisaid_muts/{genome}.csv.gz"
+        annotated_muts="results/comparator_annotated_gisaid_muts/muts.csv.gz"
     log:
-        notebook="results/logs/notebooks/{genome}_annotate_gisaid_muts_by_comparators.py.ipynb"
+        notebook="results/logs/notebooks/annotate_gisaid_muts_by_comparators.py.ipynb"
     conda: 'environment.yml'
     notebook:
         'notebooks/annotate_gisaid_muts_by_comparators.py.ipynb'
@@ -361,7 +355,6 @@ rule analyze_pileups:
     """Analyze and plot BAM pileups per sample."""
     input:
         pileups=expand(rules.bam_pileup.output.pileup_csv,
-                       genome=config['genomes'],
                        aligner=config['aligners'],
                        allow_missing=True)
     output:
@@ -378,12 +371,7 @@ rule analyze_pileups:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],
         report_frac_coverage=config['report_frac_coverage'],
-        descriptors=[{'genome': genome,
-                      'aligner': aligner}
-                     for genome, aligner
-                     in itertools.product(config['genomes'],
-                                          config['aligners'])
-                     ],
+        descriptors=[{'aligner': aligner} for aligner in config['aligners']],
         chart_title="{sample}"
     log:
         notebook="results/logs/notebooks/analyze_pileups_{sample}.ipynb"
@@ -398,8 +386,7 @@ rule aggregate_pileup_analysis:
                               sample=samples),
         frac_coverage=expand(rules.analyze_pileups.output.frac_coverage,
                              sample=samples),
-        comparator_map=expand(rules.genome_comparator_map.output.site_map,
-                              genome=config['genomes']),
+        comparator_map=rules.genome_comparator_map.output.site_map,
     output:
         frac_coverage_stats=report(
                 'results/pileup/frac_coverage.csv',
@@ -419,7 +406,6 @@ rule aggregate_pileup_analysis:
                 category='Viral deep sequencing analysis'),
     params:
         samples=list(samples),
-        genomes=list(config['genomes']),
     conda: 'environment.yml'
     log:
         notebook='results/logs/notebooks/aggregate_pileup_analysis.ipynb'

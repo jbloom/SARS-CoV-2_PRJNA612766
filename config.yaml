@@ -11,12 +11,15 @@ per_sample_pileups_in_report: false
 # -----------------------------------------------------------------
 # Viral reference genomes
 # -----------------------------------------------------------------
-# align against these genomes
-genomes:
-  Wuhan-Hu-1:
-    fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
-    gff: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.gff.gz
-    name: NC_045512.2
+
+# align viral reads against this reference genome, which is constructed
+# by adding to Wuhan-Hu-1 three mutations as described in
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7523107/
+ref_genome:
+  fasta: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz
+  gff: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.gff.gz
+  name: proCoV2
+  add_mutations: [C8782T, C18060T, T28144C]
 
 # when mismatches, are they also present in these close-ish viral relatives?
 comparator_genomes:
