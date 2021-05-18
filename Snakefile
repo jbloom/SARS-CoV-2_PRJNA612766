@@ -344,9 +344,11 @@ rule annotate_gisaid_muts_by_comparators:
         gisaid_metadata='data/gisaid_mutations/metadata.tsv.gz',
         gisaid_muts='data/gisaid_mutations/mut_summary.tsv.gz',
     output:
-        annotated_muts="results/comparator_annotated_gisaid_muts/muts.csv.gz"
+        annotated_muts='results/comparator_annotated_gisaid_muts/muts.csv.gz'
     log:
-        notebook="results/logs/notebooks/annotate_gisaid_muts_by_comparators.py.ipynb"
+        notebook='results/logs/notebooks/annotate_gisaid_muts_by_comparators.py.ipynb'
+    params:
+        add_mutations=config['ref_genome']['add_mutations']        
     conda: 'environment.yml'
     notebook:
         'notebooks/annotate_gisaid_muts_by_comparators.py.ipynb'
