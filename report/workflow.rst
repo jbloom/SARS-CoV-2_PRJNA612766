@@ -16,12 +16,6 @@ The workflow briefly works like this:
      - Mutations relative to the reference viral genome.
      - Whether the mutations are to nucleotide identities found in other related comparator viral genomes.
 
- - To try to determine the sex (male or female) of the patient from which the viral samples were taken, reads are also mapped to the host genome (requiring exact primary matches).
-   The results in `Sex of patients`_ quantifies the mapping to each sex chromosome.
-
- - We also compared the deep sequencing consensus to the consensus sequence deposited in Genbank when available.
-   These comparisons are summarized in `Deep sequencing vs Genbank`_.
-
 The *Configuration* section has details about the samples, read aligners, reference genomes, and other settings.
 
 The graph immediately below schematizes the workflow.
