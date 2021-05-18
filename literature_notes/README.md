@@ -25,3 +25,5 @@ Page 58 starts the molecular epidemiology section. Top of page 61 says an effort
 - [March 3 2020, Chinese memo](https://www.documentcloud.org/documents/7340337-State-Research-regulations.html): all research needs to be centrally approved.
 
 - [Rushed data collection of suspected early Covid-19 cases in Wuhan](https://gillesdemaneuf.medium.com/early-cases-of-suspected-covid-19-in-wuhan-feb-20-data-collection-b7740ed1436f): blog on early data collection and cases in Wuhan.
+
+- [On the origin and continuing evolution of SARS-CoV-2](https://academic.oup.com/nsr/article/7/6/1012/5775463): First paper on "S" and "L" lineages.
