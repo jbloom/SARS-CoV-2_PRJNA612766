@@ -6,11 +6,23 @@
 
     - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485 (archived 5-2-2021)
 
+    - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313486/SRR11313486 (archived 5-22-2021)
+
     - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313274/SRR11313274 (archived 5-2-2021)
 
+    - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313275/SRR11313275 (archived 5-22-2021)
+
     - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313285/SRR11313285 (archived 5-2-2021)
-    
+
+    - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313286/SRR11313286 (archived 5-22-2021)
+
     - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313448/SRR11313448 (archived 5-2-2021)
+
+    - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313449/SRR11313449 (archived 5-22-2021)
+
+    - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313427/SRR11313427 (archived 5-22-2021)
+
+    - https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313429/SRR11313429 (archived 5-22-2021)
 
 - Visiting the above links on the NCBI SRA webpage to demonstrate they are indicated as "removed"
 
