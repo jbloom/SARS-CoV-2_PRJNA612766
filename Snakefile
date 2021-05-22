@@ -63,7 +63,7 @@ rule all:
         expand("results/consensus/{sample}/consensus_{aligner}.fa",
                sample=samples,
                aligner=config['aligners']),
-        'results/comparator_annotated_gisaid_muts/muts.csv.gz'
+        'results/comparator_annotated_gisaid_muts/muts.csv.gz',
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -95,7 +95,7 @@ rule download_sra:
         fastq_gz="results/sra_downloads/{accession}.fastq.gz",
         temp_dir=temp(directory(os.path.join(config['scratch_dir'],
                                              "fasterq-dump/{accession}"))),
-        sra_file=temp(os.path.join(config['scratch_dir'], "{accession}.sra"))
+        sra_file="results/sra_downloads/{accession}.sra",
     params:
         use_wget=use_wget,
         wget_paths=['https://storage.googleapis.com/nih-sequence-read-archive/run',
