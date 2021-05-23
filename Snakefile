@@ -418,7 +418,8 @@ rule integrated_analysis:
     params:
         region_of_interest_start=config['region_of_interest']['start'],
         region_of_interest_end=config['region_of_interest']['end'],
-        patient_groups={s: d['patient_group'] for s, d in samples.items()}
+        patient_groups={s: d['patient_group'] for s, d in samples.items()},
+        min_frac_coverage=config['min_frac_coverage'],
     log: notebook='results/logs/notebooks/integrated_analysis.ipynb'
     conda: 'environment.yml'
     notebook: 'notebooks/integrated_analysis.py.ipynb'

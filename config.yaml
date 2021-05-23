@@ -63,6 +63,9 @@ region_of_interest:
   start: 21563
   end: 29674
 
+# only work with samples with fractional coverage >= this
+min_frac_coverage: 0.25
+
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
 # -------------------------------------------------------------------
