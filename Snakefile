@@ -23,8 +23,6 @@ samples = {key: val for key, val in
            list(config['samples_wget'].items())
            }
 
-report: 'report/workflow.rst'
-
 #----------------------------------------------------------------------------
 # helper functions
 #----------------------------------------------------------------------------
@@ -360,13 +358,7 @@ rule analyze_pileups:
                        aligner=config['aligners'],
                        allow_missing=True)
     output:
-        chart=(report("results/pileup/{sample}/interactive_pileup.html",
-                      category='Viral deep sequencing analysis',
-                      subcategory='Per-sample pileup files',
-                      caption='report/analyze_pileups_interactive_pileup.rst',
-                      )
-               if config['per_sample_pileups_in_report'] else
-               "results/pileup/{sample}/interactive_pileup.html"),
+        chart="results/pileup/{sample}/interactive_pileup.html",
         diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
         frac_coverage="results/pileup/{sample}/frac_coverage.csv",
     params:
@@ -390,22 +382,10 @@ rule aggregate_pileup_analysis:
                              sample=samples),
         comparator_map=rules.genome_comparator_map.output.site_map,
     output:
-        frac_coverage_stats=report(
-                'results/pileup/frac_coverage.csv',
-                caption='report/aggregate_pileup_analysis_frac_coverage_stats.rst',
-                category='Viral deep sequencing analysis'),
-        frac_coverage_chart=report(
-                'results/pileup/frac_coverage.html',
-                caption='report/aggregate_pileup_analysis_frac_coverage_chart.rst',
-                category='Viral deep sequencing analysis'),
-        diffs_from_ref_stats=report(
-                'results/pileup/diffs_from_ref.csv',
-                caption='report/aggregate_pileup_analysis_diffs_from_ref_stats.rst',
-                category='Viral deep sequencing analysis'),
-        diffs_from_ref_chart=report(
-                'results/pileup/diffs_from_ref.html',
-                caption='report/aggregate_pileup_analysis_diffs_from_ref_chart.rst',
-                category='Viral deep sequencing analysis'),
+        frac_coverage_stats='results/pileup/frac_coverage.csv',
+        frac_coverage_chart='results/pileup/frac_coverage.html',
+        diffs_from_ref_stats='results/pileup/diffs_from_ref.csv',
+        diffs_from_ref_chart='results/pileup/diffs_from_ref.html',
     params:
         samples=list(samples),
     conda: 'environment.yml'

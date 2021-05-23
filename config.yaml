@@ -5,9 +5,6 @@ max_cpus: 4  # max CPUs for any single job
 
 scratch_dir: results/_scratch/  # put scratch files here
 
-# include per-sample pileups in report (bloats report size)
-per_sample_pileups_in_report: false
-
 # -----------------------------------------------------------------
 # Viral reference genomes
 # -----------------------------------------------------------------
