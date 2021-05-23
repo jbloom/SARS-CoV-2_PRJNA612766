@@ -18,10 +18,3 @@ snakemake \
     --keep-going
 
 printf "Run of snakemake complete.\n"
-
-# https://snakemake.readthedocs.io/en/stable/snakefiles/reporting.html
-printf "\nCreating snakemake report...\n"
-
-snakemake --report report.html
-
-printf "Finished creating snakemake report..."
