@@ -29,6 +29,8 @@ comparator_genomes:
     gisaid: EPI_ISL_412977
   RShSTT200:
     gisaid: EPI_ISL_852605
+  GD_Pangolin_MP789:
+    genbank: MT121216.1
 
 # directories with GISAID augur format downloads
 gisaid_dirs:
@@ -55,6 +57,15 @@ consensus_min_frac: 0.8  # require most common base > this fraction
 
 # report fraction viral genome covered at >= following depths
 report_frac_coverage: [1, 2, 4, 10, 20, 50, 100]
+
+# -----------------------------------------------------------------
+# Parameters for final analysis
+# -----------------------------------------------------------------
+# focus on spike through ORF10, which is region fully sequenced in:
+# https://www.medrxiv.org/content/10.1101/2020.03.04.20029538v1.full-text
+region_of_interest:
+  start: 21563
+  end: 29674
 
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
