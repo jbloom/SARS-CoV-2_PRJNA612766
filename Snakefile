@@ -58,9 +58,7 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        expand("results/consensus/{sample}/consensus_{aligner}.fa",
-               sample=samples,
-               aligner=config['aligners']),
+        'results/consensus/consensus_seqs.csv',
         'results/comparator_annotated_gisaid_muts/muts.csv.gz',
 
 rule get_ref_genome_fasta:
@@ -393,3 +391,19 @@ rule aggregate_pileup_analysis:
         notebook='results/logs/notebooks/aggregate_pileup_analysis.ipynb'
     notebook:
         'notebooks/aggregate_pileup_analysis.py.ipynb'
+
+rule aggregate_consensus_seqs:
+    """Aggregate the consensus sequences from the pileup."""
+    input:
+        consensus_seqs=expand(rules.consensus_from_pileup.output.consensus,
+                              aligner=config['aligners'],
+                              sample=samples),
+    output:
+        csv='results/consensus/consensus_seqs.csv'
+    params:
+        descriptors=[{'aligner': aligner, 'sample': sample} for
+                     aligner, sample in itertools.product(config['aligners'],
+                                                          samples)]
+    conda: 'environment.yml'
+    log: notebook='results/logs/notebooks/aggregate_consensus_seqs.ipynb'
+    notebook: 'notebooks/aggregate_consensus_seqs.py.ipynb'

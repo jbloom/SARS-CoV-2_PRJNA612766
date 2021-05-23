@@ -47,8 +47,7 @@ minq: 20
 # in `fastp` pre-processing require at least this read length
 min_read_length: 20
 
-# Criteria used to call consensus from pileup, and then determine
-# if different from reference or Genbank. Also used by ivar.
+# Criteria used to call consensus from pileup
 consensus_min_coverage: 5  # require >= this coverage
 consensus_min_frac: 0.8  # require most common base > this fraction
 
