@@ -58,8 +58,7 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        'results/consensus/consensus_seqs.csv',
-        'results/comparator_annotated_gisaid_muts/muts.csv.gz',
+        'report'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -407,3 +406,19 @@ rule aggregate_consensus_seqs:
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/aggregate_consensus_seqs.ipynb'
     notebook: 'notebooks/aggregate_consensus_seqs.py.ipynb'
+
+rule integrated_analysis:
+    """Integrated final analysis of data."""
+    input:
+        seqs=rules.aggregate_consensus_seqs.output.csv,
+        diffs=rules.aggregate_pileup_analysis.output.diffs_from_ref_stats,
+        gisaid_muts=rules.annotate_gisaid_muts_by_comparators.output.annotated_muts,
+    output:
+        'report'
+    params:
+        region_of_interest_start=config['region_of_interest']['start'],
+        region_of_interest_end=config['region_of_interest']['end'],
+        patient_groups={s: d['patient_group'] for s, d in samples.items()}
+    log: notebook='results/logs/notebooks/integrated_analysis.ipynb'
+    conda: 'environment.yml'
+    notebook: 'notebooks/integrated_analysis.py.ipynb'
