@@ -92,10 +92,10 @@ rule download_sra:
     """
     output:
         fastq_dir=temp(directory("results/sra_downloads/{accession}/")),
-        fastq_gz="results/sra_downloads/{accession}.fastq.gz",
+        fastq_gz=protected("results/sra_downloads/{accession}.fastq.gz"),
         temp_dir=temp(directory(os.path.join(config['scratch_dir'],
                                              "fasterq-dump/{accession}"))),
-        sra_file="results/sra_downloads/{accession}.sra",
+        sra_file=protected("results/sra_downloads/{accession}.sra"),
     params:
         use_wget=use_wget,
         wget_paths=['https://storage.googleapis.com/nih-sequence-read-archive/run',
