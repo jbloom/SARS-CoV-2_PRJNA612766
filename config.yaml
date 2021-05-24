@@ -66,6 +66,9 @@ region_of_interest:
 # only work with samples with fractional coverage >= this
 min_frac_coverage: 0.25
 
+# Only compare to GISAID sequences isolated **before** this date
+gisaid_last_date: 2020-03-01
+
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
 # -------------------------------------------------------------------
