@@ -421,6 +421,7 @@ rule integrated_analysis:
         patient_groups={s: d['patient_group'] for s, d in samples.items()},
         min_frac_coverage=config['min_frac_coverage'],
         comparator_genomes=list(comparator_genomes),
+        gisaid_last_date=config['gisaid_last_date'],
     log: notebook='results/logs/notebooks/integrated_analysis.ipynb'
     conda: 'environment.yml'
     notebook: 'notebooks/integrated_analysis.py.ipynb'
