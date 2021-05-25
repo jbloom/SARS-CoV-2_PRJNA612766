@@ -209,8 +209,6 @@ rule align_minimap2:
                                  accession=samples[wc.sample]['accessions']),
         mmi=rules.minimap2_genome.output.mmi,
     output:
-        concat_fastq=temp("results/alignments/minimap2/_{sample}" +
-                          '_concat.fastq.gz'),
         sam=temp("results/alignments/minimap2/{sample}.sam"),
         unsorted_bam=temp("results/alignments/minimap2/{sample}.bam"),
         bam="results/alignments/minimap2/{sample}_sorted.bam",
@@ -218,7 +216,6 @@ rule align_minimap2:
     conda: 'environment.yml'
     shell:
         """
-        cat {input.fastqs} > {output.concat_fastq}
         minimap2 -a {input.mmi} {input.fastqs} > {output.sam}
         samtools view -b -F 4 -o {output.unsorted_bam} {output.sam}
         samtools sort -o {output.bam} {output.unsorted_bam}
