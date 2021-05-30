@@ -58,7 +58,8 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        'report'
+        'results/early_sequences/full_alignment.fa',
+        #'report'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -294,7 +295,7 @@ rule get_genbank_fasta:
 rule get_gisaid_fasta:
     """Get FASTA from GISAID downloads."""
     output: fasta="results/gisaid/{gisaid}.fa"
-    params: gisaid_dirs=config['gisaid_dirs']
+    params: gisaid_dirs=config['gisaid_comparator_dirs']
     conda: 'environment.yml'
     script:
         'scripts/get_gisaid_fasta.py'
@@ -404,6 +405,39 @@ rule aggregate_consensus_seqs:
     log: notebook='results/logs/notebooks/aggregate_consensus_seqs.ipynb'
     notebook: 'notebooks/aggregate_consensus_seqs.py.ipynb'
 
+rule early_seqs_gisaid_fasta:
+    """Get FASTA from GISAID augur download."""
+    input: lambda wc: config['early_sequences']['gisaid'][wc.sequence_set]
+    output:
+        fasta="results/early_sequences/{sequence_set}.fa",
+    conda: 'environment.yml'
+    script: 'scripts/gisaid_subdir_to_fasta.py'
+
+rule align_early_seqs:
+    """Align all the early sequences to the reference, stripping gaps."""
+    input:
+        ref_genome=rules.get_ref_genome_fasta.output.fasta,
+        gisaid_fastas=expand(rules.early_seqs_gisaid_fasta.output.fasta,
+                             sequence_set=config['early_sequences']['gisaid']),
+    output:
+        alignment='results/early_sequences/full_alignment.fa',
+        concat_early_seqs=temp('results/early_sequences/_concat_early_seqs.fa'),
+    conda: 'environment.yml'
+    shell:
+        # concatenate with newline at end of each file:
+        # https://stackoverflow.com/a/25030513/4191652
+        # then align to reference:
+        # https://mafft.cbrc.jp/alignment/software/closelyrelatedviralgenomes.html
+        """
+        awk 1 {input.gisaid_fastas} > {output.concat_early_seqs}
+        mafft \
+            --6merpair \
+            --keeplength \
+            --addfragments {output.concat_early_seqs} \
+            {input.ref_genome} \
+            > {output.alignment}
+        """
+
 rule integrated_analysis:
     """Integrated final analysis of data."""
     input:
@@ -417,7 +451,7 @@ rule integrated_analysis:
         region_of_interest_end=config['region_of_interest']['end'],
         patient_groups={s: d['patient_group'] for s, d in samples.items()},
         min_frac_coverage=config['min_frac_coverage'],
-        comparator_genomes=list(comparator_genomes),
+        comparator_genomes=list(config['comparator_genomes']),
         gisaid_last_date=config['gisaid_last_date'],
     log: notebook='results/logs/notebooks/integrated_analysis.ipynb'
     conda: 'environment.yml'

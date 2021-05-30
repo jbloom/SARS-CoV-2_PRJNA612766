@@ -28,10 +28,15 @@ comparator_genomes:
     gisaid: EPI_ISL_852605
   GD_Pangolin_MP789:
     genbank: MT121216.1
-
-# directories with GISAID augur format downloads
-gisaid_dirs:
+# directories with GISAID augur format downloads of comparator genomes
+gisaid_comparator_dirs:
   - data/comparator_genomes_gisaid
+
+# early consensus sequences to align and include in analysis
+early_sequences:
+  gisaid:
+    # subdirectories with GISAID augur format downloads
+    gisaid_through_Feb2020: data/gisaid_sequences_through_Feb2020/
 
 # -----------------------------------------------------------------
 # General alignment and consensus / variant calling options
