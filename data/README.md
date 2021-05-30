@@ -5,7 +5,9 @@ Due to [GISAID data sharing terms](https://www.gisaid.org/help/faq/), the actual
 However, the subdirectories with GISAID sequences contain `*.tsv.xz` files that list the accessions, as well as acknowledging the originating and submitting labs.
 These are tracked.
 
-- [comparator_genomes_gisaid](comparator_genomes_gisaid) contains bat virus comparator genomes as downloaded from GISAID on May-16-2021.
+- [./comparator_genomes_gisaid/](comparator_genomes_gisaid) contains bat virus comparator genomes as downloaded from GISAID on May-16-2021.
+
+- [./gisaid_sequences_through_Feb2020/](gisaid_sequences_through_Feb2020) contains all sequences downloaded from GISAID on May-30-2021 from human SARS-CoV-2 isolated no later than Feb-29-2020.
 
 ## Mutations extracted from GISAID data by Richard Neher
 
