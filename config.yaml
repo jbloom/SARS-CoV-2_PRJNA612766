@@ -72,6 +72,9 @@ region_of_interest:
   start: 21563
   end: 29674
 
+# sequences from WHO-China joint report
+who_china_report_cases: data/WHO_China_Report_Dec2019_cases.yaml
+
 # only work with samples with fractional coverage >= this
 min_frac_coverage: 0.25
 
