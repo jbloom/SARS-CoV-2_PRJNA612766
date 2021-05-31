@@ -14,7 +14,7 @@ import pandas as pd
 gisaid_id = snakemake.wildcards.gisaid
 print(f"Looking for GISAID ID {gisaid_id}")
 
-for subdir in snakemake.config['gisaid_dirs']:
+for subdir in snakemake.config['gisaid_comparator_dirs']:
     for metadata in glob.glob(f"{subdir}/*.metadata.tsv.xz"):
         print(f"Looking in {metadata}")
         fasta_in = metadata.replace('.metadata.tsv.xz', '.sequences.fasta.xz')
@@ -42,4 +42,4 @@ for subdir in snakemake.config['gisaid_dirs']:
         else:
             raise ValueError(f"Multiple matches for {gisaid_id} in {metadata}")
 else:
-    raise ValueError(f"Failed to find {gisaid_id} in {config['gisaid_dirs']}")
+    raise ValueError(f"Failed to find {gisaid_id} in {config['gisaid_comparator_dirs']}")

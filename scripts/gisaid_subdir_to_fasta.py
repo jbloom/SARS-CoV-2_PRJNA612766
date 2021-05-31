@@ -34,7 +34,8 @@ with lzma.open(metadata_file) as f:
                 )
 assert len(metadata) == metadata['gisaid_epi_isl'].nunique()
 
-props = ['gisaid_epi_isl', 'date', 'genbank_accession']
+props = ['gisaid_epi_isl', 'date', 'genbank_accession',
+         'country', 'location', 'age', 'sex']
 
 with lzma.open(sequences_file, mode='rt') as f:
     iseq = 0
@@ -42,7 +43,7 @@ with lzma.open(sequences_file, mode='rt') as f:
     for seq in Bio.SeqIO.parse(f, 'fasta'):
         strain = metadata.at[iseq, 'strain']
         assert seq.id == strain, f"{seq.id=}\n{strain=}"
-        seq.description = ' '.join(f"{prop}={metadata.at[iseq, prop]}"
+        seq.description = ', '.join(f"{prop}={metadata.at[iseq, prop]}"
                                    for prop in props)
         iseq += 1
         seqs.append(seq)
