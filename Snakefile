@@ -58,8 +58,8 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        'results/early_sequences/substitutions.csv'
-        #'report'
+        'results/early_sequences/substitutions.csv',
+#        'report'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -438,14 +438,27 @@ rule align_early_seqs:
             > {output.alignment}
         """
 
-rule early_seq_substitutions:
+rule early_seq_subs:
     """Get substitution mutations from early sequences."""
     input:
         alignment=rules.align_early_seqs.output.alignment,
         ref_genome=rules.get_ref_genome_fasta.output.fasta,
     output: csv='results/early_sequences/substitutions.csv'
+    params: region_of_interest=config['region_of_interest']
     conda: 'environment.yml'
-    script: 'scripts/early_seq_substitutions.py'
+    script: 'scripts/early_seq_subs.py'
+
+rule annotate_early_seq_substitutions:
+    """Annotate and filter early sequence substitutions."""
+    input:
+        subs_csv=rules.early_seq_subs.output.csv,
+        comparator_map=rules.genome_comparator_map.output.site_map,
+    output: csv='results/early_sequences/annotated_filtered_substitutions.csv'
+    params:
+        comparators=list(config['comparator_genomes']),
+    conda: 'environment.yml'
+    log: notebook='results/logs/notebooks/annotated_early_seq_subs.ipynb'
+    notebook: 'notebooks/annotated_early_seq_subs.py.ipynb'
 
 rule integrated_analysis:
     """Integrated final analysis of data."""
