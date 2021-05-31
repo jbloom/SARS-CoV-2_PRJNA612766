@@ -19,15 +19,19 @@ ref_genome:
   add_mutations: [C8782T, C18060T, T28144C]
 
 # when mismatches, are they also present in these close-ish viral relatives?
+# Note RaTG13 has highest overall identity, but according to
+# https://www.biorxiv.org/content/10.1101/2021.01.22.427830v3.full,
+# it is RmYN02, PrC31, and RpYN06 that are closest relatives after
+# accounting for recombination.
 comparator_genomes:
   RaTG13:
-    genbank: MN996532.2
+    gisaid: EPI_ISL_402131
   RmYN02:
     gisaid: EPI_ISL_412977
-  RShSTT200:
-    gisaid: EPI_ISL_852605
-  GD_Pangolin_MP789:
-    genbank: MT121216.1
+  PrC31:
+    gisaid: EPI_ISL_1098866
+  RpYN06:
+    gisaid: EPI_ISL_1699446
 # directories with GISAID augur format downloads of comparator genomes
 gisaid_comparator_dirs:
   - data/comparator_genomes_gisaid
