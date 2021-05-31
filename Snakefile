@@ -58,7 +58,7 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        'results/early_sequences/full_alignment.fa',
+        'results/early_sequences/substitutions.csv'
         #'report'
 
 rule get_ref_genome_fasta:
@@ -437,6 +437,15 @@ rule align_early_seqs:
             {input.ref_genome} \
             > {output.alignment}
         """
+
+rule early_seq_substitutions:
+    """Get substitution mutations from early sequences."""
+    input:
+        alignment=rules.align_early_seqs.output.alignment,
+        ref_genome=rules.get_ref_genome_fasta.output.fasta,
+    output: csv='results/early_sequences/substitutions.csv'
+    conda: 'environment.yml'
+    script: 'scripts/early_seq_substitutions.py'
 
 rule integrated_analysis:
     """Integrated final analysis of data."""
