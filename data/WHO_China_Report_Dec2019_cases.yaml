@@ -1,0 +1,82 @@
+# Keyed by Table 7 of joint China-WHO report, with strain names from Table 6
+pre_2020_seqs:
+  S01:
+    gisaid: EPI_ISL_403928
+    strain:
+      - BetaCoV/Wuhan/IPBCAMS-WH05/2020
+    date: 2020-01-01
+  S02:
+    gisaid: EPI_ISL_402123
+    strain:
+      - BetaCoV/Wuhan/IPBCAMS-WH01/2019
+    date: 2019-12-14
+  S03:
+    gisaid: EPI_ISL_406798
+    strain:
+      - WH01
+    date: 2019-12-26
+  S04:
+    id: NMDC60013002-06
+    strain:
+      - BetaCoV/Wuhan/WH19008/2019
+      - WIV02
+      - SARS-CoV2/Wuhan_IMEWH02/human/2019/CHN
+      - BetaCoV/Wuhan/HBCDC-HB-02/2019
+      - hCoV19/Wuhan/IVDCHB-GX02/2019
+    date: 2019-12-30
+  S05:
+    gisaid: EPI_ISL_403929
+    strain:
+      - BetaCoV/Wuhan/IPBCAMS-WH04/2019
+      - BetaCoV/Wuhan/WH19004/2020
+      - BetaCoV/Wuhan/IVDC-HB-04/2020
+    date: 2019-12-30 
+  S06:
+    genbank: MN908947
+    strain:
+      - Wuhan-Hu-1
+    date: 2019-12-30
+  S07:
+    genbank: MN988668
+    strain:
+      - WHU01
+    date: 2020-01-02
+  S08:
+    gisaid: EPI_ISL_529216
+    strain:
+      - WIV07
+      - SARS-CoV2/Wuhan_IMEWH04/human/2019/CHN
+    date: 2019-12-30
+  S09:
+    gisaid: EPI_ISL_406800
+    strain:
+      - WH03
+      - WHU02
+    date: 2020-01-02
+  S10:
+    id: GWHABKG00000001
+    strain:
+      - BetaCoV/Wuhan/HBCDC-HB-03/2019
+      - BetaCoV/Wuhan/IPBCAMS-WH02/2019
+      - BetaCoV/Wuhan/WH19001/2019
+      - WIV04
+      - BetaCoV/Wuhan/IVDC-HB-01/2019
+    date: 2019-12-30
+  S11:
+    id: GWHABKH00000001
+    strain:
+      - BetaCoV/Wuhan/IPBCAMS-WH03/2019
+      - WIV05
+      - SARS-CoV2/Wuhan_IMEWH05/human/2019/CHN
+    date: 2019-12-30
+  S12:
+    id: GWHACAU01000001
+    strain:
+      - WIV06
+      - SARS-CoV2/Wuhan_IMEWH03/human/2019/CHN
+    date: 2019-12-30
+  S13:
+    gisaid: EPI_ISL_529213
+    strain:
+      - SARS-CoV2/Wuhan_IMEWH01/human/2019/CHN
+    date: 2019-12-30

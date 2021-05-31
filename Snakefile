@@ -58,7 +58,7 @@ rule all:
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
-        'results/early_sequences/substitutions.csv',
+        'results/early_sequences/annotated_filtered_substitutions.csv',
 #        'report'
 
 rule get_ref_genome_fasta:
@@ -448,7 +448,7 @@ rule early_seq_subs:
     conda: 'environment.yml'
     script: 'scripts/early_seq_subs.py'
 
-rule annotate_early_seq_substitutions:
+rule annotate_early_seq_subs:
     """Annotate and filter early sequence substitutions."""
     input:
         subs_csv=rules.early_seq_subs.output.csv,
@@ -456,9 +456,10 @@ rule annotate_early_seq_substitutions:
     output: csv='results/early_sequences/annotated_filtered_substitutions.csv'
     params:
         comparators=list(config['comparator_genomes']),
+        who_china_report_cases_yaml=config['who_china_report_cases'],
     conda: 'environment.yml'
-    log: notebook='results/logs/notebooks/annotated_early_seq_subs.ipynb'
-    notebook: 'notebooks/annotated_early_seq_subs.py.ipynb'
+    log: notebook='results/logs/notebooks/annotate_early_seq_subs.ipynb'
+    notebook: 'notebooks/annotate_early_seq_subs.py.ipynb'
 
 rule integrated_analysis:
     """Integrated final analysis of data."""
