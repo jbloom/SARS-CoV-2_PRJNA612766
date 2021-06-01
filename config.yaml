@@ -37,10 +37,21 @@ gisaid_comparator_dirs:
   - data/comparator_genomes_gisaid
 
 # early consensus sequences to align and include in analysis
-early_sequences:
+early_seqs:
   gisaid:
     # subdirectories with GISAID augur format downloads
     gisaid_through_Feb2020: data/gisaid_sequences_through_Feb2020/
+
+# information to include in headers for early sequences
+early_seq_header_props:
+  - strain
+  - gisaid_epi_isl
+  - date
+  - genbank_accession
+  - country
+  - location
+  - age
+  - sex
 
 # -----------------------------------------------------------------
 # General alignment and consensus / variant calling options

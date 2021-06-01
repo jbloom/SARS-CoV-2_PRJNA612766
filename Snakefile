@@ -407,9 +407,9 @@ rule aggregate_consensus_seqs:
 
 rule early_seqs_gisaid_fasta:
     """Get FASTA from GISAID augur download."""
-    input: lambda wc: config['early_sequences']['gisaid'][wc.sequence_set]
-    output:
-        fasta="results/early_sequences/{sequence_set}.fa",
+    input: lambda wc: config['early_seqs']['gisaid'][wc.sequence_set]
+    output: fasta="results/early_sequences/{sequence_set}.fa",
+    params: props=config['early_seq_header_props']
     conda: 'environment.yml'
     script: 'scripts/gisaid_subdir_to_fasta.py'
 
@@ -418,7 +418,7 @@ rule align_early_seqs:
     input:
         ref_genome=rules.get_ref_genome_fasta.output.fasta,
         gisaid_fastas=expand(rules.early_seqs_gisaid_fasta.output.fasta,
-                             sequence_set=config['early_sequences']['gisaid']),
+                             sequence_set=config['early_seqs']['gisaid']),
     output:
         alignment='results/early_sequences/full_alignment.fa',
         concat_early_seqs=temp('results/early_sequences/_concat_early_seqs.fa'),
@@ -444,7 +444,9 @@ rule early_seq_subs:
         alignment=rules.align_early_seqs.output.alignment,
         ref_genome=rules.get_ref_genome_fasta.output.fasta,
     output: csv='results/early_sequences/substitutions.csv'
-    params: region_of_interest=config['region_of_interest']
+    params:
+        region_of_interest=config['region_of_interest'],
+        props=config['early_seq_header_props']
     conda: 'environment.yml'
     script: 'scripts/early_seq_subs.py'
 
