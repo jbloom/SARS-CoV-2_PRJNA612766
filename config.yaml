@@ -92,6 +92,8 @@ who_china_report_last_date: 2020-01-05  # check seqs before this to be in report
 early_seqs_min_coverage: 0.9
 # remove if >= this many substitutions relative to reference
 early_seqs_max_subs: 18
+# remove if >= this many ambiguous nucleotides in alignment to reference
+early_seqs_max_ambiguous: 2500
 
 # only work with samples with fractional coverage >= this
 min_frac_coverage: 0.25

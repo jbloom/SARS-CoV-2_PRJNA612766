@@ -460,6 +460,7 @@ rule annotate_early_seq_subs:
         comparators=list(config['comparator_genomes']),
         min_coverage=config['early_seqs_min_coverage'],
         max_subs=config['early_seqs_max_subs'],
+        max_ambiguous=config['early_seqs_max_ambiguous'],
         who_china_report_cases_yaml=config['who_china_report_cases'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/annotate_early_seq_subs.ipynb'
