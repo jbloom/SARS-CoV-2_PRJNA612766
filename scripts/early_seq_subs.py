@@ -19,21 +19,17 @@ assert 1 <= start <= end <= length
 
 print(f"Reading aligned sequences from {snakemake.input.alignment}")
 iseq = 0
-data = {'strain': [],
-        'date': [],
-        'country': [],
-        'location': [],
-        'age': [],
-        'sex': [],
-        'gisaid_epi_isl': [],
-        'genbank_accession': [],
-        'n_gapped_to_ref': [],
-        'n_ident_to_ref': [],
-        'n_subs_to_ref': [],
-        'n_ambiguous_to_ref': [],
-        'frac_called_in_region_of_interest': [],
-        'substitutions': [],
-        }
+props = snakemake.params.props
+data = {prop: [] for prop in props}
+for addtl_prop in ['n_gapped_to_ref',
+                   'n_ident_to_ref',
+                   'n_subs_to_ref',
+                   'n_ambiguous_to_ref',
+                   'frac_called_in_region_of_interest',
+                   'substitutions',
+                   ]:
+    data[addtl_prop] = []
+
 for seq in Bio.SeqIO.parse(snakemake.input.alignment, 'fasta'):
     if iseq == 0:
         if seq.id == ref_genome.id and seq.seq == ref_genome.seq:
@@ -58,8 +54,7 @@ for seq in Bio.SeqIO.parse(snakemake.input.alignment, 'fasta'):
                                                        'n_subs_to_ref',
                                                        'n_ambiguous_to_ref'])
         data['substitutions'].append(','.join(subs))
-        strain, head_entries = seq.description.split(' ', 1)
-        data['strain'].append(strain)
+        head_entries = seq.description.split(' ', 1)[1]
         for entry in head_entries.split(', '):
             assert entry.count('=') == 1, seq.description
             key, val = entry.split('=')
