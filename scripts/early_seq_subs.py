@@ -32,14 +32,17 @@ for addtl_prop in ['n_gapped_to_ref',
 
 for seq in Bio.SeqIO.parse(snakemake.input.alignment, 'fasta'):
     if iseq == 0:
-        if seq.id == ref_genome.id and seq.seq == ref_genome.seq:
+        if seq.id == ref_genome.id and (str(seq.seq).upper() ==
+                                        str(ref_genome.seq).upper()):
             print('First sequence in alignment is reference, so skipping.')
+        else:
+            raise ValueError(f"First seq not ref:\n{seq}\nvs\n{ref_genome}")
     else:
         assert len(seq) == length
         seqstr = str(seq.seq).upper()
         data['frac_called_in_region_of_interest'].append(
                 sum(nt in {'A', 'C', 'G', 'T'} for nt in
-                    seq[start - 1: end]) / (end - start + 1))
+                    seqstr[start - 1: end]) / (end - start + 1))
         data['n_gapped_to_ref'].append(seqstr.count('-'))
         data['n_ident_to_ref'].append(sum(ref_nt == seq_nt for ref_nt, seq_nt
                                           in zip(ref_seqstr, seqstr)))
