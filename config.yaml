@@ -75,7 +75,7 @@ consensus_min_frac: 0.8  # require most common base > this fraction
 report_frac_coverage: [1, 2, 4, 10, 20, 50, 100]
 
 # -----------------------------------------------------------------
-# Parameters for final analysis
+# Parameters for analysis
 # -----------------------------------------------------------------
 # focus on spike through ORF10, which is region fully sequenced in:
 # https://www.medrxiv.org/content/10.1101/2020.03.04.20029538v1.full-text
@@ -85,6 +85,13 @@ region_of_interest:
 
 # sequences from WHO-China joint report
 who_china_report_cases: data/WHO_China_Report_Dec2019_cases.yaml
+who_china_report_last_date: 2020-01-05  # check seqs before this to be in report
+
+# filter early consensus (GISAID) sequences on these criteria
+# remove if alignment covers < this fraction of reference
+early_seqs_min_coverage: 0.9
+# remove if >= this many substitutions relative to reference
+early_seqs_max_subs: 18
 
 # only work with samples with fractional coverage >= this
 min_frac_coverage: 0.25
