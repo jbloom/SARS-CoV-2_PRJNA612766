@@ -458,6 +458,8 @@ rule annotate_early_seq_subs:
     output: csv='results/early_sequences/annotated_filtered_substitutions.csv'
     params:
         comparators=list(config['comparator_genomes']),
+        min_coverage=config['early_seqs_min_coverage'],
+        max_subs=config['early_seqs_max_subs'],
         who_china_report_cases_yaml=config['who_china_report_cases'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/annotate_early_seq_subs.ipynb'
