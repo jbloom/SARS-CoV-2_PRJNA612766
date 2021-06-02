@@ -455,13 +455,15 @@ rule annotate_early_seq_subs:
     input:
         subs_csv=rules.early_seq_subs.output.csv,
         comparator_map=rules.genome_comparator_map.output.site_map,
+        who_china_report_cases_yaml=config['who_china_report_cases'],
+        early_seqs_to_exclude_yaml=config['early_seqs_to_exclude'],
     output: csv='results/early_sequences/annotated_filtered_substitutions.csv'
     params:
         comparators=list(config['comparator_genomes']),
         min_coverage=config['early_seqs_min_coverage'],
         max_subs=config['early_seqs_max_subs'],
         max_ambiguous=config['early_seqs_max_ambiguous'],
-        who_china_report_cases_yaml=config['who_china_report_cases'],
+        who_china_report_last_date=config['who_china_report_last_date'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/annotate_early_seq_subs.ipynb'
     notebook: 'notebooks/annotate_early_seq_subs.py.ipynb'

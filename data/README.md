@@ -12,6 +12,8 @@ These are tracked.
 ## Annotations of early sequences
 - [WHO_China_Report_Dec2019_cases.yaml](WHO_China_Report_Dec2019_cases.yaml) defines the cases from patients with onset date before Dec-31-2019 as defined in Tables 6 and 7 of the [joint China-WHO COVID-19 origins study](https://www.who.int/publications/i/item/who-convened-global-study-of-origins-of-sars-cov-2-china-part). Then looks at these sequences and decides which ones to "collapse" to a single sequence (ones that report says are from same patient).
 
+- [seqs_to_exclude.yaml](seqs_to_exclude.yaml) defined sequences manually for exclusion based on various criteria explained in the file.
+
 ## Mutations extracted from GISAID data by Richard Neher
 
 The [gisaid_mutations](gisaid_mutations) subdirectory contains data on mutations relative to Wuhan-Hu-1 for all full-length sequences in GISAID, compiled and provided to me by Richard Neher on May-17-2021 (not sure when he scraped GISAID for it).
