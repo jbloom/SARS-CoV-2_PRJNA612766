@@ -1,5 +1,13 @@
 # Some literature notes
 
+- [Phylogenetic network analysis of SARS-CoV-2 genomes](https://doi.org/10.1073/pnas.2004999117): Makes network analysis, calls variant closest to RaTG13 "A" and notes it is separated into two groups at site 29095. More derived B lineage has T8782C and C28144T. They also define a C lineage that is mostly in Europe.
+
+- [Sampling bias and incorrect rooting make phylogenetic network tracing of SARS-COV-2 infections unreliable](https://www.pnas.org/content/117/23/12522): Criticizes phylogenetic networks paper: root makes no sense as not earliest Chinese strain are mostly not in group A.
+
+- [A dynamic nomenclature proposal for SARS-CoV-2 lineages to assist genomic epidemiology](https://www.nature.com/articles/s41564-020-0770-5): Defines lineage A and B, says A is probably ancestral due to RaTG13-like identities at 8782 and 28144.
+
+- [Assessing Uncertainty in the Rooting of the SARS-CoV-2 Phylogeny](https://academic.oup.com/mbe/article/38/4/1537/6028993): Points out problems in rooting of SARS-CoV-2 phylogeny: outgroup places root in clade A, but this isn't Wuhan clade. Molecular clock places in clade B, but this is not closest to outgroup. Also, uses some recombination masking for outgroups.
+
 - [Origins of the SARS-CoV-2 virus](https://www.who.int/health-topics/coronavirus/origins-of-the-virus): Joint WHO-China report. Page 46 says that the December 1 case of a 62 year old man (presumably the one in the Lancet article?) didn'tactually have COVID-19 on December 1, but rather had something else and later got COVID-19, and so was retrospectively re-classified as not being an early case. Page 48-49 says they also decided that there weren't any missed cases from October 1 to December 10. From all this, they conclude first case didn't become ill until December 8.
 
 Page 58 starts the molecular epidemiology section. Top of page 61 says an effort was made to aggregate all unpublished genomic data and identify additional samples for sequencing. Page 64 says the focus was on early sequences from December 2019 and January 2020, and they assembled all 768 sequences from prior to January-31-2020. Page 67 again describes searching for all SARS-CoV-2 or related genomic data up to 31 January 2020 (first two months it says). Notes how lineage A (also called S) shares 8782 and 28144 identities with RaTG13 and RmYN02, and the B (L) lineage (which contains Wuhan-Hu-1) does not have those shared identities. Table 6 lists strains from December 2019. Table 7 lists all sites of mutations relative to reference in early cases: 7866, 6968 + 11764, 24325, 24325, 4946 + 8782 + 28144, 12350 + 29019. They estimate (page 79) a TMRCA of Dec-11, with an interval of Nov 13 to Dec 23.
