@@ -2,4 +2,6 @@
 *.aux
 *.synctex.gz
 *.log
+*.bbl
+*.blg
 paper.pdf
