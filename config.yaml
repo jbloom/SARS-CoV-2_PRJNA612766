@@ -85,7 +85,7 @@ region_of_interest:
 
 # sequences from WHO-China joint report
 who_china_report_cases: data/WHO_China_Report_Dec2019_cases.yaml
-who_china_report_last_date: 2020-01-05  # check seqs before this to be in report
+who_china_report_last_date: 2020-01-02  # check seqs up to this date to be in report
 
 # filter early consensus (GISAID) sequences on these criteria
 # remove if alignment covers < this fraction of reference
@@ -93,7 +93,7 @@ early_seqs_min_coverage: 0.9
 # remove if >= this many substitutions relative to reference
 early_seqs_max_subs: 18
 # remove if >= this many ambiguous nucleotides in alignment to reference
-early_seqs_max_ambiguous: 2500
+early_seqs_max_ambiguous: 5000
 
 # only work with samples with fractional coverage >= this
 min_frac_coverage: 0.25
