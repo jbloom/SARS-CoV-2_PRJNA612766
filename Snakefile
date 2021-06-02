@@ -329,23 +329,6 @@ rule genome_comparator_map:
     script:
         'scripts/genome_comparator_map.py'
 
-rule annotate_gisaid_muts_by_comparators:
-    """Annotate GISAID mutations by comparator genomes."""
-    input:
-        comparator_map=rules.genome_comparator_map.output.site_map,
-        genome_fasta=rules.get_ref_genome_fasta.output.fasta,
-        gisaid_metadata='data/gisaid_mutations/metadata.tsv.gz',
-        gisaid_muts='data/gisaid_mutations/mut_summary.tsv.gz',
-    output:
-        annotated_muts='results/comparator_annotated_gisaid_muts/muts.csv.gz'
-    log:
-        notebook='results/logs/notebooks/annotate_gisaid_muts_by_comparators.py.ipynb'
-    params:
-        add_mutations=config['ref_genome']['add_mutations']        
-    conda: 'environment.yml'
-    notebook:
-        'notebooks/annotate_gisaid_muts_by_comparators.py.ipynb'
-
 rule analyze_pileups:
     """Analyze and plot BAM pileups per sample."""
     input:
@@ -473,7 +456,6 @@ rule integrated_analysis:
     input:
         seqs=rules.aggregate_consensus_seqs.output.csv,
         diffs=rules.aggregate_pileup_analysis.output.diffs_from_ref_stats,
-        gisaid_muts=rules.annotate_gisaid_muts_by_comparators.output.annotated_muts,
     output:
         'report'
     params:
@@ -482,7 +464,6 @@ rule integrated_analysis:
         patient_groups={s: d['patient_group'] for s, d in samples.items()},
         min_frac_coverage=config['min_frac_coverage'],
         comparator_genomes=list(config['comparator_genomes']),
-        gisaid_last_date=config['gisaid_last_date'],
     log: notebook='results/logs/notebooks/integrated_analysis.ipynb'
     conda: 'environment.yml'
     notebook: 'notebooks/integrated_analysis.py.ipynb'
