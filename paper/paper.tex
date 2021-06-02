@@ -35,46 +35,50 @@ Abstract here
 \section{Results}
 
 \subsection{Identification of a SARS-CoV-2 deep sequencing data set that has been removed from the NCBI's Sequence Read Archive}
-During the course of my research, I read a paper by \citet{farkas2020insights} that analyzed all SARS-CoV-2 Illumina sequencing data available as of late March 2020 from the Sequence Read Archive (SRA), which is a repository of deep sequencing data maintained by the NIH's National Center for Biotechnology Information (NCBI).
-The first supplementary table of \citet{farkas2020insights} lists all of the deep sequencing data sets available from the SRA as of March 30, 2020.
-This Excel table from \citet{farkas2020insights} is available through the journal \textit{PeerJ} at \url{https://peerj.com/articles/9255/#supp-2}, and I have digitally archived a copy in the Wayback Machine at \url{https://web.archive.org/web/20210502130356/https://dfzljdn9uc3pi.cloudfront.net/2020/9255/1/Supplementary_Table_1.xlsx}. 
+During the course of my research, I read a paper by \citet{farkas2020insights} that analyzed SARS-CoV-2 deep sequencing data from the Sequence Read Archive (SRA), which is a repository maintained by the NIH's National Center for Biotechnology Information (NCBI).
+The first supplementary table of \citet{farkas2020insights} lists all SARS-CoV-2 deep sequencing data sets available from the SRA as of March 30, 2020.
+This table is available in Excel format at \url{https://peerj.com/articles/9255/#supp-2}, and I have digitally archived a copy in the Wayback Machine at \url{https://web.archive.org/web/20210502130356/https://dfzljdn9uc3pi.cloudfront.net/2020/9255/1/Supplementary_Table_1.xlsx}. 
 
-Half of the entries in this table refer to a deep sequencing project (BioProject PRJNA612766) by Wuhan University that is described in the table as containing data from GridION sequencing of SARS-CoV-2 PCR amplicons.
-The table indicates that the project contains a total of 141 SRA accessions, each corresponding to a different sequencing run.
-Because I had never encountered any other mention of this deep sequencing project, I performed a Google search for ``PRJNA612766,'' and found no search hits other than the supplementary table itself.
-Searching for ``PRJNA612766'' in the NCBI's SRA search box was also unsuccessful, returning a message of ``No items found.''
+Half the entries in this table refer to a deep sequencing project (BioProject PRJNA612766) by Wuhan University that is described in the table as involving GridION sequencing of SARS-CoV-2 amplicons.
+The table indicates the project contains 141 SRA accessions, each corresponding to a different sequencing run.
+Because I had never encountered any other mention of this sequencing project, I performed a Google search for ``PRJNA612766,'' and found no search hits other than the supplementary table itself.
+Searching for ``PRJNA612766'' in the NCBI's SRA search box returned a message of ``No items found.''
 
 I then searched for individual sequencing run accessions in the NCBI's SRA search box.
 These searches returned messages indicating that sequencing runs had been removed (Figure~\ref{fig:acc_removed}).
 
-\begin{figure}[htbp!]
+\begin{figure}[]
 \centering
 \fbox{\includegraphics[trim={0.2in 0 0 9in},clip,width=\linewidth]{figures/acc_removed.png}}
-\caption{Searching for individual accessions from deleted deep sequencing project PRJNA612766 revealed they had been removed from the SRA.
+\caption{Accessions from deep sequencing project PRJNA612766 have been removed from the SRA.
 Shown is the result of searching for ``SRR11313485'' to reach the \url{https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11313485}.
 A copy of this result has been digitally archived on the Wayback Machine at \url{https://web.archive.org/web/20210502131630/https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11313485}.
 }%
 \label{fig:acc_removed}
 \end{figure}
 
+The SRA is designed to serve as a permanent archive of deep sequencing data.
+The SRA documentation states that after a sequencing run is uploaded, ``neither its files can be replaced nor filenames can be changed''~\citep{SRA_deletion}.
+The documentation states that data can only be deleted by directly e-mailing SRA staff with the reason for requesting the deletion~\citep{SRA_deletion}.
+An example of this process from another study is in Figure~\ref{fig:pangolin_emails}, which shows e-mails between NCBI staff and the lead author of a paper on pangolin coronaviruses to which the journal \textit{Nature} added an editor's note on November 11, 2020, due to concerns about the identity of the underlying samples~\citep{chan2020single}.
+
+\begin{figure}[]
+\centering
+\fbox{\includegraphics[trim={0.8in 0.8in 1.1in 1in},clip,width=\linewidth]{figures/pangolin_emails.jpg}}
+\caption{Example of the process used to delete SRA data.
+The image shows an excerpt of e-mail exchanges between the lead author of the pangolin coronavirus paper \citet{xiao2020isolation} and SRA staff.
+The full e-mails are available at \url{https://usrtk.org/wp-content/uploads/2020/12/NCBI-Emails.pdf}.
+}
+\label{fig:pangolin_emails}
+\end{figure}
+
+Taken together, these facts suggest that subsequent to March 30, 2020, someone must have submitted an e-mail request to the NCBI requesting deletion of the SARS-CoV-2 deep sequencing project PRJNA612766.
+
 \subsection{The deleted data set contains sequencing of viral samples collected early in the Wuhan outbreak}
 
 \subsection{Recovery of the data from the Google and Amazon clouds} 
 
 \section{Figures and Tables}
-
-\subsection{Sample Figure}
-
-Figure \ref{fig:spectrum} shows an example figure.
-
-\begin{figure}[htbp!]
-\centering
-\includegraphics[width=\linewidth]{example-figure}
-\caption{captions  
-}%
-\label{fig:spectrum}
-\end{figure}
-
 
 \subsection{Sample Table}
 
