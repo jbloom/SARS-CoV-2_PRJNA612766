@@ -1,6 +1,10 @@
 \documentclass[9pt,twocolumn,twoside]{gsajnl_modified}
 % Use the documentclass option 'lineno' to view line numbers
 
+\usepackage[htt]{hyphenat}  % https://tex.stackexchange.com/a/543
+
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
 \articletype{inv} 
 
 \title{Recovery of a deleted deep sequencing data set sheds new light on the early spread of SARS-CoV-2 in Wuhan}
@@ -65,7 +69,7 @@ An example of this process from another study is in Figure~\ref{fig:pangolin_ema
 \centering
 \fbox{\includegraphics[trim={0.8in 0.8in 1.1in 1in},clip,width=\linewidth]{figures/pangolin_emails.jpg}}
 \caption{Example of the process to delete SRA data.
-The image shows an excerpt of e-mails between the lead author of the pangolin coronavirus paper \citet{xiao2020isolation} and SRA staff.
+The image shows excerpted e-mails between the lead author of the pangolin coronavirus paper~\citep{xiao2020isolation} and SRA staff.
 The full e-mails are at \url{https://usrtk.org/wp-content/uploads/2020/12/NCBI-Emails.pdf}.
 }
 \label{fig:pangolin_emails}
@@ -73,14 +77,14 @@ The full e-mails are at \url{https://usrtk.org/wp-content/uploads/2020/12/NCBI-E
 
 Taken together, these facts indicate that subsequent to March 30, 2020, someone must have e-mailed the NCBI to reques deletion of the SARS-CoV-2 deep sequencing project PRJNA612766.
 
-\subsection{The deleted data set contains sequencing of viral samples collected early in the Wuhan outbreak}
-The metadata in the first supplementary table of \citet{farkas2020insights} indicates that the samples in the deleted project PRNJA612766 were collected by Aisu Fu and Renmin Hospital of Wuhan University.
+\subsection{The deleted data set contains sequencing of viral samples collected early in the Wuhan epidemic}
+The metadata in the first supplementary table of \citet{farkas2020insights} indicates that the samples in deleted project PRNJA612766 were collected by Aisu Fu and Renmin Hospital of Wuhan University.
 Google searching for these terms revealed the samples were related to a study posted as pre-print on \textit{medRxiv} in early March of 2020~\citep{Wang2020medRxiv}, and subsequently published in the journal \textit{Small} in June of 2020~\citep{Wang2020small}.
 
-The study describes an approach to diagnose infection with SARS-CoV-2 and other respiratory viruses by Oxford Nanopore sequencing.
+The study describes an approach to diagnose infection with SARS-CoV-2 and other respiratory viruses by nanopore sequencing.
 This approach involved reverse-transcription of total RNA from swab samples, followed by PCR with specific primers that generated amplicons covering portions of the viral genome.
-These amplicons were then sequenced on an Oxford Nanopore GridION, and infection with SARS-CoV-2 was diagnosed if the resulting sequencing yielded a sufficiently large number of reads aligning to the SARS-CoV-2 genome.
-Importantly, the study notes that this approach yields genetic information about the sequence of the virus as well enabling diagnosis of infection.
+These amplicons were then sequenced on an Oxford Nanopore GridION, and infection with SARS-CoV-2 was diagnosed if the resulting sequencing yielded a sufficient number of reads aligning to the SARS-CoV-2 genome.
+Importantly, the study notes that this approach yields information about the sequence of the virus as well enabling diagnosis of infection.
 
 The pre-print~\citep{Wang2020medRxiv} says the approach was applied to ``45 nasopharyngeal swab samples from outpatients with suspected COVID-19 early in the epidemic.''
 The digital object identifier (DOI) for the pre-print indicates that it was processed by \textit{medRxiv} on March 4, 2020, which is one day after China's State Council ordered that all papers related to COVID-19 must be approved by a centralized group to ensure that scientific publications were coordinated ``like moves in a game of chess''~\citep{Kang2020}.
@@ -98,9 +102,17 @@ The number of accessions is approximately twice the number of early epidemic sam
 
 Neither the pre-print~\citep{Wang2020medRxiv} or published manuscript~\citep{Wang2020small} contain any corrections or notes that indicate a scientific reason for deleting the study's sequencing data from the SRA.
 
-\subsection{Recovery of the deleted sequencing data from the Google cloud} 
+\subsection{Recovery of deleted sequencing data from the Google cloud} 
+As indicated in Figure~\ref{fig:acc_removed}, none of the deleted sequencing runs could be accessed through the SRA's web interface.
+In addition, none of the sequencing runs could be accessed using the command-line tools of the SRA toolkit.
+For instance, as of June 3, 2020, running the commands \texttt{fastq-dump SRR11313485} or \texttt{vdb-dump SRR11313485} both returned an error message stating ``err: query unauthorized while resolving query within virtual file system module - failed to resolve accession 'SRR11313395'``.
 
+However, the SRA has begun storing all data on the Google and Amazon clouds.
+While inspecting the SRA's data access web interface for other sequencing accessions, I noticed that the SRA files were often available from links to the cloud such as \texttt{https://storage.googleapis.com/nih-sequence-read-archive/run/<ACCESSION>/<ACCESSION>} where \texttt{<ACCESSION>} is the accession.
 
+Based on the hypothesis that deletion of sequencing runs by the SRA might not delete files stored on the cloud, I interpolated the cloud URLs for the deleted accessions and tested if they still yielded the SRA files.
+This approach was successful; for instance, as of June 3, 2020, going to \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485} downloads the SRA file for accession SRR11313485.
+I have digitally archived this URL on the Wayback Machine at \url{https://web.archive.org/web/20210502130820/https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485}.
 
 \bibliography{references}
 
