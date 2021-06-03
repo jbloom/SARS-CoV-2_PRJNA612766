@@ -104,15 +104,23 @@ Neither the pre-print~\citep{Wang2020medRxiv} or published manuscript~\citep{Wan
 
 \subsection{Recovery of deleted sequencing data from the Google cloud} 
 As indicated in Figure~\ref{fig:acc_removed}, none of the deleted sequencing runs could be accessed through the SRA's web interface.
-In addition, none of the sequencing runs could be accessed using the command-line tools of the SRA toolkit.
+In addition, none of the sequencing runs could be accessed using the command-line tools of the SRA Toolkit.
 For instance, as of June 3, 2020, running the commands \texttt{fastq-dump SRR11313485} or \texttt{vdb-dump SRR11313485} both returned an error message stating ``err: query unauthorized while resolving query within virtual file system module - failed to resolve accession 'SRR11313395'``.
 
 However, the SRA has begun storing all data on the Google and Amazon clouds.
 While inspecting the SRA's data access web interface for other sequencing accessions, I noticed that the SRA files were often available from links to the cloud such as \texttt{https://storage.googleapis.com/nih-sequence-read-archive/run/<ACCESSION>/<ACCESSION>} where \texttt{<ACCESSION>} is the accession.
 
 Based on the hypothesis that deletion of sequencing runs by the SRA might not delete files stored on the cloud, I interpolated the cloud URLs for the deleted accessions and tested if they still yielded the SRA files.
-This approach was successful; for instance, as of June 3, 2020, going to \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485} downloads the SRA file for accession SRR11313485.
+This strategy was successful; for instance, as of June 3, 2020, going to \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485} downloads the SRA file for accession SRR11313485.
 I have digitally archived this URL on the Wayback Machine at \url{https://web.archive.org/web/20210502130820/https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485}.
+
+I automated this strategy to download the SRA files for 97 of the 99 sequencing runs corresponding to the 34 of 45 early epidemic samples that were SARS-CoV-2 positive, as well as the 16 hospital samples from February (SRA files for SRR11313490 and SRR11313499 were not accessible via the cloud).
+These SRA files are available at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/tree/main/results/sra_downloads}.
+I used the SRA Toolkit to get the object timestamp (\texttt{vdb-dump -{}-obj\_timestamp}) and time (\texttt{vdb-dump -{}-info}) for each SRA file.
+For all files, the object timestamp is February 15, 2020, and the time is March 16, 2020.
+Although the SRA Toolkit does not clearly document the definition of these two properties, my \emph{guess} is that the object timestamp may refer to when the SRA file was created from a FASTQ file uploaded to the SRA, and the time may refer to when the accession was made public.
+
+\subsection{The data are sufficient to determine the viral sequence from the start of spike through the end of ORF10 for many samples}
 
 \bibliography{references}
 
