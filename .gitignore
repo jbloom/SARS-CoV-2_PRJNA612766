@@ -4,6 +4,10 @@ _*
 
 *.out
 
-results
+!results
+results/*
+!results/sra_downloads
+results/sra_downloads/*
+!results/sra_downloads/*.sra
 
 report.html
