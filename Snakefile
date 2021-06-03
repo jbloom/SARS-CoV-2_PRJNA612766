@@ -59,6 +59,7 @@ rule all:
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
         'results/early_sequences/annotated_filtered_substitutions.csv',
+        'results/sra_file_info.csv',
 #        'report'
 
 rule get_ref_genome_fasta:
@@ -126,6 +127,16 @@ rule download_sra:
             --temp {output.temp_dir}
         pigz -c -p {threads} {output.fastq_dir}/*.fastq > {output.fastq_gz}
         """
+
+rule sra_file_info:
+    """Get info for ``*.sra`` files using ``vdb-dump``."""
+    input:
+        sra_files=expand(rules.download_sra.output.sra_file,
+                         accession=[acc for d in samples.values()
+                                    for acc in d['accessions']])
+    output: csv='results/sra_file_info.csv'
+    conda: 'environment.yml'
+    script: 'scripts/sra_file_info.py'
 
 rule preprocess_fastq:
     """Pre-process the FASTQ files by trimming adaptors etc with ``fastp``."""
