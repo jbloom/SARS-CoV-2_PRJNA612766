@@ -54,6 +54,8 @@ rule all:
     input:
         expand("results/pileup/{sample}/interactive_pileup.html",
                sample=samples),
+        'results/pileup/coverage.html',
+        'results/pileup/coverage.pdf',
         'results/pileup/frac_coverage.csv',
         'results/pileup/frac_coverage.html',
         'results/pileup/diffs_from_ref.csv',
@@ -350,17 +352,32 @@ rule analyze_pileups:
         chart="results/pileup/{sample}/interactive_pileup.html",
         diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
         frac_coverage="results/pileup/{sample}/frac_coverage.csv",
+        pileup_csv="results/pileup/{sample}/samtools_pileup.csv",
     params:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],
         report_frac_coverage=config['report_frac_coverage'],
         descriptors=[{'aligner': aligner} for aligner in config['aligners']],
         chart_title="{sample}"
-    log:
-        notebook="results/logs/notebooks/analyze_pileups_{sample}.ipynb"
     conda: 'environment.yml'
-    notebook:
-        'notebooks/analyze_pileups.py.ipynb'
+    log: notebook="results/logs/notebooks/analyze_pileups_{sample}.ipynb"
+    notebook: 'notebooks/analyze_pileups.py.ipynb'
+
+rule plot_aggregate_pileup:
+    """Plot pileups across all samples."""
+    input:
+        pileup=expand(rules.analyze_pileups.output.pileup_csv,
+                      sample=samples),
+    output:
+        coverage_chart_html='results/pileup/coverage.html',
+        coverage_chart_pdf='results/pileup/coverage.pdf',
+    params:
+        samples=list(samples),
+        patient_groups=[d['patient_group'] for d in samples.values()],
+        region_of_interest=config['region_of_interest'],
+    conda: 'environment.yml'
+    log: notebook="results/logs/notebooks/plot_aggregate_pileup.ipynb"
+    notebook: 'notebooks/plot_aggregate_pileup.py.ipynb'
 
 rule aggregate_pileup_analysis:
     """Analyze viral deep sequencing aggregated across samples."""
