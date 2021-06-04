@@ -366,15 +366,18 @@ rule analyze_pileups:
 rule plot_aggregate_pileup:
     """Plot pileups across all samples."""
     input:
-        pileup=expand(rules.analyze_pileups.output.pileup_csv,
-                      sample=samples),
+        pileups=expand(rules.analyze_pileups.output.pileup_csv,
+                       sample=samples),
     output:
         coverage_chart_html='results/pileup/coverage.html',
         coverage_chart_pdf='results/pileup/coverage.pdf',
+        csv='results/pileup/samtools_pileup.csv',
     params:
         samples=list(samples),
         patient_groups=[d['patient_group'] for d in samples.values()],
         region_of_interest=config['region_of_interest'],
+        aligners=config['aligners'],
+        ref_name=config['ref_genome']['name'],
     conda: 'environment.yml'
     log: notebook="results/logs/notebooks/plot_aggregate_pileup.ipynb"
     notebook: 'notebooks/plot_aggregate_pileup.py.ipynb'

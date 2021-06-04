@@ -59,7 +59,9 @@ early_seq_header_props:
 # short-read aligners to use
 aligners:
   - minimap2
-  - bwa-mem2
+# since they give similar results, for now just minimap2 for smaller
+# output files
+#  - bwa-mem2
 
 # in pileups, only consider sites where Q score >= this;
 # also used for `fastp` preprocessing and `ivar` variant calling
@@ -255,66 +257,66 @@ samples_wget:
   R01:
     accessions: ['SRR11313409', 'SRR11313410']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R02:
     accessions: ['SRR11313406', 'SRR11313408']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R03:
     accessions: ['SRR11313269', 'SRR11313471']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R04:
     accessions: ['SRR11313509']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R05:
     accessions: ['SRR11313507', 'SRR11313508']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R06:
     accessions: ['SRR11313505', 'SRR11313506']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R07:
     accessions: ['SRR11313503', 'SRR11313504']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R08:
     accessions: ['SRR11313500', 'SRR11313502']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R09:
 # sample SRR11313499 cannot be downloaded even using wget
 #    accessions: ['SRR11313498', 'SRR11313499']
     accessions: ['SRR11313498']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R10:
     accessions: ['SRR11313496', 'SRR11313497']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R11:
     accessions: ['SRR11313494', 'SRR11313495']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R12:
     accessions: ['SRR11313492', 'SRR11313493']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R13:
     accessions: ['SRR11313489', 'SRR11313491']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R14:
     accessions: ['SRR11313487', 'SRR11313488']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R15:
     accessions: ['SRR11313485', 'SRR11313486']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
   R16:
     accessions: ['SRR11313483', 'SRR11313484']
     collected_by: Renmin Hospital of Wuhan University
-    patient_group: February hospitalized patient
+    patient_group: hospital patient (Feb)
