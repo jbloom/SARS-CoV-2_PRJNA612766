@@ -52,12 +52,11 @@ def comparator_fastas(wc):
 
 rule all:
     input:
-        expand("results/pileup/{sample}/interactive_pileup.html",
-               sample=samples),
-        'results/pileup/coverage.html',
-        'results/pileup/coverage.pdf',
-        'results/pileup/frac_coverage.csv',
-        'results/pileup/frac_coverage.html',
+        'results/pileup/coverage_all.html',
+        'results/pileup/coverage_all.pdf',
+        'results/pileup/coverage_region.html',
+        'results/pileup/coverage_region.pdf',
+        'results/pileup/samtools_pileup.csv',
         'results/pileup/diffs_from_ref.csv',
         'results/pileup/diffs_from_ref.html',
         'results/early_sequences/annotated_filtered_substitutions.csv',
@@ -369,8 +368,10 @@ rule plot_aggregate_pileup:
         pileups=expand(rules.analyze_pileups.output.pileup_csv,
                        sample=samples),
     output:
-        coverage_chart_html='results/pileup/coverage.html',
-        coverage_chart_pdf='results/pileup/coverage.pdf',
+        chart_all_html='results/pileup/coverage_all.html',
+        chart_all_pdf='results/pileup/coverage_all.pdf',
+        chart_region_html='results/pileup/coverage_region.html',
+        chart_region_pdf='results/pileup/coverage_region.pdf',
         csv='results/pileup/samtools_pileup.csv',
     params:
         samples=list(samples),
@@ -378,6 +379,7 @@ rule plot_aggregate_pileup:
         region_of_interest=config['region_of_interest'],
         aligners=config['aligners'],
         ref_name=config['ref_genome']['name'],
+        consensus_min_coverage=config['consensus_min_coverage'],
     conda: 'environment.yml'
     log: notebook="results/logs/notebooks/plot_aggregate_pileup.ipynb"
     notebook: 'notebooks/plot_aggregate_pileup.py.ipynb'
