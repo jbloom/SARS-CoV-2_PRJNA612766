@@ -22,16 +22,15 @@ ref_genome:
 # Note RaTG13 has highest overall identity, but according to
 # https://www.biorxiv.org/content/10.1101/2021.01.22.427830v3.full,
 # it is RmYN02, PrC31, and RpYN06 that are closest relatives after
-# accounting for recombination.
+# accounting for recombination. Of these, we use RpYN06 and RmYN02,
+# which have higher identity overall.
 comparator_genomes:
   RaTG13:
     gisaid: EPI_ISL_402131
-  RmYN02:
-    gisaid: EPI_ISL_412977
-  PrC31:
-    gisaid: EPI_ISL_1098866
   RpYN06:
     gisaid: EPI_ISL_1699446
+  RmYN02:
+    gisaid: EPI_ISL_412977
 # directories with GISAID augur format downloads of comparator genomes
 gisaid_comparator_dirs:
   - data/comparator_genomes_gisaid
