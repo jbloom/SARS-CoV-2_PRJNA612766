@@ -25,6 +25,7 @@ for addtl_prop in ['n_gapped_to_ref',
                    'n_ident_to_ref',
                    'n_subs_to_ref',
                    'n_ambiguous_to_ref',
+                   'frac_called',
                    'frac_called_in_region_of_interest',
                    'substitutions',
                    ]:
@@ -40,6 +41,9 @@ for seq in Bio.SeqIO.parse(snakemake.input.alignment, 'fasta'):
     else:
         assert len(seq) == length
         seqstr = str(seq.seq).upper()
+        data['frac_called'].append(
+                sum(nt in {'A', 'C', 'G', 'T'} for nt in seqstr)
+                / length)
         data['frac_called_in_region_of_interest'].append(
                 sum(nt in {'A', 'C', 'G', 'T'} for nt in
                     seqstr[start - 1: end]) / (end - start + 1))
