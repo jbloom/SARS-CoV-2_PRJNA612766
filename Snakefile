@@ -483,6 +483,7 @@ rule annotate_early_seq_subs:
         max_subs=config['early_seqs_max_subs'],
         max_ambiguous=config['early_seqs_max_ambiguous'],
         max_date=config['early_seqs_max_date'],
+        filter_runs=config['early_seqs_filter_runs'],
         who_china_report_last_date=config['who_china_report_last_date'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/annotate_early_seq_subs.ipynb'
