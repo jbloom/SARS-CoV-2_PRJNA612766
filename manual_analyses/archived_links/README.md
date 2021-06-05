@@ -39,3 +39,5 @@
     - Submissions cannot be modified, and can only be deleted by e-mailing SRA staff: https://www.ncbi.nlm.nih.gov/sra/docs/submitquestions/
 
     - More description of how runs cannot be replaced and filenames cannot be changed is here, along with more details on how deletion requires contacting SRA staff: https://www.ncbi.nlm.nih.gov/sra/docs/submitupdate/#how-do-i-withdraw-sra-data
+
+- Example of less suspicious deletion. SRR12833814 has also been removed (https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR12833814) archived here (https://web.archive.org/web/20210605133945/https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR12833814). Based on nearby accessions, this appears to be from the Chan-Zuckerburg sequencing.
