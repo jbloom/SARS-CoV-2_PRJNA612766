@@ -96,10 +96,16 @@ early_seqs_to_exclude: data/seqs_to_exclude.yaml
 # as there seem to be a lot called strings of mutations near termini
 early_seqs_ignore_muts_before: 29
 early_seqs_ignore_muts_after: 29831
+# filter sequences with mutation runs (after doing above filtering
+# on termini), so that any sequence with `n_muts` or more mutations
+# in a span of `span` nucleotides is filtered
+early_seqs_filter_runs:
+  n_muts: 4
+  span: 10
 # remove if alignment covers < this fraction of reference
 early_seqs_min_coverage: 0.9
 # remove if >= this many substitutions relative to reference
-early_seqs_max_subs: 18
+early_seqs_max_subs: 15
 # remove if >= this many ambiguous nucleotides in alignment to reference
 early_seqs_max_ambiguous: 5000
 # remove sequences collected after this date
