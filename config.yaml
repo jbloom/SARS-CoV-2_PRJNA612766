@@ -99,6 +99,8 @@ early_seqs_min_coverage: 0.9
 early_seqs_max_subs: 18
 # remove if >= this many ambiguous nucleotides in alignment to reference
 early_seqs_max_ambiguous: 5000
+# remove sequences collected after this date
+early_seqs_max_date: 2020-02-28
 
 # only work with samples with fractional coverage >= this
 min_frac_coverage: 0.25
