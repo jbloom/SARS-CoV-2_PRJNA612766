@@ -61,6 +61,7 @@ rule all:
         'results/pileup/diffs_from_ref.html',
         'results/early_sequences/annotated_filtered_substitutions.csv',
         'results/sra_file_info.csv',
+        'outgroup_dist_results',
 #        'report'
 
 rule get_ref_genome_fasta:
@@ -334,7 +335,7 @@ rule genome_comparator_map:
     input:
         alignment=rules.genome_comparator_alignment.output.alignment
     output:
-        site_map="results/genome_to_comparator/site_identity_map.csv"
+        site_map='results/genome_to_comparator/site_identity_map.csv'
     params:
         comparators=list(config['comparator_genomes'])
     conda: 'environment.yml'
@@ -479,10 +480,26 @@ rule annotate_early_seq_subs:
         min_coverage=config['early_seqs_min_coverage'],
         max_subs=config['early_seqs_max_subs'],
         max_ambiguous=config['early_seqs_max_ambiguous'],
+        max_date=config['early_seqs_max_date'],
         who_china_report_last_date=config['who_china_report_last_date'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/annotate_early_seq_subs.ipynb'
     notebook: 'notebooks/annotate_early_seq_subs.py.ipynb'
+
+rule outgroup_dist_analysis:
+    """Analyze distances to comparator outgroups."""
+    input:
+        early_seq_subs=rules.annotate_early_seq_subs.output.csv,
+        early_seq_alignment=rules.align_early_seqs.output.alignment,
+        comparator_map=rules.genome_comparator_map.output.site_map,
+    output:
+        'outgroup_dist_results'
+    params:
+        region_of_interest=config['region_of_interest'],
+        comparators=list(config['comparator_genomes']),
+    conda: 'environment.yml'
+    log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
+    notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
 
 rule integrated_analysis:
     """Integrated final analysis of data."""
