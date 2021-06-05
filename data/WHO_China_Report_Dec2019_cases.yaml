@@ -1,24 +1,31 @@
 # Keyed by Table 7 of joint China-WHO report, with strain names from Table 6
 # Used to check all samples found, and collapse clearly redundant sequences.
+# The sequences indicated in Table 6 as from the Huanan seafood market are indicated as such.
+# Annex E4
+# Chowdhury SD, Oommen AM. Epidemiology of COVID-19. J Digest Endosc 2020; 11:3-7.
 pre_2020_seqs:
   S01:
     gisaid: EPI_ISL_403928
     strain:
       - Wuhan/IPBCAMS-WH-05/2020
     date: 2020-01-01
+    huanan_market: false
   S02:
     gisaid: EPI_ISL_402123
     strain:
       - Wuhan/IPBCAMS-WH-01/2019
     date: 2019-12-14
+    huanan_market: true
   S03:
     gisaid: EPI_ISL_406798
     strain:
       - Wuhan/WH01/2019
     date: 2019-12-26
+    huanan_market: true
   S04:
     id: NMDC60013002-06
     date: 2019-12-30
+    huanan_market: true
     strain:
       - Wuhan/WH19008/2019
       - WIV02
@@ -31,6 +38,7 @@ pre_2020_seqs:
   S05:
     gisaid: EPI_ISL_403929
     date: 2019-12-30 
+    huanan_market: true
     strain:
       - Wuhan/IPBCAMS-WH-04/2019
       - Wuhan/WH19004/2020
@@ -41,11 +49,13 @@ pre_2020_seqs:
     strain:
       - Wuhan/Hu-1
     date: 2019-12-30
+    huanan_market: true
   S07:
     genbank: MN988668
     strain:
       - WHU01
     date: 2020-01-02
+    huanan_market: true
   S08:
     gisaid: EPI_ISL_529216
     strain:
@@ -55,6 +65,7 @@ pre_2020_seqs:
       # only keep this strain, which has mutations WHO China report say are legit
       - Wuhan/IME-WH04/2019
     date: 2019-12-30
+    huanan_market: true
   S09:
     gisaid: EPI_ISL_406800
     strain:
@@ -64,6 +75,7 @@ pre_2020_seqs:
       # The two are identical, pick this as representative.
       - Wuhan/WH03/2020
     date: 2020-01-02
+    huanan_market: true
   S10:
     id: GWHABKG00000001
     strain:
@@ -72,7 +84,9 @@ pre_2020_seqs:
       - Wuhan/WH19001/2019
       - WIV04
       - Wuhan/IVDC-HB-01/2019
+      - Wuhan/HBCDC-HB-01/2019  # from same hospital as WIV04 and same sex, age, and date
     date: 2019-12-30
+    huanan_market: true
     collapse_to:
       # all are identical, and this is a good representative
       - hCoV-19/Wuhan/WIV04/2019
@@ -83,6 +97,7 @@ pre_2020_seqs:
       - WIV05
       - Wuhan/IME-WH05/2019
     date: 2019-12-30
+    huanan_market: true
     collapse_to:
       # WIV05 appears the same as IME-WH05 after removing mutations WHO China report says are wrong.
       # But the other two are patients of different ages / genders
@@ -94,6 +109,7 @@ pre_2020_seqs:
       - WIV06
       - Wuhan/IME-WH03/2019
     date: 2019-12-30
+    huanan_market: true
     collapse_to:
       # keep the less mutated of these two report says are same
       - WIV06
@@ -102,3 +118,7 @@ pre_2020_seqs:
     strain:
       - Wuhan/IME-WH01/2019
     date: 2019-12-30
+    huanan_market: false
+
+other_huanan_market_strains:
+  hCoV-19/Wuhan/IVDC-HB-05/2019: market related according to https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7092803/
