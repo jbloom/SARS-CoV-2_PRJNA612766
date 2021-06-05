@@ -43,11 +43,10 @@ During the course of my research, I read a paper by \citet{farkas2020insights} t
 The first supplementary table of \citet{farkas2020insights} lists all SARS-CoV-2 deep sequencing data sets available from the SRA as of March 30, 2020.
 I have digitally archived a copy of this table in the Wayback Machine at \url{https://web.archive.org/web/20210502130356/https://dfzljdn9uc3pi.cloudfront.net/2020/9255/1/Supplementary_Table_1.xlsx}. 
 
-Half the entries in this table refer to a deep sequencing project (BioProject PRJNA612766) by Wuhan University that is described in the table as nanopore sequencing of SARS-CoV-2 amplicons.
-The table indicates this project contains 141 SRA accessions, each corresponding to a different sequencing run.
+The majority the entries in this table refer to a deep sequencing project (BioProject PRJNA612766) by Wuhan University that is described as nanopore sequencing of SARS-CoV-2 amplicons.
+The table indicates this project represents 241 of the 282 SARS-CoV-2 sequencing run accessions in the SRA as of March, 30, 2020.
 Because I had never encountered any other mention of this sequencing project, I performed a Google search for ``PRJNA612766,'' and found no search hits other than the supplementary table itself.
 Searching for ``PRJNA612766'' in the NCBI's SRA search box returned a message of ``No items found.''
-
 I then searched for individual sequencing run accessions in the NCBI's SRA search box.
 These searches returned messages indicating that sequencing runs had been removed (Figure~\ref{fig:acc_removed}).
 
@@ -61,7 +60,7 @@ A copy of this result has been digitally archived on the Wayback Machine at \url
 \label{fig:acc_removed}
 \end{figure}
 
-The SRA is designed to serve as a permanent archive of deep sequencing data.
+The SRA is designed as a permanent archive of deep sequencing data.
 The SRA documentation states that after a sequencing run is uploaded, ``neither its files can be replaced nor filenames can be changed,'' and that data can only be deleted by e-mailing SRA staff with the reason for requesting the deletion~\citep{SRA_deletion}.
 An example of this process from another study is in Figure~\ref{fig:pangolin_emails}, which shows e-mails between NCBI staff and the lead author of a paper on pangolin coronaviruses~\citep{xiao2020isolation}.
 
@@ -79,50 +78,51 @@ Taken together, these facts indicate that subsequent to March 30, 2020, someone 
 
 \subsection{The deleted data set contains sequencing of viral samples collected early in the Wuhan epidemic}
 The metadata in the first supplementary table of \citet{farkas2020insights} indicates that the samples in deleted project PRNJA612766 were collected by Aisu Fu and Renmin Hospital of Wuhan University.
-Google searching for these terms revealed the samples were related to a study posted as pre-print on \textit{medRxiv} in early March of 2020~\citep{Wang2020medRxiv}, and subsequently published in the journal \textit{Small} in June of 2020~\citep{Wang2020small}.
+Google searching for these terms revealed the samples were related to a study posted as a pre-print on \textit{medRxiv} in early March of 2020~\citep{wang2020medRxiv}, and subsequently published in the journal \textit{Small} in June of 2020~\citep{wang2020small}.
 
 The study describes an approach to diagnose infection with SARS-CoV-2 and other respiratory viruses by nanopore sequencing.
 This approach involved reverse-transcription of total RNA from swab samples, followed by PCR with specific primers that generated amplicons covering portions of the viral genome.
-These amplicons were then sequenced on an Oxford Nanopore GridION, and infection with SARS-CoV-2 was diagnosed if the resulting sequencing yielded a sufficient number of reads aligning to the SARS-CoV-2 genome.
+These amplicons were then sequenced on an Oxford Nanopore GridION, and infection with SARS-CoV-2 was diagnosed if the sequencing yielded a sufficient number of reads aligning to the SARS-CoV-2 genome.
 Importantly, the study notes that this approach yields information about the sequence of the virus as well enabling diagnosis of infection.
 
-The pre-print~\citep{Wang2020medRxiv} says the approach was applied to ``45 nasopharyngeal swab samples from outpatients with suspected COVID-19 early in the epidemic.''
+The pre-print~\citep{wang2020medRxiv} says the approach was applied to ``45 nasopharyngeal swab samples from outpatients with suspected COVID-19 early in the epidemic.''
 The digital object identifier (DOI) for the pre-print indicates that it was processed by \textit{medRxiv} on March 4, 2020, which is one day after China's State Council ordered that all papers related to COVID-19 must be approved by a centralized group to ensure that scientific publications were coordinated ``like moves in a game of chess''~\citep{Kang2020}.
-The final published manuscript~\citep{Wang2020small} updated the description of these 45 samples to say that they were obtained ``early in the epidemic (January 2020).''
+The final published manuscript~\citep{wang2020small} from June of 2020 updated the description from ``early in the epidemic'' to ``early in the epidemic (January 2020).''
 Both the pre-print and published manuscript say that 34 of the 45 early epidemic samples were positive in the sequencing-based diagnostic approach.
-In addition, they both state that the approach was then later applied to 16 additional samples collected on February 11 and 12 of 2020 from SARS-CoV-2 patients hospitalized at Renmin Hospital of Wuhan University.
+In addition, they both state that the approach was later applied to 16 additional samples collected on February 11 and 12 of 2020 from SARS-CoV-2 patients hospitalized at Renmin Hospital of Wuhan University.
 
-There is complete concordance between the deep sequencing accessions for project PRJNA612766 in the supplementary table of \citet{farkas2020insights} and the biological samples described by \citet{Wang2020medRxiv}.
+There is complete concordance between the accessions for project PRJNA612766 in the supplementary table of \citet{farkas2020insights} and the biological samples described by \citet{wang2020medRxiv}.
 There are 89 accessions corresponding to the 45 early epidemic samples, with these samples named like wells in a 96-well plate (A1, A2, etc).
 The number of accessions is approximately twice the number of early epidemic samples because each sample has data for two nanopore sequencing runtimes except one sample (B5) with just one runtime.
- There are 31 sequencing accessions corresponding to the 16 samples collected in February from Renmin Hospital patients, with these samples named R01, R02, etc.
- Again, all but one sample (R04) has data for two different sequencing runtimes.
+ There are 31 accessions corresponding to the 16 samples collected in February from Renmin Hospital patients, with these samples named R01, R02, etc.
+ Again, all but one sample (R04) have data for two different sequencing runtimes.
  In addition, there are 7 accessions corresponding to positive and negative controls, 2 accessions corresponding to other respiratory virus samples, and 112 samples corresponding to plasmids used for development and benchmarking of the approach.
  Together, these samples and controls account for all 241 accessions listed for PRJNA612766 in the supplementary table of \citet{farkas2020insights}.
 
-Neither the pre-print~\citep{Wang2020medRxiv} or published manuscript~\citep{Wang2020small} contain any corrections or notes that indicate a scientific reason for deleting the study's sequencing data from the SRA.
+Neither the pre-print~\citep{wang2020medRxiv} or published manuscript~\citep{wang2020small} contain any corrections or notes that indicate a scientific reason for deleting the study's sequencing data from the SRA.
 
 \subsection{Recovery of deleted sequencing data from the Google cloud} 
 As indicated in Figure~\ref{fig:acc_removed}, none of the deleted sequencing runs could be accessed through the SRA's web interface.
-In addition, none of the sequencing runs could be accessed using the command-line tools of the SRA Toolkit.
+In addition, none of the runs could be accessed using the command-line tools of the SRA Toolkit.
 For instance, as of June 3, 2020, running the commands \texttt{fastq-dump SRR11313485} or \texttt{vdb-dump SRR11313485} both returned an error message stating ``err: query unauthorized while resolving query within virtual file system module - failed to resolve accession 'SRR11313395'``.
 
 However, the SRA has begun storing all data on the Google and Amazon clouds.
-While inspecting the SRA's web interface for other sequencing accessions, I noticed that SRA files are often available from links to the cloud such as \texttt{https://storage.googleapis.com/nih-sequence-read-archive/run/<ACCESSION>/<ACCESSION>} where \texttt{<ACCESSION>}.
+While inspecting the SRA's web interface for other sequencing accessions, I noticed that SRA files are often available from links to the cloud such as \texttt{https://storage.googleapis.com/nih-sequence-read-archive/run/<ACCESSION>/<ACCESSION>}.
 
 Based on the hypothesis that deletion of sequencing runs by the SRA might not remove files stored on the cloud, I interpolated the cloud URLs for the deleted accessions and tested if they still yielded the SRA files.
 This strategy was successful; for instance, as of June 3, 2020, going to \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485} downloads the SRA file for accession SRR11313485.
 I have archived this URL on the Wayback Machine at \url{https://web.archive.org/web/20210502130820/https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485}.
 
-I automated this strategy to download the SRA files for 97 of the 99 sequencing runs corresponding to the 34 of 45 early epidemic samples that were SARS-CoV-2 positive, as well as the 16 hospital samples from February (SRA files for SRR11313490 and SRR11313499 were not accessible via the cloud).
+I automated this strategy to download the SRA files for 97 of the 99 sequencing runs corresponding to the 34 SARS-CoV-2 positive early epidemic samples and the 16 hospital samples from February (files for SRR11313490 and SRR11313499 were not accessible via the cloud).
 These SRA files are available at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/tree/main/results/sra_downloads}.
 I used the SRA Toolkit to get the object timestamp (\texttt{vdb-dump -{}-obj\_timestamp}) and time (\texttt{vdb-dump -{}-info}) for each SRA file.
 For all files, the object timestamp is February 15, 2020, and the time is March 16, 2020.
-Although the SRA Toolkit does not clearly document the definition of these two properties, my \emph{guess} is that the object timestamp may refer to when the SRA file was created from a FASTQ file uploaded to the SRA, and the time may refer to when the accession was made public.
+Although the SRA Toolkit does not clearly document these two properties, my \emph{guess} is that the object timestamp may refer to when the SRA file was created from a FASTQ file uploaded to the SRA, and the time may refer to when the accession was made public.
 
 \subsection{The data are sufficient to determine the viral sequence from the start of spike through the end of ORF10 for many samples}
-I aligned the recovered deep sequencing data to the SARS-CoV-2 genome, pooling the data when there were multiple accessions for a single biological sample (this was usually the case as most samples were sequenced using two runtimes as described above).
-Figure~\ref{fig:coverage} shows the sequencing coverage over the genome for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples.
+The approach described by \citet{wang2020medRxiv} involved sequencing PCR amplicons covering nucleotide sites 21,563 to 29,674 of the SARS-CoV-2 genome, which spans from the start of the spike gene to the end of ORF10.
+The approach also involved sequencing a short amplicon generated by nested PCR that covered a fragment of ORF1ab spanning sites $\sim$15,080 to 15,550.
+In this paper, I focus on the region from 21,563 to 29,674 because this is a much longer contiguous sequence and because the amplicons were generated by a single rather than nested PCR, which reduces the risk of PCR artifacts.
 
 \begin{figure*}[]
 \centering
@@ -136,6 +136,9 @@ A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in 
 }
 \label{fig:coverage}
 \end{figure*}
+
+I aligned the recovered deep sequencing data to the SARS-CoV-2 genome, combining accessions for the same biological sample.
+Figure~\ref{fig:coverage} plots the sequencing coverage over the region of interest for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples; a comparable plot for the whole genome is in Supplementary Figure~S\ref{suppfig:coverage_all}.
 
 \bibliography{references}
 
@@ -152,7 +155,7 @@ A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in 
 \caption{A version of Figure~\ref{fig:coverage} that shows coverage over the full length of the SARS-CoV-2 genome.
 An interactive version of this plot is at {\color{red} add link}.
 }
-\label{suppfigfig:coverage_all}
+\label{suppfig:coverage_all}
 \end{figure}
 
 
