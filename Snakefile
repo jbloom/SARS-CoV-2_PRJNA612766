@@ -463,7 +463,9 @@ rule early_seq_subs:
     output: csv='results/early_sequences/substitutions.csv'
     params:
         region_of_interest=config['region_of_interest'],
-        props=config['early_seq_header_props']
+        props=config['early_seq_header_props'],
+        ignore_muts_before=config['early_seqs_ignore_muts_before'],
+        ignore_muts_after=config['early_seqs_ignore_muts_after'],
     conda: 'environment.yml'
     script: 'scripts/early_seq_subs.py'
 

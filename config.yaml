@@ -92,6 +92,10 @@ who_china_report_last_date: 2020-01-02  # check seqs up to this date to be in re
 early_seqs_to_exclude: data/seqs_to_exclude.yaml
 
 # filter early consensus (GISAID) sequences on these criteria
+# ignore mutations before or after this site in the reference,
+# as there seem to be a lot called strings of mutations near termini
+early_seqs_ignore_muts_before: 29
+early_seqs_ignore_muts_after: 29831
 # remove if alignment covers < this fraction of reference
 early_seqs_min_coverage: 0.9
 # remove if >= this many substitutions relative to reference

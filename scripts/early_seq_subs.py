@@ -31,6 +31,10 @@ for addtl_prop in ['n_gapped_to_ref',
                    ]:
     data[addtl_prop] = []
 
+ignore_muts_before = snakemake.params.ignore_muts_before
+ignore_muts_after = snakemake.params.ignore_muts_after
+print(f"Ignoring substitutions before {ignore_muts_before} or after {ignore_muts_after}")
+
 for seq in Bio.SeqIO.parse(snakemake.input.alignment, 'fasta'):
     if iseq == 0:
         if seq.id == ref_genome.id and (str(seq.seq).upper() ==
@@ -54,12 +58,10 @@ for seq in Bio.SeqIO.parse(snakemake.input.alignment, 'fasta'):
                                               for nt in seqstr))
         subs = [f"{ref_nt}{site}{seq_nt}" for site, (ref_nt, seq_nt)
                 in enumerate(zip(ref_seqstr, seqstr), start=1)
-                if ref_nt != seq_nt and seq_nt in ['A', 'C', 'G', 'T']]
+                if ref_nt != seq_nt and seq_nt in ['A', 'C', 'G', 'T']
+                and (ignore_muts_before <= site <= ignore_muts_after)
+                ]
         data['n_subs_to_ref'].append(len(subs))
-        assert length == sum(data[key][-1] for key in ['n_gapped_to_ref',
-                                                       'n_ident_to_ref',
-                                                       'n_subs_to_ref',
-                                                       'n_ambiguous_to_ref'])
         data['substitutions'].append(','.join(subs))
         head_entries = seq.description.split(' ', 1)[1]
         for entry in head_entries.split(', '):
