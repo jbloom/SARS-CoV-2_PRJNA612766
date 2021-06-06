@@ -351,12 +351,11 @@ rule analyze_pileups:
     output:
         chart="results/pileup/{sample}/interactive_pileup.html",
         diffs_from_ref="results/pileup/{sample}/diffs_from_ref.csv",
-        frac_coverage="results/pileup/{sample}/frac_coverage.csv",
         pileup_csv="results/pileup/{sample}/samtools_pileup.csv",
     params:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],
-        report_frac_coverage=config['report_frac_coverage'],
+        min_coverage=config['consensus_min_coverage'],
         descriptors=[{'aligner': aligner} for aligner in config['aligners']],
         chart_title="{sample}"
     conda: 'environment.yml'
@@ -385,26 +384,20 @@ rule plot_aggregate_pileup:
     log: notebook="results/logs/notebooks/plot_aggregate_pileup.ipynb"
     notebook: 'notebooks/plot_aggregate_pileup.py.ipynb'
 
-rule aggregate_pileup_analysis:
-    """Analyze viral deep sequencing aggregated across samples."""
+rule diffs_from_ref:
+    """Analyze differences from reference aggregated across deep sequencing samples."""
     input:
         diffs_from_ref=expand(rules.analyze_pileups.output.diffs_from_ref,
                               sample=samples),
-        frac_coverage=expand(rules.analyze_pileups.output.frac_coverage,
-                             sample=samples),
         comparator_map=rules.genome_comparator_map.output.site_map,
     output:
-        frac_coverage_stats='results/pileup/frac_coverage.csv',
-        frac_coverage_chart='results/pileup/frac_coverage.html',
         diffs_from_ref_stats='results/pileup/diffs_from_ref.csv',
         diffs_from_ref_chart='results/pileup/diffs_from_ref.html',
     params:
         samples=list(samples),
     conda: 'environment.yml'
-    log:
-        notebook='results/logs/notebooks/aggregate_pileup_analysis.ipynb'
-    notebook:
-        'notebooks/aggregate_pileup_analysis.py.ipynb'
+    log: notebook='results/logs/notebooks/diffs_from_ref.ipynb'
+    notebook: 'notebooks/diffs_from_ref.py.ipynb'
 
 rule aggregate_consensus_seqs:
     """Aggregate the consensus sequences from the pileup."""
@@ -495,11 +488,14 @@ rule outgroup_dist_analysis:
         early_seq_subs=rules.annotate_early_seq_subs.output.csv,
         early_seq_alignment=rules.align_early_seqs.output.alignment,
         comparator_map=rules.genome_comparator_map.output.site_map,
+        deleted_diffs=rules.diffs_from_ref.output.diffs_from_ref_stats,
+        deleted_consensus=rules.aggregate_consensus_seqs.output.csv,
     output:
         'outgroup_dist_results'
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
+        min_frac_coverage=config['min_frac_coverage'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
@@ -508,7 +504,7 @@ rule integrated_analysis:
     """Integrated final analysis of data."""
     input:
         seqs=rules.aggregate_consensus_seqs.output.csv,
-        diffs=rules.aggregate_pileup_analysis.output.diffs_from_ref_stats,
+        diffs=rules.diffs_from_ref.output.diffs_from_ref_stats,
     output:
         'report'
     params:
