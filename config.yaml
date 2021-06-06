@@ -78,8 +78,8 @@ consensus_min_frac: 0.8  # require most common base > this fraction
 # focus on spike through ORF10, which is region fully sequenced in:
 # https://www.medrxiv.org/content/10.1101/2020.03.04.20029538v1.full-text
 region_of_interest:
-  start: 21563
-  end: 29674
+  start: 21570  # sequenced region supposedly start 21563, but often not coverage until later
+  end: 29550  # sequenced region supposedly ends 29674, but often coverage not until earlier
 
 # sequences from WHO-China joint report
 who_china_report_cases: data/WHO_China_Report_Dec2019_cases.yaml
