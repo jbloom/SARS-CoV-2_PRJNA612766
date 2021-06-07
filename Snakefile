@@ -496,6 +496,8 @@ rule outgroup_dist_analysis:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
         min_frac_coverage=config['min_frac_coverage'],
+        samples=samples,
+        aligners=config['aligners'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'

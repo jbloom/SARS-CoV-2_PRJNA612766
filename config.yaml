@@ -110,7 +110,7 @@ early_seqs_max_date: 2020-02-28
 
 # only work with samples from recovered sequences with fractional
 # coverage >= this over the region of interest.
-min_frac_coverage: 0.9
+min_frac_coverage: 0.95
 
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
