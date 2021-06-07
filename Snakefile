@@ -501,20 +501,3 @@ rule outgroup_dist_analysis:
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
-
-rule integrated_analysis:
-    """Integrated final analysis of data."""
-    input:
-        seqs=rules.aggregate_consensus_seqs.output.csv,
-        diffs=rules.diffs_from_ref.output.diffs_from_ref_stats,
-    output:
-        'report'
-    params:
-        region_of_interest_start=config['region_of_interest']['start'],
-        region_of_interest_end=config['region_of_interest']['end'],
-        patient_groups={s: d['patient_group'] for s, d in samples.items()},
-        min_frac_coverage=config['min_frac_coverage'],
-        comparator_genomes=list(config['comparator_genomes']),
-    log: notebook='results/logs/notebooks/integrated_analysis.ipynb'
-    conda: 'environment.yml'
-    notebook: 'notebooks/integrated_analysis.py.ipynb'
