@@ -57,12 +57,13 @@ rule all:
         'results/pileup/coverage_region.html',
         'results/pileup/coverage_region.pdf',
         'results/pileup/samtools_pileup.csv',
-        'results/pileup/diffs_from_ref.csv',
-        'results/pileup/diffs_from_ref.html',
         'results/early_sequences/annotated_filtered_substitutions.csv',
         'results/sra_file_info.csv',
-        'outgroup_dist_results',
-#        'report'
+        multiext('results/early_sequences/counts', '.html', '.pdf'),
+        multiext('results/early_sequences/deltadist', '.html', '.pdf'),
+        multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
+        multiext('results/deltadist_jitter', '.html', '.pdf'),
+        'results/deleted_diffs.tex',
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -491,13 +492,18 @@ rule outgroup_dist_analysis:
         deleted_diffs=rules.diffs_from_ref.output.diffs_from_ref_stats,
         deleted_consensus=rules.aggregate_consensus_seqs.output.csv,
     output:
-        'outgroup_dist_results'
+        early_seq_counts=multiext('results/early_sequences/counts', '.html', '.pdf'),
+        early_seq_deltadist=multiext('results/early_sequences/deltadist', '.html', '.pdf'),
+        early_seq_deltadist_region=multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
+        deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
+        deleted_diffs_latex='results/deleted_diffs.tex',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
         min_frac_coverage=config['min_frac_coverage'],
         samples=samples,
         aligners=config['aligners'],
+        ref_genome_name=config['ref_genome']['name'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
