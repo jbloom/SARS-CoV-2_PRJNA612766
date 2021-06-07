@@ -64,6 +64,8 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
+        'results/phylogenetics/alignment_preFeb.fa',
+        'results/phylogenetics/alignment_preFeb_region.fa',
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -497,6 +499,8 @@ rule outgroup_dist_analysis:
         early_seq_deltadist_region=multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
         deleted_diffs_latex='results/deleted_diffs.tex',
+        alignment_preFeb='results/phylogenetics/alignment_preFeb.fa',
+        alignment_preFeb_region='results/phylogenetics/alignment_preFeb_region.fa',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
@@ -504,6 +508,8 @@ rule outgroup_dist_analysis:
         samples=samples,
         aligners=config['aligners'],
         ref_genome_name=config['ref_genome']['name'],
+        ignore_muts_before=config['early_seqs_ignore_muts_before'],
+        ignore_muts_after=config['early_seqs_ignore_muts_after'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
