@@ -64,8 +64,9 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
-        'results/phylogenetics/alignment_preFeb.fa',
-        'results/phylogenetics/alignment_preFeb_region.fa',
+        expand("results/phylogenetics/alignment_{seqregion}_{outgroup}.fa",
+               seqregion=['all', 'region'],
+               outgroup=config['comparator_genomes'])
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -499,8 +500,8 @@ rule outgroup_dist_analysis:
         early_seq_deltadist_region=multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
         deleted_diffs_latex='results/deleted_diffs.tex',
-        alignment_preFeb='results/phylogenetics/alignment_preFeb.fa',
-        alignment_preFeb_region='results/phylogenetics/alignment_preFeb_region.fa',
+        alignment_preFeb_all='results/phylogenetics/alignment_all.fa',
+        alignment_preFeb_region='results/phylogenetics/alignment_region.fa',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
@@ -513,3 +514,19 @@ rule outgroup_dist_analysis:
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
+
+rule add_outgroup_to_alignment:
+    """Add an outgroup sequence to an alignment."""
+    input:
+        comparator_map=rules.genome_comparator_map.output.site_map,
+        alignment="results/phylogenetics/alignment_{seqregion}.fa",
+    output:
+        alignment="results/phylogenetics/alignment_{seqregion}_{outgroup}.fa"
+    params:
+        region=lambda wc: (config['region_of_interest']
+                           if wc.seqregion == 'region' else
+                           {'start': config['early_seqs_ignore_muts_before'],
+                            'end': config['early_seqs_ignore_muts_after']}
+                           )
+    conda: 'environment.yml'
+    script: 'scripts/add_outgroup_to_alignment.py'
