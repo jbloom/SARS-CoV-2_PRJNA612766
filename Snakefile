@@ -64,9 +64,7 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
-        expand("results/phylogenetics/{seqregion}_{outgroup}.treefile",
-               seqregion=['all', 'region'],
-               outgroup=config['comparator_genomes'])
+        'tree_images'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -500,8 +498,10 @@ rule outgroup_dist_analysis:
         early_seq_deltadist_region=multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
         deleted_diffs_latex='results/deleted_diffs.tex',
-        alignment_preFeb_all='results/phylogenetics/all_alignment.fa',
-        alignment_preFeb_region='results/phylogenetics/region_alignment.fa',
+        alignment_all_fasta='results/phylogenetics/all_alignment.fa',
+        alignment_region_fasta='results/phylogenetics/region_alignment.fa',
+        alignment_all_csv='results/phylogenetics/all_alignment.csv',
+        alignment_region_csv='results/phylogenetics/region_alignment.csv',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
@@ -511,6 +511,7 @@ rule outgroup_dist_analysis:
         ref_genome_name=config['ref_genome']['name'],
         ignore_muts_before=config['early_seqs_ignore_muts_before'],
         ignore_muts_after=config['early_seqs_ignore_muts_after'],
+        phylo_last_date=config['phylo_last_date'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
@@ -552,3 +553,21 @@ rule iqtree:
             -redo \
             -seed 1
         """
+
+rule visualize_trees:
+    """Visualize the phylogenetic trees."""
+    input:
+        trees_all=expand(rules.iqtree.output.treefile,
+                         outgroup=config['comparator_genomes'],
+                         seqregion=['all']),
+        trees_region=expand(rules.iqtree.output.treefile,
+                            outgroup=config['comparator_genomes'],
+                            seqregion=['region']),
+        all_csv=rules.outgroup_dist_analysis.output.alignment_all_csv,
+        region_csv=rules.outgroup_dist_analysis.output.alignment_region_csv,
+    output:
+        'tree_images'
+    params: outgroups=list(config['comparator_genomes'])
+    conda: 'environment_ete3.yml'
+    log: notebook='results/logs/notebooks/visualize_trees.ipynb'
+    notebook: 'notebooks/visualize_trees.py.ipynb'
