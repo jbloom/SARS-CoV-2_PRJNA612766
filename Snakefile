@@ -64,7 +64,7 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
-        expand("results/phylogenetics/alignment_{seqregion}_{outgroup}.fa",
+        expand("results/phylogenetics/{seqregion}_{outgroup}.treefile",
                seqregion=['all', 'region'],
                outgroup=config['comparator_genomes'])
 
@@ -500,8 +500,8 @@ rule outgroup_dist_analysis:
         early_seq_deltadist_region=multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
         deleted_diffs_latex='results/deleted_diffs.tex',
-        alignment_preFeb_all='results/phylogenetics/alignment_all.fa',
-        alignment_preFeb_region='results/phylogenetics/alignment_region.fa',
+        alignment_preFeb_all='results/phylogenetics/all_alignment.fa',
+        alignment_preFeb_region='results/phylogenetics/region_alignment.fa',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
@@ -519,9 +519,9 @@ rule add_outgroup_to_alignment:
     """Add an outgroup sequence to an alignment."""
     input:
         comparator_map=rules.genome_comparator_map.output.site_map,
-        alignment="results/phylogenetics/alignment_{seqregion}.fa",
+        alignment="results/phylogenetics/{seqregion}_alignment.fa",
     output:
-        alignment="results/phylogenetics/alignment_{seqregion}_{outgroup}.fa"
+        alignment="results/phylogenetics/{seqregion}_{outgroup}_alignment.fa"
     params:
         region=lambda wc: (config['region_of_interest']
                            if wc.seqregion == 'region' else
@@ -530,3 +530,25 @@ rule add_outgroup_to_alignment:
                            )
     conda: 'environment.yml'
     script: 'scripts/add_outgroup_to_alignment.py'
+
+rule iqtree:
+    """Infer ``iqtree`` phylogenetic tree."""
+    input: alignment=rules.add_outgroup_to_alignment.output.alignment
+    output: treefile="results/phylogenetics/{seqregion}_{outgroup}.treefile"
+    params: pre=lambda wc, output: os.path.splitext(output.treefile)[0]
+    threads: config['max_cpus']
+    conda: 'environment.yml'
+    shell:
+        """
+        iqtree \
+            -s {input.alignment} \
+            -o {wildcards.outgroup} \
+            -pre {params.pre} \
+            -st DNA \
+            -m GTR+F+G \
+            -czb \
+            --keep-ident \
+            -nt {threads} \
+            -redo \
+            -seed 1
+        """
