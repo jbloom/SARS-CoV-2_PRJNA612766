@@ -112,6 +112,9 @@ early_seqs_max_date: 2020-02-28
 # coverage >= this over the region of interest.
 min_frac_coverage: 0.95
 
+# last date of sequences to include for phylogenetic analyses
+phylo_last_date: 2020-01-31
+
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
 # -------------------------------------------------------------------
