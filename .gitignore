@@ -2,6 +2,7 @@
 !.gitignore
 _*
 *.log
+core
 
 *.out
 
