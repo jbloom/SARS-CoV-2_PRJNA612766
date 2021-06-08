@@ -16,3 +16,5 @@ align_bwa_mem2:
 align_minimap2:
   cpus: 4
 
+iqtree:
+  cpus: 4
