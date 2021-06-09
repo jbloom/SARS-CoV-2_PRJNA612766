@@ -514,6 +514,7 @@ rule outgroup_dist_analysis:
         phylo_last_date=config['phylo_last_date'],
         phylo_muts_to_ignore=config['phylo_muts_to_ignore'],
         phylo_collapse_rare_muts=config['phylo_collapse_rare_muts'],
+        phylo_filter_rare_variants=config['phylo_filter_rare_variants'],
         phylo_min_frac_called=config['phylo_min_frac_called'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
