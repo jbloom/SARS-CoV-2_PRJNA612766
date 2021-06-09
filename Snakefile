@@ -512,6 +512,9 @@ rule outgroup_dist_analysis:
         ignore_muts_before=config['early_seqs_ignore_muts_before'],
         ignore_muts_after=config['early_seqs_ignore_muts_after'],
         phylo_last_date=config['phylo_last_date'],
+        phylo_muts_to_ignore=config['phylo_muts_to_ignore'],
+        phylo_collapse_rare_muts=config['phylo_collapse_rare_muts'],
+        phylo_min_frac_called=config['phylo_min_frac_called'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
@@ -546,12 +549,12 @@ rule iqtree:
             -o {wildcards.outgroup} \
             -pre {params.pre} \
             -st DNA \
-            -m GTR+F+G \
+            -m GTR+F \
             -czb \
             --keep-ident \
             -nt {threads} \
             -redo \
-            -seed 1
+            -seed 2
         """
 
 rule visualize_trees:
