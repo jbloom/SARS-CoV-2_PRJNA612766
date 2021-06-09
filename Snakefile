@@ -520,11 +520,36 @@ rule outgroup_dist_analysis:
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
 
+checkpoint possible_progenitors:
+    """Get possible progenitors with smallest distance to outgroup."""
+    input: all_csv=rules.outgroup_dist_analysis.output.alignment_all_csv
+    output: progenitors='results/phylogenetics/progenitors.txt'
+    params: outgroups=list(config['comparator_genomes']),
+    conda: 'environment.yml'
+    script: 'scripts/possible_progenitors.py'
+
+def progenitor_trees(_):
+    with checkpoints.possible_progenitors.get().output.progenitors.open() as f:
+        progenitors = [line.strip().replace('/', '%') for line in f]
+        return [f"results/phylogenetics/all_{progenitor}.treefile"
+                for progenitor in progenitors]
+
+def progenitor_states(_):
+    with checkpoints.possible_progenitors.get().output.progenitors.open() as f:
+        progenitors = [line.strip().replace('/', '%') for line in f]
+        return [f"results/phylogenetics/all_{progenitor}.state"
+                for progenitor in progenitors]
+
 rule iqtree:
     """Infer ``iqtree`` phylogenetic tree."""
-    input: alignment="results/phylogenetics/{seqregion}_alignment.fa",
-    output: treefile="results/phylogenetics/{seqregion}.treefile"
-    params: pre=lambda wc, output: os.path.splitext(output.treefile)[0]
+    input:
+        alignment="results/phylogenetics/all_alignment.fa",
+    output:
+        treefile="results/phylogenetics/all_{progenitor}.treefile",
+        ancestral="results/phylogenetics/all_{progenitor}.state",
+    params:
+        pre=lambda wc, output: os.path.splitext(output.treefile)[0],
+        progenitor=lambda wc: wc.progenitor.replace('%', '/')
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
@@ -539,20 +564,27 @@ rule iqtree:
             -nt {threads} \
             -redo \
             -seed 2 \
-            -bb 1000 \
-            -wbtl
+            -o {params.progenitor} \
+            -asr
         """
 
 rule visualize_trees:
     """Visualize the phylogenetic trees."""
     input:
-        tree_all="results/phylogenetics/all.treefile",
+        trees=progenitor_trees,
+        states=progenitor_states,
+        alignment="results/phylogenetics/all_alignment.fa",
         all_csv=rules.outgroup_dist_analysis.output.alignment_all_csv,
         region_csv=rules.outgroup_dist_analysis.output.alignment_region_csv,
         comparator_map=rules.genome_comparator_map.output.site_map,
     output:
         'tree_images'
-    params: outgroups=list(config['comparator_genomes'])
+    params:
+        site_offset=config['early_seqs_ignore_muts_before'] - 1,
+        progenitors=lambda wc, input: [os.path.splitext(os.path.basename(f))[0]
+                                       .replace('all_', '')
+                                       .replace('%', '/')
+                                       for f in input.trees],
     conda: 'environment_ete3.yml'
     log: notebook='results/logs/notebooks/visualize_trees.ipynb'
     notebook: 'notebooks/visualize_trees.py.ipynb'
