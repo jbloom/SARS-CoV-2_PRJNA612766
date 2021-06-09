@@ -119,7 +119,8 @@ min_frac_coverage: 0.95
 # -----------------------------------------------------------------
 # last date of sequences to include for phylogenetic analyses
 phylo_last_date: 2020-01-31
-
+# only use sequences with >= this much of region of interest called for phylogenetics
+phylo_min_frac_called: 0.95
 # ignore (remove) mutations annotated as spurious in Table S1 of
 # https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1009175
 phylo_muts_to_ignore: [G3564T, G8790T, G24933T, G2198A, G3145T, A3778G, C6255T,
@@ -127,8 +128,9 @@ phylo_muts_to_ignore: [G3564T, G8790T, G24933T, G2198A, G3145T, A3778G, C6255T,
                        G1149T, C22802G, T153G]
 # eliminate any mutations seen no more than this many times in the entire dataset
 phylo_collapse_rare_muts: 1
-# only use sequences with >= this much of region of interest called for phylogenetics
-phylo_min_frac_called: 0.95
+# eliminate any sequences with mutation combinations seen no more than this many time
+# after above collapsing
+phylo_filter_rare_variants: 1
 
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
