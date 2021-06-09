@@ -555,7 +555,9 @@ rule iqtree:
             --keep-ident \
             -nt {threads} \
             -redo \
-            -seed 2
+            -seed 2 \
+            -bb 1000 \
+            -wbtl
         """
 
 rule visualize_trees:
