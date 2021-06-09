@@ -88,11 +88,13 @@ who_china_report_last_date: 2020-01-02  # check seqs up to this date to be in re
 # early sequences manually specified for exclusion
 early_seqs_to_exclude: data/seqs_to_exclude.yaml
 
-# filter early consensus (GISAID) sequences on these criteria
-# ignore mutations before or after this site in the reference,
+# ignore mutations before or after these sites, which define the beginning
+# of ORF1ab and the end of ORF10. The reason is that there seem to be a lot
+# of suspicious mutations near termini beyond these coding genes
 # as there seem to be a lot called strings of mutations near termini
-early_seqs_ignore_muts_before: 29
-early_seqs_ignore_muts_after: 29831
+early_seqs_ignore_muts_before: 266
+early_seqs_ignore_muts_after: 29674
+# filter early consensus (GISAID) sequences on these criteria
 # filter sequences with mutation runs (after doing above filtering
 # on termini), so that any sequence with `n_muts` or more mutations
 # in a span of `span` nucleotides is filtered
