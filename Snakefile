@@ -520,26 +520,10 @@ rule outgroup_dist_analysis:
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
 
-rule add_outgroup_to_alignment:
-    """Add an outgroup sequence to an alignment."""
-    input:
-        comparator_map=rules.genome_comparator_map.output.site_map,
-        alignment="results/phylogenetics/{seqregion}_alignment.fa",
-    output:
-        alignment="results/phylogenetics/{seqregion}_{outgroup}_alignment.fa"
-    params:
-        region=lambda wc: (config['region_of_interest']
-                           if wc.seqregion == 'region' else
-                           {'start': config['early_seqs_ignore_muts_before'],
-                            'end': config['early_seqs_ignore_muts_after']}
-                           )
-    conda: 'environment.yml'
-    script: 'scripts/add_outgroup_to_alignment.py'
-
 rule iqtree:
     """Infer ``iqtree`` phylogenetic tree."""
-    input: alignment=rules.add_outgroup_to_alignment.output.alignment
-    output: treefile="results/phylogenetics/{seqregion}_{outgroup}.treefile"
+    input: alignment="results/phylogenetics/{seqregion}_alignment.fa",
+    output: treefile="results/phylogenetics/{seqregion}.treefile"
     params: pre=lambda wc, output: os.path.splitext(output.treefile)[0]
     threads: config['max_cpus']
     conda: 'environment.yml'
@@ -547,7 +531,6 @@ rule iqtree:
         """
         iqtree \
             -s {input.alignment} \
-            -o {wildcards.outgroup} \
             -pre {params.pre} \
             -st DNA \
             -m GTR+F \
@@ -563,14 +546,10 @@ rule iqtree:
 rule visualize_trees:
     """Visualize the phylogenetic trees."""
     input:
-        trees_all=expand(rules.iqtree.output.treefile,
-                         outgroup=config['comparator_genomes'],
-                         seqregion=['all']),
-        trees_region=expand(rules.iqtree.output.treefile,
-                            outgroup=config['comparator_genomes'],
-                            seqregion=['region']),
+        tree_all="results/phylogenetics/all.treefile",
         all_csv=rules.outgroup_dist_analysis.output.alignment_all_csv,
         region_csv=rules.outgroup_dist_analysis.output.alignment_region_csv,
+        comparator_map=rules.genome_comparator_map.output.site_map,
     output:
         'tree_images'
     params: outgroups=list(config['comparator_genomes'])
