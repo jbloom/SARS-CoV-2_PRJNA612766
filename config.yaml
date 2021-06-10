@@ -127,7 +127,7 @@ phylo_muts_to_ignore: [G3564T, G8790T, G24933T, G2198A, G3145T, A3778G, C6255T,
                        A4050C, T8022G, T13402G, A13947T, A24389C, G24390C,
                        G1149T, C22802G, T153G]
 # eliminate any mutations seen no more than this many times in the entire dataset
-phylo_collapse_rare_muts: 1
+phylo_collapse_rare_muts: 0
 # eliminate any sequences with mutation combinations seen no more than this many time
 # after above collapsing
 phylo_filter_rare_variants: 1
