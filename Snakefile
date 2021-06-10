@@ -499,9 +499,8 @@ rule outgroup_dist_analysis:
         deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
         deleted_diffs_latex='results/deleted_diffs.tex',
         alignment_all_fasta='results/phylogenetics/all_alignment.fa',
-        alignment_region_fasta='results/phylogenetics/region_alignment.fa',
         alignment_all_csv='results/phylogenetics/all_alignment.csv',
-        alignment_region_csv='results/phylogenetics/region_alignment.csv',
+        deleted_csv='results/phylogenetics/deleted_seqs.csv',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
@@ -575,7 +574,7 @@ rule visualize_trees:
         states=progenitor_states,
         alignment="results/phylogenetics/all_alignment.fa",
         all_csv=rules.outgroup_dist_analysis.output.alignment_all_csv,
-        region_csv=rules.outgroup_dist_analysis.output.alignment_region_csv,
+        deleted_csv=rules.outgroup_dist_analysis.output.deleted_csv,
         comparator_map=rules.genome_comparator_map.output.site_map,
     output:
         'tree_images'
