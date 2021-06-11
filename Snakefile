@@ -471,6 +471,7 @@ rule annotate_early_seq_subs:
         comparator_map=rules.genome_comparator_map.output.site_map,
         who_china_report_cases_yaml=config['who_china_report_cases'],
         early_seqs_to_exclude_yaml=config['early_seqs_to_exclude'],
+        wuhan_exports_yaml=config['wuhan_exports'],
     output: csv='results/early_sequences/annotated_filtered_substitutions.csv'
     params:
         comparators=list(config['comparator_genomes']),
