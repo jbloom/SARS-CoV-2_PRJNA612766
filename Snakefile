@@ -64,7 +64,7 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
-        'tree_images'
+        'results/phylogenetics/tree_images/'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -579,8 +579,7 @@ rule visualize_trees:
         all_csv=rules.outgroup_dist_analysis.output.alignment_all_csv,
         deleted_csv=rules.outgroup_dist_analysis.output.deleted_csv,
         comparator_map=rules.genome_comparator_map.output.site_map,
-    output:
-        'tree_images'
+    output: directory('results/phylogenetics/tree_images')
     params:
         site_offset=config['early_seqs_ignore_muts_before'] - 1,
         progenitors=lambda wc, input: [os.path.splitext(os.path.basename(f))[0]
