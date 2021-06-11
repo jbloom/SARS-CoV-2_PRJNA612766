@@ -516,6 +516,8 @@ rule outgroup_dist_analysis:
         phylo_collapse_rare_muts=config['phylo_collapse_rare_muts'],
         phylo_filter_rare_variants=config['phylo_filter_rare_variants'],
         phylo_min_frac_called=config['phylo_min_frac_called'],
+        cat_colors=config['cat_colors'],
+        subcat_colors=config['subcat_colors'],
     conda: 'environment.yml'
     log: notebook='results/logs/notebooks/outgroup_dist_analysis.ipynb'
     notebook: 'notebooks/outgroup_dist_analysis.py.ipynb'
@@ -587,6 +589,8 @@ rule visualize_trees:
                                        for f in input.trees],
         outgroups=list(config['comparator_genomes']),
         region_of_interest=config['region_of_interest'],
+        cat_colors=config['cat_colors'],
+        subcat_colors=config['subcat_colors'],
     conda: 'environment_ete3.yml'
     log: notebook='results/logs/notebooks/visualize_trees.ipynb'
     notebook: 'notebooks/visualize_trees.py.ipynb'

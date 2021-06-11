@@ -135,6 +135,19 @@ phylo_collapse_rare_muts: 0
 # after above collapsing
 phylo_filter_rare_variants: 1
 
+# color schemes
+cat_colors:
+  Wuhan: '#56B4E9'  # cbPalette light blue
+  other China: '#009E73'  # cbPalette green
+  outside China: '#F0E442'  # cbPalette yellow
+subcat_colors:
+  Huanan Seafood Market: '#0072B2'  # cbPalette dark blue
+  deleted early Wuhan: '#E69F00'  # cbPalette orange
+  Guangdong patient infected in Wuhan before Jan 5: '#D55E00'  # cbPalette red
+  other Wuhan: '#56B4E9'  # cbPalette light blue
+  other China: '#009E73'  # cbPalette green
+  outside China: '#F0E442'  # cbPalette yellow
+
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
 # -------------------------------------------------------------------
