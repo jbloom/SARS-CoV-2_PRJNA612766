@@ -585,6 +585,7 @@ rule visualize_trees:
                                        .replace('%', '/')
                                        for f in input.trees],
         outgroups=list(config['comparator_genomes']),
+        region_of_interest=config['region_of_interest'],
     conda: 'environment_ete3.yml'
     log: notebook='results/logs/notebooks/visualize_trees.ipynb'
     notebook: 'notebooks/visualize_trees.py.ipynb'
