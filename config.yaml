@@ -85,6 +85,9 @@ region_of_interest:
 who_china_report_cases: data/WHO_China_Report_Dec2019_cases.yaml
 who_china_report_last_date: 2020-01-02  # check seqs up to this date to be in report
 
+# sequences of individuals infected in Wuhan but exported and sequenced elsewhere
+wuhan_exports: data/Wuhan_exports.yaml
+
 # early sequences manually specified for exclusion
 early_seqs_to_exclude: data/seqs_to_exclude.yaml
 
