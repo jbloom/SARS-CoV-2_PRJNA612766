@@ -591,6 +591,7 @@ rule visualize_trees:
         region_of_interest=config['region_of_interest'],
         cat_colors=config['cat_colors'],
         subcat_colors=config['subcat_colors'],
+        wuhan_hu_1_add_muts=config['ref_genome']['add_mutations']
     conda: 'environment_ete3.yml'
     log: notebook='results/logs/notebooks/visualize_trees.ipynb'
     notebook: 'notebooks/visualize_trees.py.ipynb'
