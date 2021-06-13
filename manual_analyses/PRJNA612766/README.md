@@ -13,7 +13,7 @@ The Excel Supplementary Table 1 indicates the plasmid control samples are from A
 Googling these terms brings up [this pre-print](https://www.medrxiv.org/content/10.1101/2020.03.04.20029538v1) (posted March-6-2020) and [this paper](https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202002169) (published June-24-2020), which clearly describe the study here.
 Reading that paper makes the following clear:
 
- - The samples that are listed as plasmid controls from Aisi Fu are indeed controls, and so aren't used in any downstream analyses here.
+ - The samples that are listed as plasmid controls from Aisi Fu are indeed controls, and so aren't used in most downstream analyses here.
 
  - They tested 45 swab samples from outpatients with suspected COVID-19 early in the outbreak. The pre-print says "45 nasopharyngeal swab samples from outpatients with suspected COVID-19 early in the epidemic." The final published paper changes this to read "45 nasopharyngeal swab samples from outpatients with suspected COVID-19 early in the epidemic (January 2020)". Both the pre-print and final paper agree that 34 of these 45 samples were positive using their method. They also say that they tested the method on 16 positive samples from hospitalized patients with confirmed COVID-19 that had been tested by qPCR on Feb-11-2020 and Feb-12-2020 (both the pre-print and final paper fully agree on details of these samples); all 16 of these confirmed COVID-19 samples were positive using their method.
 

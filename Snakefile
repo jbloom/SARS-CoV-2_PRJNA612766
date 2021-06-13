@@ -17,11 +17,22 @@ min_version('6.3.0')
 
 configfile: 'config.yaml'
 
-# get all samples
-samples = {key: val for key, val in
+# get all samples that are not plasmid
+samples = {sample: sample_info for sample, sample_info in
            list(config['samples_fasterq_dump'].items()) +
            list(config['samples_wget'].items())
+           if sample_info['patient_group'] != 'plasmid'
            }
+# get all samples that are plasmid
+plasmid_samples = {sample: sample_info for sample, sample_info in
+                   list(config['samples_fasterq_dump'].items()) +
+                   list(config['samples_wget'].items())
+                   if sample_info['patient_group'] == 'plasmid'
+                   }
+# map all samples to accessions
+samples_to_accessions = {sample: sample_info['accessions'] for
+                         sample, sample_info in
+                         list(samples.items()) + list(plasmid_samples.items())}
 
 #----------------------------------------------------------------------------
 # helper functions
@@ -64,7 +75,8 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
-        'results/phylogenetics/tree_images/'
+        'results/phylogenetics/tree_images/',
+        'plasmid_analysis'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -196,7 +208,7 @@ rule align_bwa_mem2:
     """Align using ``bwa-mem2``."""
     input:
         fastqs=lambda wc: expand(rules.preprocess_fastq.output.fastq_gz,
-                                 accession=samples[wc.sample]['accessions']),
+                                 accession=samples_to_accessions[wc.sample]),
         prefix=rules.bwa_mem2_genome.output.prefix,
     output:
         concat_fastq=temp("results/alignments/bwa-mem2/_{sample}" +
@@ -222,7 +234,7 @@ rule align_minimap2:
     """Align using ``minimap2``."""
     input:
         fastqs=lambda wc: expand(rules.preprocess_fastq.output.fastq_gz,
-                                 accession=samples[wc.sample]['accessions']),
+                                 accession=samples_to_accessions[wc.sample]),
         mmi=rules.minimap2_genome.output.mmi,
     output:
         sam=temp("results/alignments/minimap2/{sample}.sam"),
@@ -343,6 +355,17 @@ rule genome_comparator_map:
     conda: 'environment.yml'
     script:
         'scripts/genome_comparator_map.py'
+
+rule analyze_plasmid_seqs:
+    """Analyze pileups for plasmid samples."""
+    input:
+        pileups=expand(rules.bam_pileup.output.pileup_csv,
+                       aligner=config['aligners'],
+                       sample=plasmid_samples),
+    output: 'plasmid_analysis'
+    conda: 'environment.yml'
+    shell:
+        "echo here"
 
 rule analyze_pileups:
     """Analyze and plot BAM pileups per sample."""
