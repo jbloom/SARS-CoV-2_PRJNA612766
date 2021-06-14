@@ -7,7 +7,7 @@
 
 \articletype{inv} 
 
-\title{Recovery of a deleted SARS-CoV-2 deep sequencing data set from the early epidemic in Wuhan}
+\title{Recovery of a deleted SARS-CoV-2 deep sequencing data set from the early Wuhan epidemic}
 
 \author[]{\Large Jesse D. Bloom}
 
@@ -44,7 +44,7 @@ The first supplementary table of \citet{farkas2020insights} lists all SARS-CoV-2
 
 The majority of entries in this table refer to a project (BioProject PRJNA612766) by Wuhan University that is described as nanopore sequencing of SARS-CoV-2 amplicons.
 The table indicates this project represents 241 of the 282 SARS-CoV-2 sequencing run accessions in the SRA as of March, 30, 2020.
-Because I had never encountered any other mention of this sequencing project, I performed a Google search for ``PRJNA612766,'' and found no search hits other than the supplementary table itself.
+Because I had never encountered any other mention of this project, I performed a Google search for ``PRJNA612766,'' and found no search hits other than the supplementary table itself.
 Searching for ``PRJNA612766'' in the NCBI's SRA search box returned a message of ``No items found.''
 I then searched for individual sequencing run accessions from the project in the NCBI's SRA search box.
 These searches returned messages indicating that the sequencing runs had been removed (Figure~\ref{fig:acc_removed}).
@@ -53,8 +53,8 @@ These searches returned messages indicating that the sequencing runs had been re
 \centering
 \fbox{\includegraphics[trim={0.2in 0 0 9in},clip,width=\linewidth]{figures/acc_removed.png}}
 \caption{Accessions from deep sequencing project PRJNA612766 have been removed from the SRA.
-Shown is the result of searching for ``SRR11313485.''
-A copy of this result has been digitally archived on the Wayback Machine at \url{https://web.archive.org/web/20210502131630/https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11313485}.
+Shown is the result of searching for ``SRR11313485'' in the SRA search toolbar.
+This result has been digitally archived on the Wayback Machine at \url{https://web.archive.org/web/20210502131630/https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11313485}.
 }%
 \label{fig:acc_removed}
 \end{figure}
@@ -62,18 +62,17 @@ A copy of this result has been digitally archived on the Wayback Machine at \url
 The SRA is designed as a permanent archive of deep sequencing data.
 The SRA documentation states that after a sequencing run is uploaded, ``neither its files can be replaced nor filenames can be changed,'' and that data can only be deleted by e-mailing SRA staff~\citep{SRA_deletion}.
 An example of this process from another study is in Figure~\ref{fig:pangolin_emails}, which shows an e-mail sent to SRA staff by the lead author of a paper on pangolin coronaviruses~\citep{xiao2020isolation} to request the deletion of two sequencing runs.
+Therefore, subsequent to March 30, 2020, a similar e-mail request must have been made to fully delete SARS-CoV-2 deep sequencing project PRJNA612766.
 
 \begin{figure}[]
 \centering
 \fbox{\includegraphics[trim={0.8in 0.8in 1.1in 1in},clip,width=\linewidth]{figures/pangolin_emails.jpg}}
 \caption{Example of the process to delete SRA data.
-The image shows excerpted e-mails between the lead author of the pangolin coronavirus paper~\citep{xiao2020isolation} and SRA staff.
+The image shows excerpted e-mails between the lead author of the pangolin coronavirus paper~\citet{xiao2020isolation} and SRA staff.
 The full e-mails are at \url{https://usrtk.org/tag/pangolin-papers/}.
 }
 \label{fig:pangolin_emails}
 \end{figure}
-
-Taken together, these facts indicate that subsequent to March 30, 2020, someone must have e-mailed the SRA to request deletion of SARS-CoV-2 deep sequencing project PRJNA612766.
 
 \subsection{The deleted data set contains sequencing of viral samples collected early in the Wuhan epidemic}
 The metadata in the first supplementary table of \citet{farkas2020insights} indicates that the samples in deleted project PRNJA612766 were collected by Aisu Fu and Renmin Hospital of Wuhan University.
@@ -92,10 +91,10 @@ In addition, both state that the approach was later applied to 16 additional sam
 
 There is complete concordance between the accessions for project PRJNA612766 in the supplementary table of \citet{farkas2020insights} and the samples described by \citet{wang2020medRxiv}.
 There are 89 accessions corresponding to the 45 early epidemic samples, with these samples named like wells in a 96-well plate (A1, A2, etc).
-The number of accessions is approximately twice the number of early epidemic samples because each sample has data for two nanopore sequencing runtimes except one sample (B5) with just one runtime.
+The number of accessions is approximately twice the number of early epidemic samples because each sample has data for two sequencing runtimes except one sample (B5) with just one runtime.
  There are 31 accessions corresponding to the 16 samples collected in February from Renmin Hospital patients, with these samples named R01, R02, etc.
- Again, all but one sample (R04) have data for two different sequencing runtimes.
- In addition, there are 7 accessions corresponding to positive and negative controls, 2 accessions corresponding to other respiratory virus samples, and 112 samples corresponding to plasmids used for development and benchmarking of the approach.
+ Again, all but one sample (R04) have data for two sequencing runtimes.
+ In addition, there are 7 accessions corresponding to positive and negative controls, 2 accessions corresponding to other respiratory virus samples, and 112 samples corresponding to plasmids used for benchmarking of the approach.
  Together, these samples and controls account for all 241 accessions listed for PRJNA612766 in the supplementary table of \citet{farkas2020insights}.
 
 Neither the pre-print~\citep{wang2020medRxiv} nor published manuscript~\citep{wang2020small} contain any correction or note that indicates a scientific reason for deleting the study's sequencing data from the SRA.
@@ -121,8 +120,8 @@ Although the SRA Toolkit does not clearly document these two properties, my \emp
 \subsection{The data are sufficient to determine the viral sequence from the start of spike through the end of ORF10 for some samples}
 The approach described by \citet{wang2020medRxiv} involved sequencing PCR amplicons covering nucleotide sites 21,563 to 29,674 of the SARS-CoV-2 genome, which spans from the start of the spike gene to the end of ORF10.
 The approach also involved sequencing a short amplicon generated by nested PCR that covered a fragment of ORF1ab spanning sites $\sim$15,080 to 15,550.
-In this paper, analyze the region covering spike through ORF10 because this is a much longer contiguous sequence and because the amplicons were generated by a single rather than nested PCR, which reduces the risk of PCR artifacts.
-I slightly trimmed the region of interest to sites 21,570 to 29,550 because many samples did not have good coverage at the very termini of the region.
+In this paper, I only analyze the region from spike through ORF10 because this is a much longer contiguous sequence and the amplicons were generated by a single rather than nested PCR, which reduces the risk of PCR artifacts.
+I slightly trimmed the region of interest to sites 21,570 to 29,550 because many samples had poor coverage at the very termini of the region.
 
 \begin{figure*}[]
 \centering
@@ -137,7 +136,7 @@ A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in 
 \label{fig:coverage}
 \end{figure*}
 
-I aligned the recovered deep sequencing data to the SARS-CoV-2 genome using \texttt{minimap2}~\citep{li2018minimap2}, combining accessions for the same biological sample.
+I aligned the recovered deep sequencing data to the SARS-CoV-2 genome using \texttt{minimap2}~\citep{li2018minimap2}, combining accessions for the same sample.
 Figure~\ref{fig:coverage} shows the sequencing coverage for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples over the region of interest; a comparable plot for the whole genome is in Supplementary Figure~S\ref{suppfig:coverage_all}.
 
 \begin{table*}[]
@@ -163,12 +162,37 @@ R11 &                               0.9987 &  hospital patient (Feb) &          
 \bottomrule
 \end{tabular}
 }
-\caption{Samples from deleted project PRJNA612766 for which the SARS-CoV-2 sequence could be called at $\ge$95\% of sites between 21,570 and 29,550 and the substitutions in this region relative to the putative SARS-CoV-2 progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
+\caption{Samples for which the SARS-CoV-2 sequence could be called at $\ge$95\% of sites between 21,570 and 29,550, and the substitutions in this region relative to the putative SARS-CoV-2 progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
 Numbers in parentheses after each substitution give the deep sequencing reads with each nucleotide identity.
+\label{tab:mutations}
 }
 \end{table*}
 
-more text
+I called the sequence identity at each site with coverage $\ge$3 and $>$80\% of the reads concurring on the nucleotide identity.
+With these criteria, 13 of the early outpatient samples and 1 of the February hospitalized patient samples had sufficient coverage to call the nucleotide sequence at $>$95\% of the sites in the region of interest (Table~\ref{tab:mutations}), and for the remainder of this paper I focus on these high-coverage samples.
+Table~\ref{tab:mutations} also shows the mutations in each sample relative to proCoV2, which is a putative progenitor of SARS-CoV-2 inferred by \citet{kumar2021evolutionary} that differs from the widely using Wuhan-Hu-1 reference sequence by three mutations (C8782T, C18060T, and T28144C).
+Although requiring a coverage of only $\ge$3 is relatively lenient, Table~\ref{tab:mutations} shows that all sites with mutations are supported by at least 10 reads.
+In addition, the mutations called from the raw sequences in Table~\ref{tab:mutations} concord with those mentioned in \citet{wang2020small}.
+
+\subsection{Phylogenetic analysis of existing SARS-CoV-2 sequences from January of 2020 or earlier}
+To contextualize the sequences recovered from the deleted project described above, here I first analyze early SARS-CoV-2 sequences already available in the GISAID database~\citep{shu2017gisaid}.
+
+Numerous evolutionary analyses have shown that known human SARS-CoV-2 sequences are consistent with expansion from a single progenitor sequence~\citep{kumar2021evolutionary,pekar2021timing,rambaut2020dynamic,forster2020phylogenetic,pipes2021assessing}.
+However, attempts to infer the identity of the SARS-CoV-2 progenitor sequence have been confounded by a perplexing fact: the sequences of the earliest reported isolates from Wuhan are \emph{not} the sequences most similar to SARS-CoV-2's bat coronavirus relatives~\citep{pipes2021assessing}.
+
+\begin{figure*}
+\centering
+\includegraphics[width=\linewidth]{figures/deltadist_RaTG13.pdf}
+\caption{The reported collection date of each SARS-CoV-2 sequence versus its relative mutational distance from the RaTG13 bat coronavirus outgroup.
+Mutational distances are relative to the putative progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
+The plot shows all sequences in GISAID collected no later than February 28, 2020, after performing the quality-control described in the Methods.
+Sequences that the joint WHO-China report~\cite{CITE} describes as being associated with the Wuhan Seafood Market are plotted with squares.
+Points are slightly jittered on the y-axis.
+Go to {\color{red} add link} for an interactive version of this plot that enables toggling of the outgroup to RpYN06 and RmYN02, mouseovers to see details for each point including strain name and mutations relative to proCoV2, and adjustment of the y-axis jittering.
+Static versions of the plot with RpYN06 and RmYN02 outgroups are in Supplementary Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}.
+}
+\label{fig:deltadist_RaTG13}
+\end{figure*}
 
 \section{Methods}
 
@@ -199,6 +223,16 @@ These include:
 An interactive version of this plot is at {\color{red} add link}.
 }
 \label{suppfig:coverage_all}
+\end{figure}
+
+\begin{figure}[h!]
+{\bf \LARGE A} \\
+\centerline{\includegraphics[width=\linewidth]{figures/deltadist_RpYN06.pdf}}
+{\bf \LARGE B} \\
+\centerline{\includegraphics[width=\linewidth]{figures/deltadist_RmYN02.pdf}}
+\caption{Versions of Figure~\ref{fig:deltadist_RaTG13} but calculating the relative mutational distances using an outgroup of (A) RpYN06 or (B) RmYN02.
+}
+\label{suppfig:deltadist_RpYN06_RmYN02}
 \end{figure}
 
 
