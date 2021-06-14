@@ -76,7 +76,7 @@ rule all:
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
         'results/phylogenetics/tree_images/',
-        'plasmid_analysis'
+        'results/pileup/plasmid_mutations.csv',
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -362,10 +362,16 @@ rule analyze_plasmid_seqs:
         pileups=expand(rules.bam_pileup.output.pileup_csv,
                        aligner=config['aligners'],
                        sample=plasmid_samples),
-    output: 'plasmid_analysis'
+    output: plasmid_muts='results/pileup/plasmid_mutations.csv'
+    params:
+        consensus_min_frac=config['consensus_min_frac'],
+        consensus_min_coverage=config['consensus_min_coverage'],
+        descriptors=[{'aligner': aligner, 'sample': sample}
+                     for aligner, sample in
+                     itertools.product(config['aligners'], plasmid_samples)],
     conda: 'environment.yml'
-    shell:
-        "echo here"
+    log: notebook='results/logs/notebooks/analyze_plasmid_seqs.ipynb'
+    notebook: 'notebooks/analyze_plasmid_seqs.py.ipynb'
 
 rule analyze_pileups:
     """Analyze and plot BAM pileups per sample."""
@@ -380,7 +386,6 @@ rule analyze_pileups:
     params:
         consensus_min_frac=config['consensus_min_frac'],
         consensus_min_coverage=config['consensus_min_coverage'],
-        min_coverage=config['consensus_min_coverage'],
         descriptors=[{'aligner': aligner} for aligner in config['aligners']],
         chart_title="{sample}"
     conda: 'environment.yml'
