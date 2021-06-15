@@ -2,6 +2,7 @@
 % Use the documentclass option 'lineno' to view line numbers
 
 \usepackage[htt]{hyphenat}  % https://tex.stackexchange.com/a/543
+\usepackage[export]{adjustbox}
 
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 
@@ -131,13 +132,13 @@ Depth is the number of aligned reads that cover that site with a quality score $
 The dashed gray line is the minimum coverage required to call a consensus identity at a site.
 Note that the y-axis uses a symlog scale.
 An interactive version of this plot that enables zooming into specific site ranges and mouseovers to see read count statistics at each site is at {\color{red} add link}.
-A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in Supplementary Figure~S\ref{suppfig:coverage_all}.
+A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in Figure~\ref{suppfig:coverage_all}.
 }
 \label{fig:coverage}
 \end{figure*}
 
 I aligned the recovered deep sequencing data to the SARS-CoV-2 genome using \texttt{minimap2}~\citep{li2018minimap2}, combining accessions for the same sample.
-Figure~\ref{fig:coverage} shows the sequencing coverage for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples over the region of interest; a comparable plot for the whole genome is in Supplementary Figure~S\ref{suppfig:coverage_all}.
+Figure~\ref{fig:coverage} shows the sequencing coverage for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples over the region of interest; a comparable plot for the whole genome is in Figure~\ref{suppfig:coverage_all}.
 
 \begin{table*}[]
 {\small
@@ -191,22 +192,39 @@ The plot shows all sequences in GISAID collected no later than February 28, 2020
 Sequences that the joint WHO-China report~\citep{WHO2021origins} describes as being associated with the Wuhan Seafood Market are plotted with squares.
 Points are slightly jittered on the y-axis.
 Go to {\color{red} add link} for an interactive version of this plot that enables toggling of the outgroup to RpYN06 and RmYN02, mouseovers to see details for each point including strain name and mutations relative to proCoV2, and adjustment of the y-axis jittering.
-Static versions of the plot with RpYN06 and RmYN02 outgroups are in Supplementary Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}.
+Static versions of the plot with RpYN06 and RmYN02 outgroups are in Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}.
 }
 \label{fig:deltadist_RaTG13}
 \end{figure*}
 
 This conundrum is illustrated in Figure~\ref{fig:deltadist_RaTG13}, which plots the collection date of SARS-CoV-2 sequences in GISAID versus the relative number of mutational differences from RaTG13~\citep{zhou2020pneumonia}, which is the bat coronavirus with the highest overall identity to SARS-CoV-2.
 The earliest SARS-CoV-2 sequences were collected in Wuhan in December, but these sequences are more distant from RaTG13 than SARS-CoV-2 sequences collected in January from other locations in China or even other countries (Figure~\ref{fig:deltadist_RaTG13}).
-The discrepancy is especially pronounced for early Wuhan sequences collected from patients who had visited the Huanan Seafood Market, which was widely reported as an initial location of the outbreak and has been postulated to be a site of potential zoonosis~\citep{WHO2021origins}.
+The discrepancy is especially pronounced for early Wuhan sequences from patients who had visited the Huanan Seafood Market, which was widely reported as an initial epicenter of the outbreak and has been postulated to be a site of potential zoonosis~\citep{WHO2021origins}.
 All sequences associated with the Huanan Seafood Market differ from RaTG13 by at least three more mutations than sequences subsequently collected at various other locations (Figure~\ref{fig:deltadist_RaTG13})---a fact that is difficult to reconcile with the idea that the market was the original site of spread of a bat coronavirus into humans.
-Importantly, all these observations also hold true if SARS-CoV-2 is compared to other related bat coronaviruses~\citep{lytras2021exploring} such as RpYN06~\citep{zhou2021identification} or RmYN02~\citep{zhou2020novel} rather than RaTG13 (Supplementary Figure~S\ref{suppfig:deltadist_RpYN06_RmYN02}).
+Importantly, all these observations also hold true if SARS-CoV-2 is compared to other related bat coronaviruses~\citep{lytras2021exploring} such as RpYN06~\citep{zhou2021identification} or RmYN02~\citep{zhou2020novel} rather than RaTG13 (Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}).
 
-This conundrum can also be visualized in a phylogenetic context by rooting a tree of early SARS-CoV-2 sequences so that the ``progenitor'' sequence is chosen to be the one closest to the bat coronavirus outgroup.
-If we limit the analysis to sequences with at least two observation among strains collected no later than January 2020, there are three possible ways to root the tree 
- (Figure~\ref{fig:tree_RaTG13} shows these rootings using a RaTG13 outgroup; Supplementary Figure~S\ref{suppfig:tree_RpYN06_RmYN02} shows identical results are obtained using RpYN06 or RmYN02 outgroups).
+This conundrum can also be visualized in a phylogenetic context by rooting a tree of early SARS-CoV-2 sequences so that the ``progenitor'' sequence is chosen to be closest to the bat coronavirus outgroup.
+If we limit the analysis to sequences with at least two observations among strains collected no later than January 2020, there are three possible ways to root the tree in this fashion (Figure~\ref{fig:tree_RaTG13}, Figure~\ref{suppfig:tree_RpYN06_RmYN02}).
  
- 
+ \begin{figure*}
+ \centerline{
+ \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%USA\%WA1\%2020_RaTG13_without_deleted_seqs.pdf}
+ \hspace{0.02\linewidth}
+ \includegraphics[width=0.33\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19\%Guangdong\%HKU-SZ-002\%2020_RaTG13_without_deleted_seqs.pdf}
+  \hspace{0.02\linewidth}
+ \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%Shandong\%LY005-2\%2020_RaTG13_without_deleted_seqs.pdf}
+ }
+ \caption{
+ Phylogenetic trees of all SARS-CoV-2 sequences with multiple observations among viruses collected no later than January 31, 2020.
+ The three trees are identical except they are rooted to make the putative progenitor each of the three sequences with the highest identity to the RaTG13 bat coronavirus outgroup.
+The nodes are shown as pie charts with areas proportional to the number of observations of that sequence, and colored by where the viruses were collected (see key at bottom).
+The mutations on each branch are labeled, with mutations towards the nucleotide identity in the RaTG13 outgroup in purple.
+The labels at the top of each tree show the first known virus identical to each putative progenitor, as well as the mutations in that progenitor relative to proCoV2~\citep{kumar2021evolutionary} and the widely used Wuhan-Hu-1 reference sequence.
+All sequences in the monophyletic group that contains C28144T are collapsed into a single clade labeled ``clade B'' in concordance with the naming scheme of \citet{rambaut2020dynamic}; note that this clade contains Wuhan-Hu-1.
+ Figure~\ref{suppfig:tree_RpYN06_RmYN02} shows that identical results are obtained if the outgroup is instead RpYN06 or RmYN02.
+\label{fig:tree_RaTG13}
+ }
+ \end{figure*}
 
 
 \section{Methods}
@@ -228,6 +246,8 @@ These include:
 \onecolumn
 \renewcommand{\thepage}{S\arabic{page}}
 \setcounter{page}{1}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{1}
 
 \section{Supplementary Material}
 
@@ -249,6 +269,31 @@ An interactive version of this plot is at {\color{red} add link}.
 }
 \label{suppfig:deltadist_RpYN06_RmYN02}
 \end{figure}
+
+ \begin{figure}[h!]
+ {\bf \LARGE A} \\
+ \centerline{
+ \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%USA\%WA1\%2020_RpYN06_without_deleted_seqs.pdf}
+ \hspace{0.04\linewidth}
+ \includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19\%Guangdong\%HKU-SZ-002\%2020_RpYN06_without_deleted_seqs.pdf}
+  \hspace{0.04\linewidth}
+ \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%Shandong\%LY005-2\%2020_RpYN06_without_deleted_seqs.pdf}
+ }
+ \\
+  {\bf \LARGE B} \\
+ \centerline{
+ \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%USA\%WA1\%2020_RmYN02_without_deleted_seqs.pdf}
+ \hspace{0.04\linewidth}
+ \includegraphics[width=0.32\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%Guangdong\%HKU-SZ-002\%2020_RmYN02_without_deleted_seqs.pdf}
+  \hspace{0.04\linewidth}
+ \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19\%Shandong\%LY005-2\%2020_RmYN02_without_deleted_seqs.pdf}
+ }
+ \caption{
+ A version of Figure~\ref{fig:tree_RaTG13} but rooting using an outgroup of (A) RpYN06 or (B) RmYN02 outgroups.
+ The tree topologies are identical to those obtained using RaTG13 in Figure~\ref{fig:tree_RaTG13}, with the only differences being a few minor changes in which mutations on branches are towards the outgroup (purple mutation labels).
+\label{suppfig:tree_RpYN06_RmYN02}
+ }
+ \end{figure}
 
 
 
