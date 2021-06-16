@@ -8,7 +8,7 @@
 
 \articletype{inv} 
 
-\title{Recovery of a deleted SARS-CoV-2 deep sequencing data set from the early Wuhan epidemic}
+\title{Recovery of a deleted deep sequencing data set sheds more light on the early Wuhan SARS-CoV-2 epidemic}
 
 \author[]{\Large Jesse D. Bloom}
 
@@ -181,7 +181,7 @@ To contextualize the viral sequences recovered from the deleted project describe
 Evolutionary analyses have shown that known human SARS-CoV-2 sequences are consistent with expansion from a single progenitor sequence~\citep{kumar2021evolutionary,pekar2021timing,rambaut2020dynamic,forster2020phylogenetic,pipes2021assessing}.
 However, attempts to infer this SARS-CoV-2 progenitor sequence have been confounded by a perplexing fact: the earliest reported sequences from Wuhan are \emph{not} the sequences most similar to SARS-CoV-2's bat coronavirus relatives~\citep{pipes2021assessing}.
 This fact is perplexing because although the proximal origin of SARS-CoV-2 remains unclear (i.e., zoonosis versus lab accident), all reasonable explanations agree that at a deeper level the SARS-CoV-2 genome is derived from bat coronaviruses~\citep{lytras2021exploring}.
-One would therefore expect the first reported SARS-CoV-2 sequences to be the most similar to the virus's bat coronavirus relatives---but this is not the case.
+One would therefore expect the first reported SARS-CoV-2 sequences to be the most similar to these bat coronavirus relatives---but this is not the case.
 
 \begin{figure*}
 \centering
@@ -197,8 +197,8 @@ Static versions of the plot with RpYN06 and RmYN02 outgroups are in Figure~\ref{
 \label{fig:deltadist_RaTG13}
 \end{figure*}
 
-This conundrum is illustrated in Figure~\ref{fig:deltadist_RaTG13}, which plots the collection date of SARS-CoV-2 sequences in GISAID versus the relative number of mutational differences from RaTG13~\citep{zhou2020pneumonia}, which is the bat coronavirus with the highest overall identity to SARS-CoV-2.
-The earliest SARS-CoV-2 sequences were collected in Wuhan in December, but these sequences are more distant from RaTG13 than SARS-CoV-2 sequences collected in January from other locations in China or even other countries (Figure~\ref{fig:deltadist_RaTG13}).
+This conundrum is illustrated in Figure~\ref{fig:deltadist_RaTG13}, which plots the collection date of SARS-CoV-2 sequences in GISAID versus the relative number of mutational differences from RaTG13~\citep{zhou2020pneumonia}, which is the bat coronavirus with the highest full-genome sequence identity to SARS-CoV-2.
+The earliest SARS-CoV-2 sequences were collected in Wuhan in December, but these sequences are more distant from RaTG13 than sequences collected in January from other locations in China or even other countries (Figure~\ref{fig:deltadist_RaTG13}).
 The discrepancy is especially pronounced for early Wuhan sequences from patients who had visited the Huanan Seafood Market, which was widely reported as an initial epicenter of the outbreak and has been postulated to be a site of potential zoonosis~\citep{WHO2021origins}.
 All sequences associated with the Huanan Seafood Market differ from RaTG13 by at least three more mutations than sequences subsequently collected at various other locations (Figure~\ref{fig:deltadist_RaTG13})---a fact that is difficult to reconcile with the idea that the market was the original site of spread of a bat coronavirus into humans.
 Importantly, all these observations also hold true if SARS-CoV-2 is compared to other related bat coronaviruses~\citep{lytras2021exploring} such as RpYN06~\citep{zhou2021identification} or RmYN02~\citep{zhou2020novel} rather than RaTG13 (Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}).
@@ -226,9 +226,14 @@ All sequences in the monophyletic group that contains C28144T are collapsed into
 This conundrum can also be visualized in a phylogenetic context by rooting a tree of early SARS-CoV-2 sequences so that the ``progenitor'' sequence is closest to the bat coronavirus outgroup.
 If we limit the analysis to sequences with at least two observations among strains collected no later than January 2020, there are three ways to root the tree in this fashion since there are three different sequences equally close to the bat coronavirus outgroup (Figure~\ref{fig:tree_RaTG13}, Figure~\ref{suppfig:tree_RpYN06_RmYN02}).
 Importantly, none of these rootings place any Huanan Seafood Market viruses (or other Wuhan viruses from December 2019) in the progenitor node---and only one of the three rootings has any virus from Wuhan in the progenitor node (in the leftmost tree in Figure~\ref{fig:tree_RaTG13}, the progenitor node contains Wuhan/0126-C13/2020, which was reportedly collected on January 26, 2020).
-Therefore, inferences about the progenitor of SARS-CoV-2 based on comparison to related bat viruses are inconsistent with inferences based on the dates of sequence collection and the epidemiological data suggesting Wuhan was the origin of the pandemic~\citep{pipes2021assessing}.
+Therefore, inferences about the progenitor of SARS-CoV-2 based on comparison to related bat viruses are inconsistent with inferences based on the dates of sequence collection and epidemiological data suggesting Wuhan was the origin of the pandemic~\citep{pipes2021assessing}.
 
-
+Several plausible explanations have been proposed for the discordance of phylogenetic rooting with evidence indicating that Wuhan was the origin of the pandemic.
+\citet{rambaut2020dynamic} suggest that viruses from the clade labeled ``B'' in Figure~\ref{fig:tree_RaTG13} may just ``happen'' to have been sequenced first, but that other SARS-CoV-2 sequences are really more ancestral as suggested by phylogenetic rooting.
+\citet{pipes2021assessing} provide a detailed discussion of the conundrum, and suggest that phylogenetic rooting could be incorrect due to technical reasons such as high divergence of the outgroup or unusual mutational processes not captured in phylogenetic substitution models.
+\citet{kumar2021evolutionary} agree that phylogenetic rooting is problematic, and circumvent this problem by using an alternative algorithm to infer a progenitor for SARS-CoV-2 that they name proCoV2.
+Notably, proCoV2 turns out to be identical to one of the putative progenitors yielded by my approach in Figure~\ref[fig:tree_RaTG13} of simply placing the root at the three possible locations that are closest to the bat outgroup.
+However, neither the sophisticated algorithm of \citet{kumar2021evolutionary} or my more simplistic approach in Figure~\ref[fig:tree_RaTG13} explain \emph{why} the progenitor should be so different from the earliest sequences reported from Wuhan.
 
 Tables 6 and 7 of WHO-China report indicate viruses from Huanan Market all in clade B except S13, which has T8782, T28144, and some mutation at 4946. However, clades are connected by single mutations, for instance Sichuan/SC-MY-054/2020 has T8782 but C28144.
 
