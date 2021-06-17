@@ -151,7 +151,7 @@ The number of accessions is approximately twice the number of early epidemic sam
 Neither the pre-print~\citep{wang2020medRxiv} nor published manuscript~\citep{wang2020small} contain any correction or note that indicates a scientific reason for deleting the study's sequencing data from the SRA.
 I e-mailed both corresponding authors of \citet{wang2020medRxiv} to ask why they had deleted the deep sequencing data and to request details on the collection dates of the early outpatient samples, but received no reply.
 
-\subsection{Recovery of deleted sequencing data from the Google cloud} 
+\subsection{Recovery of deleted sequencing data from the Google Cloud} 
 As indicated in Figure~\ref{fig:acc_removed}, none of the deleted sequencing runs could be accessed through the SRA's web interface.
 In addition, none of the runs could be accessed using the command-line tools of the SRA Toolkit.
 For instance, running \texttt{fastq-dump SRR11313485} or \texttt{vdb-dump SRR11313485} returned the message ``err: query unauthorized while resolving query within virtual file system module - failed to resolve accession 'SRR11313485'``.
@@ -374,18 +374,38 @@ Importantly, SRA deletions do not imply any malfeasance: there are legitimate re
 However, the current study suggests that at least in one case, the trusting structures of science have been abused to obscure sequences relevant to the early spread of SARS-CoV-2 in Wuhan.
 Therefore, a careful re-evaluation of archived forms of scientific communication, reporting, and data sharing could shed additional light on early events in the emergence of the pandemic.
 
-\section{Methods}
+{\small
 
+\section{Methods}
 \subsection{Code and data availability}
-The deleted SRA files recovered from the Google cloud are all available at  \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/tree/main/results/sra_downloads}.
+The deleted SRA files recovered from the Google Cloud are all available at  \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/tree/main/results/sra_downloads}.
 I have suffixed the file extension \texttt{.sra} to all of these files.
 
 \subsection{Archiving of key weblinks}
-I have digitally archived key weblinks in the Wayback Machine.
-These include:
+I have digitally archived key weblinks in the Wayback Machine, including a subset of the SRA files from PRJNA612766 on the Google Cloud:
 \begin{itemize}
-\item The first supplementary table of \citet{farkas2020insights}, which lists all SARS-CoV-2 accessions in the SRA as of March 30, 2020, is archived at \url{https://web.archive.org/web/20210502130356/https://dfzljdn9uc3pi.cloudfront.net/2020/9255/1/Supplementary_Table_1.xlsx}. 
+\item The first supplementary table of \citet{farkas2020insights} is archived at \url{https://web.archive.org/web/20210502130356/https://dfzljdn9uc3pi.cloudfront.net/2020/9255/1/Supplementary_Table_1.xlsx}. 
+\item SRR11313485: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485}
+\item SRR11313486: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313486/SRR11313486}
+\item SRR11313274: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313274/SRR11313274}
+\item SRR11313275: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313275/SRR11313275}
+\item SRR11313285: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313285/SRR11313285}
+\item SRR11313286: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313286/SRR11313286}
+\item SRR11313448: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313448/SRR11313448}
+\item SRR11313449: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313449/SRR11313449}
+\item SRR11313427: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313427/SRR11313427}
+\item SRR11313429: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313429/SRR11313429}
 \end{itemize}
+
+\section{Acknowledgments}
+I thank the many citizens and scientists on Twitter who helped inspire this study and inform its background through their careful analyses and discussions of the early SARS-CoV-2 epidemic.
+The scientific computing infrastructure used in this work was supported by the NIH Office of Research Infrastructure Programs under S10OD028685.
+The author is an Investigator of the Howard Hughes Medical Institute.
+
+\section{Competing interests}
+The author consults for Moderna on SARS-CoV-2 evolution and epidemiology, consults for Flagship Labs 77 on viral deep mutational scanning, and has the potential to receive a share of IP revenue as an inventor on a Fred Hutch licensed technology/patent (application WO2020006494) related to deep mutational scanning of viral proteins.
+
+}
 
 \bibliography{references}
 
