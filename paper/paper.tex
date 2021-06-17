@@ -204,13 +204,13 @@ Importantly, all these observations also hold true if SARS-CoV-2 is compared to 
  \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_without_deleted_seqs.pdf}
  }
  \caption{
- Phylogenetic trees of all existing SARS-CoV-2 sequences in GISAID with multiple observations among viruses collected no later than January 31, 2020.
- The three trees are identical except they are rooted to make the putative progenitor each of the three sequences with the highest identity to the RaTG13 bat coronavirus outgroup.
-Nodes are shown as pie charts with areas proportional to the number of observations of that sequence, and colored by where the viruses were collected (see key at bottom).
-The mutations on each branch are labeled, with mutations towards the nucleotide identity in the RaTG13 outgroup in purple.
-The labels at the top of each tree show the first known virus identical to each putative progenitor, as well as mutations in that progenitor relative to proCoV2~\citep{kumar2021evolutionary} and the Wuhan-Hu-1 reference sequence.
-All sequences in the monophyletic group containing C28144T are collapsed into a single node labeled ``clade B'' in concordance with the naming scheme of \citet{rambaut2020dynamic}; this clade contains Wuhan-Hu-1.
- Figure~\ref{suppfig:tree_RpYN06_RmYN02} shows that identical results are obtained if the outgroup is instead RpYN06 or RmYN02.
+ Phylogenetic trees of SARS-CoV-2 sequences in GISAID with multiple observations among viruses collected no later than January 31, 2020.
+ The trees are identical except they are rooted to make the putative progenitor each of the three sequences with highest identity to the RaTG13 bat coronavirus outgroup.
+Nodes are shown as pie charts with areas proportional to the number of observations of that sequence, and colored by where the viruses were collected.
+The mutations on each branch are labeled, with mutations towards the nucleotide identity in the outgroup in purple.
+The labels at the top of each tree give the first known virus identical to each putative progenitor, as well as mutations in that progenitor relative to proCoV2~\citep{kumar2021evolutionary} and Wuhan-Hu-1.
+The monophyletic group containing C28144T is collapsed into a single node labeled ``clade B'' in concordance with the naming scheme of \citet{rambaut2020dynamic}; this clade contains Wuhan-Hu-1.
+ Figure~\ref{suppfig:tree_RpYN06_RmYN02} shows that identical results are obtained if the outgroup is RpYN06 or RmYN02.
 \label{fig:tree_RaTG13}
  }
  \end{figure*}
@@ -218,7 +218,7 @@ All sequences in the monophyletic group containing C28144T are collapsed into a 
 This conundrum can be visualized in a phylogenetic context by rooting a tree of early SARS-CoV-2 sequences so that the ``progenitor'' sequence is closest to the bat coronavirus outgroup.
 If we limit the analysis to sequences with at least two observations among strains collected no later than January 2020, there are three ways to root the tree in this fashion since there are three different sequences equally close to the outgroup (Figure~\ref{fig:tree_RaTG13}, Figure~\ref{suppfig:tree_RpYN06_RmYN02}).
 Importantly, none of these rootings place any Huanan Seafood Market viruses (or other Wuhan viruses from December 2019) in the progenitor node---and only one of the rootings has any virus from Wuhan in the progenitor node (in the leftmost tree in Figure~\ref{fig:tree_RaTG13}, the progenitor node contains Wuhan/0126-C13/2020, which was reportedly collected on January 26, 2020).
-Therefore, inferences about the progenitor of SARS-CoV-2 based on comparison to related bat viruses are inconsistent with inferences based on the dates of sequence collection and epidemiological evidence suggesting Wuhan was the origin of the pandemic~\citep{pipes2021assessing}.
+Therefore, inferences about the progenitor of SARS-CoV-2 based on comparison to related bat viruses are inconsistent with other evidence suggesting the progenitor is an early virus from Wuhan~\citep{pipes2021assessing}.
 
 Several plausible explanations have been proposed for the discordance of phylogenetic rooting with evidence that Wuhan was the origin of the pandemic.
 \citet{rambaut2020dynamic} suggest that viruses from the clade labeled ``B'' in Figure~\ref{fig:tree_RaTG13} may just ``happen'' to have been sequenced first, but that other SARS-CoV-2 sequences are really more ancestral as implied by phylogenetic rooting.
@@ -233,7 +233,7 @@ But although there are unusual aspects of RaTG13's primary sequencing data~\cite
 The second explanation, which was proposed in a blog post by \citet{garry2021early} and amplified by a popular podcast~\citep{twiv2021}, is that there were multiple zoonoses from distinct markets, with the Huanan Seafood Market being the source of viruses in clade B, and some other market being the source of viruses that lack the T8782C and C28144T mutations.
 However, inspection of Figure~\ref{fig:tree_RaTG13} shows that clade B is connected to viruses lacking T8782C and C28144T by single mutational steps via other human isolates, so this explanation requires not only positing two markets with two progenitors differing by just two mutations, but also the exceedingly improbable evolution of one of these progenitors towards the other after it had jumped to humans.
 
-\subsection{Sequences recovered from the deleted project help resolve inferences about SARS-CoV-2's progenitor}
+\subsection{Sequences recovered from the deleted project and better annotation of Wuhan-derived viruses help reconcile inferences about SARS-CoV-2's progenitor}
 To examine if the sequences recovered from the deleted data set help resolve the conundrum described in the previous section, I repeated the analyses including those sequences.
 In the process, I noted another salient fact: four GISAID sequences collected in Guangdong that fall in a putative progenitor node are from patients who traveled to Wuhan in late December of 2019 and developed symptoms before or on the day that they returned to Guangdong, where their viruses were ultimately sequenced~\citep{chan2020familial, kang2020evidence}.
 Since these patients were clearly infected in Wuhan even though they were sequenced in Guangdong, I annotated them separately from both the other Wuhan and other China sequences.
@@ -242,7 +242,7 @@ Since these patients were clearly infected in Wuhan even though they were sequen
 \centering
 \includegraphics[width=0.75\linewidth]{figures/deltadist_jitter.png}
 \caption{
-Relative mutational distance from RaTG13 bat coronavirus outgroup calculated \emph{only} over the region of the SARS-CoV-2 genome covered by the sequences recovered from the deleted data set (sites 21,570--29,550).
+Relative mutational distance from RaTG13 bat coronavirus outgroup calculated \emph{only} over the region of the SARS-CoV-2 genome covered by sequences from the deleted data set (sites 21,570--29,550).
 The plot shows sequences in GISAID collected before February of 2020, as well as the 13 early Wuhan epidemic sequences in Table~\ref{tab:mutations}.
 Mutational distance is calculated relative to proCoV2, and points are slightly jittered on the y-axis.
 Go to {\color{red} add link} for an interactive version of this plot that enables toggling the outgroup to RpYN06 or RmYN02, mouseovers to see details for each point, and adjustment of y-axis jittering.
@@ -259,20 +259,20 @@ Go to {\color{red} add link} for an interactive version of this plot that enable
  \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_with_deleted_seqs.pdf}
  }
  \caption{
-Phylogenetic trees identical to those in Figure~\ref{fig:tree_RaTG13} except with the addition of the early Wuhan epidemic sequences from the deleted data set, and with Guangdong patients infected in Wuhan prior to January 5 annotated separately.
-Because the deleted data set only provides partial sequences, they cannot all be placed unambiguously on the tree.
-Therefore, they are added to each node with which they are compatible proportional to the number of sequences already in that node.
-The sequences with C28144T (clade B) or C29095T (putative progenitor in middle tree) can be placed relatively unambiguously as key lineage-defining mutations occur in the sequenced region, but the sequences that lack either of these mutations can be placed in a large number of nodes including that of the proCoV2 putative progenitor.
- Figure~\ref{suppfig:tree_RpYN06_RmYN02} has already demonstrated that the results are identical if RpYN06 or RmYN02 are instead used as the outgroup.
+Phylogenetic trees like those in Figure~\ref{fig:tree_RaTG13} with the addition of the early Wuhan epidemic sequences from the deleted data set, and Guangdong patients infected in Wuhan prior to January 5 annotated separately.
+Because the deleted sequences are partial, they cannot all be placed unambiguously on the tree.
+Therefore, they are added to each compatible node proportional to the number of sequences already in that node.
+The deleted sequences with C28144T (clade B) or C29095T (putative progenitor in middle tree) can be placed relatively unambiguously as defining mutations occur in the sequenced region, but those that lack either of these mutations are compatible with a large number of nodes including the proCoV2 putative progenitor.
+ Figure~\ref{suppfig:tree_RpYN06_RmYN02} has already demonstrated that the results are identical if RpYN06 or RmYN02 is instead used as the outgroup.
 \label{fig:tree_with_deleted}
  }
  \end{figure*}
 
-Repeating the analysis of the previous section with these new sequences shows that several sequences from the deleted project and all sequences from patients infected in Wuhan but sequenced in Guangdong are more similar to the bat coronavirus outgroup than sequences from the Huanan Seafood Market (Figure~\ref{fig:deltadist_jitter}).
-This fact suggests that the Huanan Seafood Market sequences, which are the primary focus of the genomic epidemiology analyses in the joint WHO-China report~\citep{WHO2021origins}, may not be representative of the viruses that were circulating in Wuhan in late December of 2019 and early January of 2020.
+Repeating the analysis of the previous section with these changes shows that several sequences from the deleted project and all sequences from patients infected in Wuhan but sequenced in Guangdong are more similar to the bat coronavirus outgroup than sequences from the Huanan Seafood Market (Figure~\ref{fig:deltadist_jitter}).
+This fact suggests that the Huanan Seafood Market sequences, which are the primary focus of the genomic epidemiology in the joint WHO-China report~\citep{WHO2021origins}, may not be representative of the viruses that were circulating in Wuhan in late December of 2019 and early January of 2020.
 
 Furthermore, it is immediately apparent that the discrepancy between outgroup rooting and the evidence that Wuhan was the origin of SARS-CoV-2 is alleviated by adding the deleted sequences and annotating Wuhan infections sequenced in Guangdong.
-The rooting of the middle tree in Figure~\ref{fig:tree_with_deleted} now looks highly plausible, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node.
+The rooting of the middle tree in Figure~\ref{fig:tree_with_deleted} is now highly plausible, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node.
 The first known sequence identical to this putative progenitor (Guangdong/HKU-SZ-002/2020) is from a patient who developed symptoms on January 4 while visiting Wuhan~\citep{chan2020familial}.
 This putative progenitor has three mutations towards the bat coronavirus outgroup relative to Wuhan-Hu-1 (C8782T, T28144C, and C29095T), and two mutations relative to proCoV2 (T18060C away from the outgroup and C29095T towards the outgroup).
 The leftmost tree in Figure~\ref{fig:tree_with_deleted}, which has a progenitor identical to proCoV2~\citep{kumar2021evolutionary} also looks plausible, with some weight from Wuhan sequences.
