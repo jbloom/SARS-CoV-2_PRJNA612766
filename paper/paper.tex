@@ -101,7 +101,7 @@ Subsequent to March 30, 2020, a similar e-mail request must have been made to fu
 \centering
 \fbox{\includegraphics[trim={0.8in 0.8in 1.1in 1in},clip,width=\linewidth]{figures/pangolin_emails.jpg}}
 \caption{Example of the process to delete SRA data.
-The image shows e-mails between the lead author of the pangolin coronavirus paper~\citet{xiao2020isolation} and SRA staff excerpted from \url{https://usrtk.org/tag/pangolin-papers/}.
+The image shows e-mails between the lead author of the pangolin coronavirus paper~\citet{xiao2020isolation} and SRA staff excerpted from \citet{USRTK2020}.
 }
 \label{fig:pangolin_emails}
 \end{figure}
@@ -320,7 +320,7 @@ Analysis of these sequences leads to several important conclusions.
 First, the Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
 The deleted data set as well as analysis of existing sequences from Wuhan-infected patients hospitalized in Guangdong shows early Wuhan sequences often carried the T29095C mutation and were less likely to carry T8782C / C28144T than sequences in the joint WHO-China report~\citep{WHO2021origins}.
 Second, given current data, there are two plausible identities for the progenitor of all known SARS-CoV-2.
-One of these putative progenitors is proCoV2 described by \citet{kumar2021evolutionary}, and the other is a sequence that carries three mutations (C8782T, T28144C, and C29095T) relative to Wuhan-Hu-1.
+One is proCoV2 described by \citet{kumar2021evolutionary}, and the other is a sequence that carries three mutations (C8782T, T28144C, and C29095T) relative to Wuhan-Hu-1.
 Crucially, both putative progenitors are three mutations closer to SARS-CoV-2's bat coronavirus relatives than sequences from the Huanan Seafood Market.
 Note also that the progenitor of all known SARS-CoV-2 sequences could still be downstream of the sequence that infected patient zero depending on the transmission dynamics of the first infections.
 
@@ -328,7 +328,7 @@ The fact that such an informative data set was deleted also has implications bey
 Samples from early outpatients in Wuhan are a gold mine for anyone seeking to understand spread of the virus.
 Even my analysis of the partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence the samples rather than surreptitiously delete the partial sequences.
 There is no plausible scientific reason for the deletion: the sequences are perfectly concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing data show no evidence of plasmid or sample-to-sample contamination.
-It therefore seems likely the sequences were deleted from the SRA to obscure their existence.
+It therefore seems likely the sequences were deleted to obscure their existence.
 Particularly in light of the directive that unauthorized labs destroy early viral samples~\citep{pinghui2020SCMP} and the multiple orders requiring approval of publications related to COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to trace the early spread of the epidemic.
 
 Another important implication is that genomic epidemiology studies of early SARS-CoV-2 need to pay as much attention to the provenance and annotation of the underlying sequences as technical considerations.
@@ -341,17 +341,19 @@ Most obviously, the sequences recovered from the deleted data set are partial an
 Therefore, it is impossible to unambiguously place them phylogenetically, or determine exactly when they were collected.
 However, little can be done to mitigate this caveat beyond my failed attempt to contact the corresponding authors of \citet{wang2020medRxiv}.
 It is also important to note that my phylogenetic analyses use relatively simple methods to draw qualitative conclusions without formal statistical testing.
-Certainly further application of more advanced methods would be a welcome advance.
+Further application of more advanced methods would be a welcome advance.
 However, qualitative and visual analyses do have advantages when the key questions relate more to the underlying data than the sophistication of the inferences.
-Finally, both plausible putative progenitors described above require that one of the earliest mutations to SARS-CoV-2 was a reversion towards the bat coronavirus outgroups (either C18060T or C29095T) on a branch that subsequently gave rise to multiple distinct descendants.
-Such a non-parsimonious scenario can only be avoided by invoking recombination very early in the pandemic, which is not entirely implausible for a coronavirus~\citep{boni2020evolutionary}.
-However, because the outgroups have $\sim$4\% nucleotide divergence from SARS-CoV-2, a mutation towards the outgroup is also in the realm of reasonable possibility.
+Finally, both plausible putative progenitors require that one of the earliest mutations to SARS-CoV-2 was a reversion towards the bat coronavirus outgroups (either C18060T or C29095T) on a branch that subsequently gave rise to multiple distinct descendants.
+Such a scenario can only be avoided by invoking recombination very early in the pandemic, which is not entirely implausible for a coronavirus~\citep{boni2020evolutionary}.
+However, because the outgroups have $\sim$4\% nucleotide divergence from SARS-CoV-2, a mutation towards the outgroup is also entirely possible.
 Of course, future identification of additional early sequences could fully resolve these questions.
 
-Something about lacking formal analyses of some other studies, but maybe this is not so bad.
-Still not parsimonious
-
-More broadly, ..., implications for further study. getting info from NIH on these and others.
+More broadly, the approach taken here suggests it may be possible to learn more about the origin or early spread of SARS-CoV-2 even without a complex international investigation.
+Minimally, it should be immediately possible for the NIH to determine the date and purported reason for deletion of the data set analyzed here, since the only way sequences can be deleted from the SRA is by an e-mail request to SRA staff~\citep{SRA_deletion}.
+In addition, I suggest it could be worthwhile to review e-mail records to identify other SRA deletions, which are already known to include SRR11119760 and SRR11119761~\citep{USRTK2020}.
+Importantly, SRA deletions do not imply any malfeasance: there are legitimate reasons for removing sequencing runs, and the SRA houses $>$13-million runs making it infeasible for their staff to validate the rationale for all requests.
+However, the current study suggests that at least in one case, the trusting structures of scientific data sharing have been abused to obscure sequences relevant to the early spread of SARS-CoV-2 in Wuhan.
+Therefore, a careful re-evaluation of other routine forms of scientific communication, reporting, and data sharing could shed additional light on early events in the emergence of the pandemic.
 
 \section{Methods}
 
