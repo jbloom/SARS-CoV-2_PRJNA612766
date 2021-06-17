@@ -265,7 +265,7 @@ However, inspection of Figure~\ref{fig:tree_RaTG13} shows that clade B is connec
 
 \subsection{Sequences recovered from the deleted project and better annotation of Wuhan-derived viruses help reconcile inferences about SARS-CoV-2's progenitor}
 To examine if the sequences recovered from the deleted data set help resolve the conundrum described in the previous section, I repeated the analyses including those sequences.
-In the process, I noted another salient fact: four GISAID sequences collected in Guangdong that fall in a putative progenitor node are from patients who traveled to Wuhan in late December of 2019 and developed symptoms before or on the day that they returned to Guangdong, where their viruses were ultimately sequenced~\citep{chan2020familial, kang2020evidence}.
+In the process, I noted another salient fact: four GISAID sequences collected in Guangdong that fall in a putative progenitor node are from two different clusters of patients who traveled to Wuhan in late December of 2019 and developed symptoms before or on the day that they returned to Guangdong, where their viruses were ultimately sequenced~\citep{chan2020familial, kang2020evidence}.
 Since these patients were clearly infected in Wuhan even though they were sequenced in Guangdong, I annotated them separately from both the other Wuhan and other China sequences.
 
 \begin{figure}
@@ -315,28 +315,43 @@ Using this qualitative principle, the middle scenario in Figure~\ref{fig:tree_wi
 I acknowledge these arguments are purely qualitative and lack the formal statistical analysis of \citet{worobey2020emergence}---but as discussed below, there may be wisdom in qualitative reasoning when there are valid concerns about the nature of the underlying data.
 
 \section{Discussion}
-I have identified and recovered a deleted data set of partial SARS-CoV-2 sequences from the early Wuhan epidemic.
+I have identified and recovered a deleted set of partial SARS-CoV-2 sequences from the early Wuhan epidemic.
 Analysis of these sequences leads to several important conclusions.
-First, the Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are clearly not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
-Instead, the deleted data set as well as analysis of existing sequences from Wuhan-infected patients hospitalized in Guangdong shows early Wuhan sequences often carried the T29095C mutation and were less likely to carry T8782C / C28144T than the sequences in the joint WHO-China report~\citep{WHO2021origins}.
-Second, given current data, there are two plausible identities for the progenitor of all known SARS-CoV-2 sequences.
+First, the Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
+The deleted data set as well as analysis of existing sequences from Wuhan-infected patients hospitalized in Guangdong shows early Wuhan sequences often carried the T29095C mutation and were less likely to carry T8782C / C28144T than sequences in the joint WHO-China report~\citep{WHO2021origins}.
+Second, given current data, there are two plausible identities for the progenitor of all known SARS-CoV-2.
 One of these putative progenitors is proCoV2 described by \citet{kumar2021evolutionary}, and the other is a sequence that carries three mutations (C8782T, T28144C, and C29095T) relative to Wuhan-Hu-1.
 Crucially, both putative progenitors are three mutations closer to SARS-CoV-2's bat coronavirus relatives than sequences from the Huanan Seafood Market.
-Note also that the progenitor of all currently known SARS-CoV-2 sequences could still be downstream of the sequence that actually infected patient zero depending on the transmission dynamics of the earliest infections.
+Note also that the progenitor of all known SARS-CoV-2 sequences could still be downstream of the sequence that infected patient zero depending on the transmission dynamics of the first infections.
 
-In addition, the fact that such an informative data set was deleted carries implications beyond those gleaned directly from the recovered sequences.
-Samples from early outpatients in the Wuhan epidemic are a gold mine for anyone seeking to understand the early spread of the virus.
+The fact that such an informative data set was deleted also has implications beyond those gleaned directly from the recovered sequences.
+Samples from early outpatients in Wuhan are a gold mine for anyone seeking to understand spread of the virus.
 Even my analysis of the partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence the samples rather than surreptitiously delete the partial sequences.
-There is no plausible scientific reason for the deletion: the sequences are perfectly concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states proper human subjects approval was obtained, and the sequencing data show no evidence of plasmid or sample-to-sample contamination.
-It therefore seems likely that the data were deleted from the SRA to obscure their existence from scientists searching such databases.
+There is no plausible scientific reason for the deletion: the sequences are perfectly concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing data show no evidence of plasmid or sample-to-sample contamination.
+It therefore seems likely the sequences were deleted from the SRA to obscure their existence.
+Particularly in light of the directive that unauthorized labs destroy early viral samples~\citep{pinghui2020SCMP} and the multiple orders requiring approval of publications related to COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to trace the early spread of the epidemic.
 
+Another important implication is that genomic epidemiology studies of early SARS-CoV-2 need to pay as much attention to the provenance and annotation of the underlying sequences as technical considerations.
+There has been substantial scientific effort expended on topics such as phylogenetic rooting~\citep{pipes2021assessing, morel2021phylogenetic}, novel algorithms~\citep{kumar2021evolutionary}, and correction of sequencing errors~\citep{turakhia2020stability}.
+Future studies should devote equal effort to going beyond the default annotations in GISAID to carefully trace the location of patient infection and sample sequencing.
+The potential importance of such work is revealed by the observation above that many of the sequences closest to SARS-CoV-2's bat coronavirus relatives are from early patients who were infected in Wuhan, but then sequenced in and attributed to Guangdong.
 
-There are several caveats...
-Sequences only partial and lacking full metadata...
+There are several caveats to this study.
+Most obviously, the sequences recovered from the deleted data set are partial and lack full metadata.
+Therefore, it is impossible to unambiguously place them phylogenetically, or determine exactly when they were collected.
+However, little can be done to mitigate this caveat beyond my failed attempt to contact the corresponding authors of \citet{wang2020medRxiv}.
+It is also important to note that my phylogenetic analyses use relatively simple methods to draw qualitative conclusions without formal statistical testing.
+Certainly further application of more advanced methods would be a welcome advance.
+However, qualitative and visual analyses do have advantages when the key questions relate more to the underlying data than the sophistication of the inferences.
+Finally, both plausible putative progenitors described above require that one of the earliest mutations to SARS-CoV-2 was a reversion towards the bat coronavirus outgroups (either C18060T or C29095T) on a branch that subsequently gave rise to multiple distinct descendants.
+Such a non-parsimonious scenario can only be avoided by invoking recombination very early in the pandemic, which is not entirely implausible for a coronavirus~\citep{boni2020evolutionary}.
+However, because the outgroups have $\sim$4\% nucleotide divergence from SARS-CoV-2, a mutation towards the outgroup is also in the realm of reasonable possibility.
+Of course, future identification of additional early sequences could fully resolve these questions.
+
 Something about lacking formal analyses of some other studies, but maybe this is not so bad.
 Still not parsimonious
 
-Finally, implications for further study. getting info from NIH on these and others.
+More broadly, ..., implications for further study. getting info from NIH on these and others.
 
 \section{Methods}
 
