@@ -1,6 +1,6 @@
 # Interactive figures related to the paper "Recovery of deleted deep sequencing data sheds more light on the early Wuhan SARS-CoV-2 epidemic"
 
-Below are links to interactive versions of some of the figures from the papers.
+Below are links to interactive versions of some of the figures from the paper.
 The figures are interactive in various ways, including enabling mouseovers to get information on data points, zooming, selecting options, etc.
 These figures were created using [Altair](https://altair-viz.github.io/).
 
