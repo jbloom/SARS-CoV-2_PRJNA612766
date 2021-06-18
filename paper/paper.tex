@@ -223,7 +223,7 @@ Mutational distances are relative to the putative progenitor proCoV2 inferred by
 The plot shows sequences in GISAID collected no later than February 28, 2020.
 Sequences that the joint WHO-China report~\citep{WHO2021origins} describes as being associated with the Wuhan Seafood Market are plotted with squares.
 Points are slightly jittered on the y-axis.
-Go to {\color{red} add link} for an interactive version of this plot that enables toggling of the outgroup to RpYN06 and RmYN02, mouseovers to see details for each point including strain name and mutations relative to proCoV2, and adjustment of the y-axis jittering.
+Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist.html} for an interactive version of this plot that enables toggling of the outgroup to RpYN06 and RmYN02, mouseovers to see details for each point including strain name and mutations relative to proCoV2, and adjustment of the y-axis jittering.
 Static versions of the plot with RpYN06 and RmYN02 outgroups are in Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}.
 }
 \label{fig:deltadist_RaTG13}
@@ -294,7 +294,7 @@ Since these patients were clearly infected in Wuhan even though they were sequen
 Relative mutational distance from RaTG13 bat coronavirus outgroup calculated \emph{only} over the region of the SARS-CoV-2 genome covered by sequences from the deleted data set (21,570--29,550).
 The plot shows sequences in GISAID collected before February of 2020, as well as the 13 early Wuhan epidemic sequences in Table~\ref{tab:mutations}.
 Mutational distance is calculated relative to proCoV2, and points are jittered on the y-axis.
-Go to {\color{red} add link} for an interactive version of this plot that enables toggling the outgroup to RpYN06 or RmYN02, mouseovers to see details for each point, and adjustment of jittering.
+Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist_jitter.html} for an interactive version of this plot that enables toggling the outgroup to RpYN06 or RmYN02, mouseovers to see details for each point, and adjustment of jittering.
 \label{fig:deltadist_jitter}
 }
 \end{figure}
@@ -458,7 +458,7 @@ Finally, I used information from ~\citet{chan2020familial} and \citet{kang2020ev
 I next removed any of the handful of mutations noted by \citet{turakhia2020stability} to be lab artifacts that commonly afflict SARS-CoV-2 sequences.
 I also limited the analyses to the region of the genome that spans from the start of the first coding region (ORF1ab) to the end of the last (ORF10), because I noticed that some sequences had suspicious patterns (such as many mutations or runs of mutations) near the termini of the genome.
 
-The plot in Figure~\ref{fig:deltadist_RaTG13} contains all of the GISAID sequences after this filtering, and was rendered using \texttt{Altair}~\citep{vanderplas2018altair}.
+The plot in Figure~\ref{fig:deltadist_RaTG13} contains all of the GISAID sequences after this filtering.
 The plot in Figure~\ref{fig:deltadist_jitter} shows the filtered GISAID sequences collected before February of 2020 plus the 13 good coverage recovered partial early outpatient sequences (Table~\ref{tab:mutations}), considering only the region covered by the partial sequences (21,570 to 29,550).
 
 \subsection{Phylogenetic analyses}
@@ -474,6 +474,9 @@ As indicated in the legend to Figure~\ref{fig:tree_RaTG13}, the node containing 
 
 For the trees in which I added the recovered sequences from the deleted data set (Figure~\ref{fig:tree_with_deleted}), the actual trees are exactly the same as those inferred using the GISAID sequences above.
 The difference is that the sequences from the deleted data set are then added to each node with which they are compatible given their mutations in an amount proportional to the size of the node, the logic being that a sequence is more likely to fall into larger clusters.
+
+\subsection{Interactive versions of some figures}
+Interactive versions of some figures are available at \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/}, and were created using \texttt{Altair}~\citep{vanderplas2018altair}
 
 \section{Acknowledgments}
 I thank the citizens and scientists on Twitter who helped inspire this study and inform its background through their analyses and discussions of the early spread of SARS-CoV-2.
@@ -493,7 +496,7 @@ The author consults for Moderna on SARS-CoV-2 evolution and epidemiology, consul
 \renewcommand{\thepage}{S\arabic{page}}
 \setcounter{page}{1}
 \renewcommand{\thefigure}{S\arabic{figure}}
-\setcounter{figure}{1}
+\setcounter{figure}{0}
 
 \section{Supplementary Material}
 
@@ -504,7 +507,7 @@ The author consults for Moderna on SARS-CoV-2 evolution and epidemiology, consul
 Depth is the number of aligned reads that cover that site with a quality score $\ge$20.
 The dashed gray line is the minimum coverage required to call a consensus identity at a site.
 Note that the y-axis uses a symlog scale.
-An interactive version of this plot that enables zooming into specific site ranges and mouseovers to see read count statistics at each site is at {\color{red} add link}.
+An interactive version of this plot that enables zooming into specific site ranges and mouseovers to see read count statistics at each site is at \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/coverage_region.html}.
 A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in Figure~\ref{suppfig:coverage_all}.
 }
 \label{suppfig:coverage}
@@ -514,7 +517,7 @@ A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in 
 \centering
 \includegraphics[width=\linewidth]{figures/coverage_all.pdf}
 \caption{A version of Figure~\ref{fig:coverage} that shows coverage over the full length of the SARS-CoV-2 genome.
-An interactive version of this plot is at {\color{red} add link}.
+An interactive version of this plot is at \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/coverage_all.html}.
 }
 \label{suppfig:coverage_all}
 \end{figure}
