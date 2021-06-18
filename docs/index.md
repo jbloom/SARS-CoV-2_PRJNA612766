@@ -8,7 +8,7 @@ Specifically:
 
  - <a href="coverage_region.html" title="Figure S1: sequencing coverage for deleted samples from sites 21,570 to 29,550">Figure S1: sequencing coverage for deleted samples from sites 21,570 to 29,550</a>
  
- - <a href="coverage_all.html" title="Figure S2: sequencing coverage for deleted samples over all sites">Figure S1: sequencing coverage for deleted samples overl all sites</a>
+ - <a href="coverage_all.html" title="Figure S2: sequencing coverage for deleted samples over all sites">Figure S2: sequencing coverage for deleted samples over all sites</a>
  
  - <a href="deltadist.html" title="Figure 3: reported collection date versus relative mutational distance to bat coronavirus outgroup">Figure 3: reported collection date versus relative mutational distance to bat coronavirus outgroup</a>
  
