@@ -462,10 +462,22 @@ The plot in Figure~\ref{fig:deltadist_RaTG13} contains all of the GISAID sequenc
 The plot in Figure~\ref{fig:deltadist_jitter} shows the filtered GISAID sequences collected before February of 2020 plus the 13 good coverage recovered partial early outpatient sequences (Table~\ref{tab:mutations}), considering only the region covered by the partial sequences (21,570 to 29,550).
 
 \subsection{Phylogenetic analyses}
+The phylogenetic trees were inferred using the GISAD sequences after the filtering and annotations described above, only considering sequences with $\ge$95\% coverage over the region of interest that were collected before February of 2020.
+In addition, after generating this sequence set I removed any sequence variants with a combination of mutations that was not observed at least twice so the analysis only includes multiply observed sequence variants.
+A file indicating the unique sequences used for the phylogenetic analysis, their mutations relative to proCoV2, and other sequences in that cluster is at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/results/phylogenetics/all_alignment.csv}.
+
+I then used \texttt{IQ-Tree}~\citep{minh2020iq} to infer a maximum-likelihood phylogenetic tree using a GTR nucleotide substitution model with empirical nucleotide frequencies, and collapsing zero-length branches to potentially allow a multifurcating tree.
+The inference yielded the tree topology and branch lengths shown in all figures in this study with phylogenetic trees.
+I then rendered the images of the tree using \texttt{ETE 3}~\citep{huerta2016ete}, manually re-rooting the tree to place the first (progenitor) node at each of the three nodes that have the highest identity to the bat coronavirus outgroup.
+In these images, node sizes are proportional to the number of sequences in that node, and are colored in proportion to the location from which those sequences are derived.
+As indicated in the legend to Figure~\ref{fig:tree_RaTG13}, the node containing the monophyletic set of sequences with C28144T is collapsed into a single node in the tree images.
+
+For the trees in which I added the recovered sequences from the deleted data set (Figure~\ref{fig:tree_with_deleted}), the actual trees are exactly the same as those inferred using the GISAID sequences above.
+The difference is that the sequences from the deleted data set are then added to each node with which they are compatible given their mutations in an amount proportional to the size of the node, the logic being that a sequence is more likely to fall into larger clusters.
 
 \section{Acknowledgments}
-I thank the many citizens and scientists on Twitter who helped inspire this study and inform its background through their careful analyses and discussions of the early SARS-CoV-2 epidemic.
-I thank the many scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
+I thank the citizens and scientists on Twitter who helped inspire this study and inform its background through their analyses and discussions of the early spread of SARS-CoV-2.
+I thank the scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
 The scientific computing infrastructure used in this work was supported by the NIH Office of Research Infrastructure Programs under S10OD028685.
 The author is an Investigator of the Howard Hughes Medical Institute.
 
