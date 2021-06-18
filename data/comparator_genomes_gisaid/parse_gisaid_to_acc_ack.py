@@ -26,6 +26,6 @@ acknowledgments = (
     [['originating_lab', 'submitting_lab', 'authors']]
     .drop_duplicates()
     )
-ack_file = 'acknowledgments.txt'
+ack_file = 'acknowledgments.csv'
 print(f"Writing the {len(acknowledgments)} to {ack_file}")
 acknowledgments.to_csv(ack_file, index=False)
