@@ -7,7 +7,7 @@ Notably, this table lists a large number of accessions from BioProject PRJNA6127
 However, as of April-29-2021, this BioProject is not accessible on the SRA web interface.
 However, the SRA files can still be obtained using commands like this:
 
-    wget https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313395/SRR11313395
+    wget https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485
 
 The Excel Supplementary Table 1 indicates the plasmid control samples are from Aisi Fu and the human samples from Renmin Hospital.
 Googling these terms brings up [this pre-print](https://www.medrxiv.org/content/10.1101/2020.03.04.20029538v1) (posted March-6-2020) and [this paper](https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202002169) (published June-24-2020), which clearly describe the study here.

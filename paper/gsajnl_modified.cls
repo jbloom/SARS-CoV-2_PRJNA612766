@@ -251,17 +251,17 @@ THE ABSTRACT\vskip12pt}\let\go\relax\fi
 {%
 \vskip0pt%
 {\raggedleft \titlefont \@title\par}%
-\vskip11pt
+\vskip10pt
 {\raggedleft \@author\par}
-\vskip15pt%
+\vskip10pt%
 }%
 \end{flushright}\egroup
 {%
 {\color{black50}\rule{\linewidth}{0.5pt}}
-\vskip12pt%
+\vskip10pt%
 \abscontent
 }%
-\vskip25pt%
+\vskip15pt%
 }%
 
 % Other packages
