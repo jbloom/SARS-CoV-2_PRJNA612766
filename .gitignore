@@ -15,5 +15,8 @@ results/sra_downloads/*
 !results/consensus
 results/consensus/*
 !results/consensus/consensus_seqs.csv
+!results/phylogenetics
+results/phylogenetics/*
+!results/phylogenetics/all_alignment.csv
 
 report.html
