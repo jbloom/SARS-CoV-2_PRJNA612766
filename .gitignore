@@ -11,5 +11,8 @@ results/*
 !results/sra_downloads
 results/sra_downloads/*
 !results/sra_downloads/*.sra
+!results/consensus
+results/consensus/*
+!results/consensus/consensus_seqs.csv
 
 report.html
