@@ -75,6 +75,7 @@ rule all:
         multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         multiext('results/deltadist_jitter', '.html', '.pdf'),
         'results/deleted_diffs.tex',
+        'results/recovered_seqs.fa',
         'results/phylogenetics/tree_images/',
         'results/pileup/plasmid_mutations.csv',
 
@@ -527,6 +528,7 @@ rule outgroup_dist_analysis:
         early_seq_deltadist_region=multiext('results/early_sequences/deltadist_region', '.html', '.pdf'),
         deltadist_jitter=multiext('results/deltadist_jitter', '.html', '.pdf'),
         deleted_diffs_latex='results/deleted_diffs.tex',
+        recovered_seqs='results/recovered_seqs.fa',
         alignment_all_fasta='results/phylogenetics/all_alignment.fa',
         alignment_all_csv='results/phylogenetics/all_alignment.csv',
         deleted_csv='results/phylogenetics/deleted_seqs.csv',
