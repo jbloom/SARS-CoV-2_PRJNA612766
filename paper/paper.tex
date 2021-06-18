@@ -428,6 +428,15 @@ These consensus sequences over the entire SARS-CoV-2 genome are available at \ur
 I only used the recovered consensus sequences in the downstream analyses if it was possible to call the consensus identity at $\ge$95\% of the sites in the region of interest from site 21,570 to 29,550.
 These are the sequences listed in Table~\ref{tab:mutations}, and as described in that table, all mutation calls were at sites with coverage $\ge$10.
 
+\subsection{Bat coronavirus outgroup sequences}
+For analyses that involved comparisons to SARS-CoV-2's bat coronavirus relatives~\citep{lytras2021exploring}, the bat coronavirus sequences were manually downloaded from GISAID~\citep{shu2017gisaid}.
+The sequences used were RaTG13~\citep{zhou2020pneumonia}, RmYN02~\citep{zhou2020novel}, and RpYN06~\citep{zhou2021identification}---although the multiple sequence alignment of these viruses to SARS-CoV-2 also contains PrC31~\citep{li2021novel}, which was not used in the final analyses as it more diverged from SARS-CoV-2 than the other three bat coronaviruses at a whole-genome level.
+The GISAID accessions for these sequences are listed at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/data/comparator_genomes_gisaid/accessions.txt}, and  a table acknowledging the labs and authors is at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/data/comparator_genomes_gisaid/acknowledgments.csv}.
+Sites in SARS-CoV-2 were mapped to their corresponding nucleotide identities in the bat coronavirus outgroups via a multiple sequence alignment of proCoV2 to the bat coronaviruses generated using \texttt{mafft}~\citep{katoh2013mafft}.
+
+\subsection{Curation and analysis of early SARS-CoV-2 sequences from GISAID}
+I manually
+
 \section{Acknowledgments}
 I thank the many citizens and scientists on Twitter who helped inspire this study and inform its background through their careful analyses and discussions of the early SARS-CoV-2 epidemic.
 I thank the many scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
