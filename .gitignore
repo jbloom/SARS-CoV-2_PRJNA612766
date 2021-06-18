@@ -8,6 +8,7 @@ core
 
 !results
 results/*
+!results/recovered_seqs.fa
 !results/sra_downloads
 results/sra_downloads/*
 !results/sra_downloads/*.sra
