@@ -58,7 +58,7 @@ Instead, the progenitor of known SARS-CoV-2 sequences likely contained three mut
 
 \lettrine[lines=2]{\color{color2}U}{}nderstanding the spread of SARS-CoV-2 in Wuhan is crucial to tracing the origins of the virus, including identifying events that led to infection of patient zero.
 The first reports outside of China at the end of December 2019 emphasized the role of the Huanan Seafood Market~\citep{ProMED2109}, which was initially suggested as a site of zoonosis.
-However, this theory became increasingly tenuous as it was learned that many early cases had no connection to the market~\citep{huang2020clinical, chen2020epidemiological}.
+However, this theory became increasingly tenuous as it was learned that many early cases had no connection to the market~\citep{cohen2020wuhan,huang2020clinical, chen2020epidemiological}.
 Soon, Chinese CDC Director Gao Fu dismissed the theory, stating ``At first, we assumed the seafood market might have the virus, but now the market is more like a victim.
 The novel coronavirus had existed long before''~\citep{GlobalTimes2020}.
 
@@ -86,7 +86,7 @@ As a result, there is a direct conflict between the two major principles used to
 Here I take a step towards resolving these questions by identifying and recovering a deleted data set of partial SARS-CoV-2 sequences from outpatient samples collected early in the Wuhan epidemic.
 Analysis of these new sequences in conjunction with careful annotation of existing ones suggests that the early Wuhan samples that have been the focus of most studies including the joint WHO-China report~\citep{WHO2021origins} are not fully representative of the viruses actually present in Wuhan at that time.
 These insights help reconcile phylogenetic discrepancies, and suggest two plausible progenitor sequences, one of which is identical to that inferred by \citet{kumar2021evolutionary}.
-Furthermore, the approach taken here hints it may be possible to advance understanding of SARS-CoV-2's origins or early spread even without further on-the-ground studies, such as by more deeply probing data archived by the NIH and other entities outside China.
+Furthermore, the approach taken here hints it may be possible to advance understanding of SARS-CoV-2's origins or early spread even without further on-the-ground studies, such as by more deeply probing data archived by the NIH and other entities.
 
 \section{Results}
 
@@ -370,16 +370,20 @@ Of course, future identification of additional early sequences could fully resol
 More broadly, the approach taken here suggests it may be possible to learn more about the origin or early spread of SARS-CoV-2 even without an international investigation.
 Minimally, it should be immediately possible for the NIH to determine the date and purported reason for deletion of the data set analyzed here, since the only way sequences can be deleted from the SRA is by an e-mail request to SRA staff~\citep{SRA_deletion}.
 In addition, I suggest it could be worthwhile to review e-mail records to identify other SRA deletions, which are already known to include SRR11119760 and SRR11119761~\citep{USRTK2020}.
-Importantly, SRA deletions do not imply any malfeasance: there are legitimate reasons for removing sequencing runs, and the SRA houses $>$13-million runs making it infeasible for their staff to validate the rationale for all requests.
+Importantly, SRA deletions do not imply any malfeasance: there are legitimate reasons for removing sequencing runs, and the SRA houses $>$13-million runs making it infeasible for its staff to validate the rationale for all requests.
 However, the current study suggests that at least in one case, the trusting structures of science have been abused to obscure sequences relevant to the early spread of SARS-CoV-2 in Wuhan.
-Therefore, a careful re-evaluation of archived forms of scientific communication, reporting, and data sharing could shed additional light on early events in the emergence of the pandemic.
+A careful re-evaluation of other archived forms of scientific communication, reporting, and data could shed additional light on the early emergence of the pandemic.
 
 {\small
 
 \section{Methods}
 \subsection{Code and data availability}
+The computer code and input data necessary to reproduce all analyses described in this paper are available on GitHub at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766}.
+This GitHub repository includes a \texttt{Snakemake}~\citep{molder2021sustainable} pipeline that fully automates all steps in the analysis except for downloading of sequences from GISAID, which must be done manually as described in the GitHub repository's README in order to comply with GISAID data sharing terms.
+
 The deleted SRA files recovered from the Google Cloud are all available at  \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/tree/main/results/sra_downloads}.
-I have suffixed the file extension \texttt{.sra} to all of these files.
+I have suffixed the file extension \texttt{.sra} to all these files.
+The consensus sequences recovered from these deleted SRA files are linked to in the relevant Methods subsection below.
 
 \subsection{Archiving of key weblinks}
 I have digitally archived key weblinks in the Wayback Machine, including a subset of the SRA files from PRJNA612766 on the Google Cloud:
@@ -397,9 +401,23 @@ I have digitally archived key weblinks in the Wayback Machine, including a subse
 \item SRR11313429: \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313429/SRR11313429}
 \end{itemize}
 
+\subsection{Recovery of SRA files from deleted project PRJNA612766}
+I parsed the first supplementary table of \citet{farkas2020insights} to extract the accessions for sequencing runs for deleted SRA BioProject PRJNA612766.
+By cross-referencing the samples described in this table to \citet{wang2020medRxiv, wang2020small}, I identified the accessions corresponding to the 34 early outpatient samples who were positive, as well as the accessions corresponding to the 16 hospitalized patient samples from February.
+Samples had both 10 minute and 4 hour sequencing runtime accessions, which were combined in the subsequent analysis.
+I also identified the samples corresponding to the high-copy plasmid controls to enable analysis of the plasmid sequence to rule out contamination.
+The code used to parse the Excel table is available as a Jupyter notebook at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/tree/main/manual_analyses/PRJNA612766}.
+
+The main \texttt{Snakemake} pipeline then downloads relevant SRA files from the Google Cloud links by using \texttt{wget} to download files from the Google Cloud from paths like \path{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485}.
+Note that I cannot guarantee that these Google Cloud links will remain active, as my analyses of other deleted SRA runs beyond the scope of this study indicates that only sometimes are deleted SRA files still available via the Google Cloud.
+For this reason, key runs have been archived on the Wayback Machine as described above, and all downloaded SRA files relevant to this study are included in the GitHub repository.
+Note also that as described in this paper's main text, two SRA files could not be downloaded from the Google Cloud using the aforementioned method, and so are not part of this study.
+
+The downloaded SRA files were converted to FASTQ files using \texttt{fasterq-dump} from the SRA Toolkit.
+
 \section{Acknowledgments}
 I thank the many citizens and scientists on Twitter who helped inspire this study and inform its background through their careful analyses and discussions of the early SARS-CoV-2 epidemic.
-I thank the many scientists and labs who have contributed sequences used in this study to the GISAID database; these scientists are listed at {\color{red} here}.
+I thank the many scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
 The scientific computing infrastructure used in this work was supported by the NIH Office of Research Infrastructure Programs under S10OD028685.
 The author is an Investigator of the Howard Hughes Medical Institute.
 
