@@ -78,6 +78,7 @@ rule all:
         'results/recovered_seqs.fa',
         'results/phylogenetics/tree_images/',
         'results/pileup/plasmid_mutations.csv',
+        'results/deleted_seq_alignment_matches.csv',
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -532,6 +533,7 @@ rule outgroup_dist_analysis:
         alignment_all_fasta='results/phylogenetics/all_alignment.fa',
         alignment_all_csv='results/phylogenetics/all_alignment.csv',
         deleted_csv='results/phylogenetics/deleted_seqs.csv',
+        matches_in_gisaid='results/deleted_seq_alignment_matches.csv',
     params:
         region_of_interest=config['region_of_interest'],
         comparators=list(config['comparator_genomes']),
