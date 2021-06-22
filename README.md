@@ -1,5 +1,6 @@
 # Recovery of deleted deep sequencing data sheds more light on the early Wuhan SARS-CoV-2 epidemic
 This GitHub repository analyzes SARS-CoV-2 deep sequencing data recovered from the deleted BioProject PRJNA612766.
+This analysis corresponds to the work described in [this pre-print](https://www.biorxiv.org/content/10.1101/2021.06.18.449051v1).
 
 ## Running the analysis
 The analysis is nearly fully automated by the `snakemake` pipeline included in [Snakefile](Snakefile).
