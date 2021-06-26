@@ -19,5 +19,9 @@ results/consensus/*
 !results/phylogenetics
 results/phylogenetics/*
 !results/phylogenetics/all_alignment.csv
+!results/phylogenetics/all_alignment_no_filter_rare.csv
+!results/ref_genome
+results/ref_genome/*
+!results/ref_genome/ref_genome.fa
 
 report.html
