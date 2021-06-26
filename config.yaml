@@ -148,6 +148,19 @@ subcat_colors:
   other China: '#009E73'  # cbPalette green
   outside China: '#F0E442'  # cbPalette yellow
 
+# ---------------------------------------------------------------------
+# Specific samples not obtainable from cloud that are located elsewhere.
+# The information on how to obtain these samples from various other
+# locations was independently provided by the following individuals after
+# publication of my initial pre-print:
+#  - Andrew Fire (Stanford, https://en.wikipedia.org/wiki/Andrew_Fire)
+#  - Theo Sanderson (Crick Institute, https://theo.io/)
+#  - Francisco de Asis (DRASTIC Research, https://drasticresearch.org/tag/francisco-de-asis/)
+# ---------------------------------------------------------------------
+alternative_fastq_locations:
+  SRR11313490: https://lifebit-sars-cov-2.s3-eu-west-1.amazonaws.com/reads/PRJNA612766/SRR11313490.fastq.gz
+  SRR11313499: https://lifebit-sars-cov-2.s3-eu-west-1.amazonaws.com/reads/PRJNA612766/SRR11313499.fastq.gz
+
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
 # -------------------------------------------------------------------
@@ -174,9 +187,8 @@ samples_wget:
     collected_by: Renmin Hospital of Wuhan University
     patient_group: early outpatient
   A6:
-# sample SRR11313490 cannot be downloaded even using wget
-#    accessions: ['SRR11313479', 'SRR11313490']
-    accessions: ['SRR11313479']
+    # sample SRR11313490 is at an alternative location
+    accessions: ['SRR11313479', 'SRR11313490']
     collected_by: Renmin Hospital of Wuhan University
     patient_group: early outpatient
   A9:
@@ -332,9 +344,8 @@ samples_wget:
     collected_by: Renmin Hospital of Wuhan University
     patient_group: hospital patient (Feb)
   R09:
-# sample SRR11313499 cannot be downloaded even using wget
-#    accessions: ['SRR11313498', 'SRR11313499']
-    accessions: ['SRR11313498']
+    # sample SRR11313499 is at an alternative location
+    accessions: ['SRR11313498', 'SRR11313499']
     collected_by: Renmin Hospital of Wuhan University
     patient_group: hospital patient (Feb)
   R10:
