@@ -68,6 +68,9 @@ minq: 20
 # in `fastp` pre-processing require at least this read length
 min_read_length: 20
 
+# adapters to trim from reads
+adapters_to_trim: data/Wang_et_al_primers.fasta
+
 # Criteria used to call consensus from pileup
 consensus_min_coverage: 3  # require >= this coverage
 consensus_min_frac: 0.8  # require most common base > this fraction
@@ -115,14 +118,14 @@ early_seqs_max_date: 2020-02-28
 
 # only work with samples from recovered sequences with fractional
 # coverage >= this over the region of interest.
-min_frac_coverage: 0.95
+min_frac_coverage: 0.9
 
 # -----------------------------------------------------------------
 # Parameters for phylogenetic analysis
 # -----------------------------------------------------------------
 # last date of sequences to include for phylogenetic analyses
 phylo_last_date: 2020-01-31
-# only use sequences with >= this much of region of interest called for phylogenetics
+# only use GISAID sequences with >= this much of region of interest called for phylogenetics
 phylo_min_frac_called: 0.95
 # ignore (remove) mutations annotated as spurious in Table S1 of
 # https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1009175
@@ -147,6 +150,19 @@ subcat_colors:
   other Wuhan: '#56B4E9'  # cbPalette light blue
   other China: '#009E73'  # cbPalette green
   outside China: '#F0E442'  # cbPalette yellow
+
+# ---------------------------------------------------------------------
+# Specific samples not obtainable from cloud that are located elsewhere.
+# The information on how to obtain these samples from various other
+# locations was independently provided by the following individuals after
+# publication of my initial pre-print:
+#  - Andrew Fire (Stanford, https://en.wikipedia.org/wiki/Andrew_Fire)
+#  - Theo Sanderson (Crick Institute, https://theo.io/)
+#  - Francisco de Asis (DRASTIC Research, https://drasticresearch.org/tag/francisco-de-asis/)
+# ---------------------------------------------------------------------
+alternative_fastq_locations:
+  SRR11313490: https://lifebit-sars-cov-2.s3-eu-west-1.amazonaws.com/reads/PRJNA612766/SRR11313490.fastq.gz
+  SRR11313499: https://lifebit-sars-cov-2.s3-eu-west-1.amazonaws.com/reads/PRJNA612766/SRR11313499.fastq.gz
 
 # -----------------------------------------------------------------
 # Samples on SRA to download using `fasterq-dump`
@@ -174,9 +190,8 @@ samples_wget:
     collected_by: Renmin Hospital of Wuhan University
     patient_group: early outpatient
   A6:
-# sample SRR11313490 cannot be downloaded even using wget
-#    accessions: ['SRR11313479', 'SRR11313490']
-    accessions: ['SRR11313479']
+    # sample SRR11313490 is at an alternative location
+    accessions: ['SRR11313479', 'SRR11313490']
     collected_by: Renmin Hospital of Wuhan University
     patient_group: early outpatient
   A9:
@@ -332,9 +347,8 @@ samples_wget:
     collected_by: Renmin Hospital of Wuhan University
     patient_group: hospital patient (Feb)
   R09:
-# sample SRR11313499 cannot be downloaded even using wget
-#    accessions: ['SRR11313498', 'SRR11313499']
-    accessions: ['SRR11313498']
+    # sample SRR11313499 is at an alternative location
+    accessions: ['SRR11313498', 'SRR11313499']
     collected_by: Renmin Hospital of Wuhan University
     patient_group: hospital patient (Feb)
   R10:
