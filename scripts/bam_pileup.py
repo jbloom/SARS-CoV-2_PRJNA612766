@@ -27,6 +27,7 @@ def bam_pileup(bam,
                minq=20,
                bai=None,
                add_cols=None,
+               exclude_sites=None,
                ):
     """Pileup and nucleotide identity calls from BAM."""
     if not os.path.isfile(bam):
@@ -35,6 +36,11 @@ def bam_pileup(bam,
         bai = bam + '.bai'
     if not os.path.isfile(bai):
         raise IOError(f"cannot find `bai` {bai}")
+
+    if not exclude_sites:
+        exclude_sites = set()
+    else:
+        exclude_sites = set(pd.read_csv(exclude_sites)['site'])
 
     with pysam.AlignmentFile(bam, 'rb', index_filename=bai) as bamfile:
         if ref not in bamfile.references:
@@ -63,6 +69,9 @@ def bam_pileup(bam,
                 )
         [['site', 'reference', *nt_cols]]
         )
+    for col in nt_cols:
+        count_df[col] = count_df[col].where(~count_df['site'].isin(exclude_sites), 0)
+                    
     if add_cols is None:
         add_cols = []
     for col_name, col_val in add_cols:
@@ -107,6 +116,9 @@ if __name__ == '__main__':
                         metavar=('col_name', 'col_value'),
                         action='append',
                         help='columns to add to pileup CSV, can use >1 times',
+                        )
+    parser.add_argument('--exclude_sites',
+                        help='CSV with column "site" giving sites to assign 0 coverage (e.g., adapters)',
                         )
     args = vars(parser.parse_args())
     bam_pileup(**args)
