@@ -15,3 +15,6 @@ These are tracked.
 - [seqs_to_exclude.yaml](seqs_to_exclude.yaml) defines sequences manually for exclusion based on various criteria explained in the file.
 
 - [Wuhan_exports.yaml](Wuhan_exports.yaml) defines sequences for which there is metadata indicating patient was infected in Wuhan even if sequenced elsewhere.
+
+## Primers for adaptor trimming
+- [Wang_et_al_primers.fasta](Wang_et_al_primers.fasta) gives the sequences of the primers used to amplify the sequenced regions, which should be trimmed from the data prior to alignment. These are taken from [Supplementary Table 1 of Wang et al (2020, medRxiv)](https://www.medrxiv.org/content/medrxiv/suppl/2020/03/06/2020.03.04.20029538.DC1/2020.03.04.20029538-1.pdf).
