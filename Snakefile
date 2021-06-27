@@ -63,6 +63,9 @@ def comparator_fastas(wc):
 
 rule all:
     input:
+        expand("results/sra_downloads/{accession}.fastq.gz",
+               accession=[acc for d in samples.values()
+                          for acc in d['accessions']]),
         'results/pileup/coverage_all.html',
         'results/pileup/coverage_all.pdf',
         'results/pileup/coverage_region.html',
@@ -81,6 +84,7 @@ rule all:
         'results/deleted_seq_alignment_matches.csv',
         'results/phylogenetics/all_alignment_no_filter_rare.fa',
         'results/phylogenetics/all_alignment_no_filter_rare.csv',
+        'results/consensus/consensus_seqs.csv',
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -117,35 +121,47 @@ rule download_sra:
         use_wget=use_wget,
         wget_paths=['https://storage.googleapis.com/nih-sequence-read-archive/run',
                     'https://sra-pub-sars-cov2.s3.amazonaws.com/run',
-                    'https://sra-pub-run-odp.s3.amazonaws.com/sra']
+                    'https://sra-pub-run-odp.s3.amazonaws.com/sra'],
+        alternative_fastq_path=lambda wc: (config['alternative_fastq_locations'][wc.accession]
+                                           if wc.accession in config['alternative_fastq_locations']
+                                           else '')
     threads: config['max_cpus']
     conda: 'environment.yml'
     shell:
         """
-        if [[ "{params.use_wget}" == "use_wget" ]]
+        if [[ "{params.alternative_fastq_path}" != "" ]]
         then
-            echo "using wget for {wildcards.accession}"
-            wget {params.wget_paths[0]}/{wildcards.accession}/{wildcards.accession} \
-                -O {output.sra_file} || \
-            wget {params.wget_paths[1]}/{wildcards.accession}/{wildcards.accession} -O \
-                {output.sra_file} || \
-            wget {params.wget_paths[2]}/{wildcards.accession}/{wildcards.accession} -O \
-                {output.sra_file}
-            acc="{output.sra_file}"
-        else
-            echo "not using wget for {wildcards.accession}"
+            echo "getting FASTQ for {wildcards.accession} from {params.alternative_fastq_path}"
+            wget {params.alternative_fastq_path} -O {output.fastq_gz}
+            mkdir -p {output.fastq_dir}
+            mkdir -p {output.temp_dir}
             touch {output.sra_file}
-            acc="{wildcards.accession}"
+        else
+            if [[ "{params.use_wget}" == "use_wget" ]]
+            then
+                echo "using wget for {wildcards.accession}"
+                wget {params.wget_paths[0]}/{wildcards.accession}/{wildcards.accession} \
+                    -O {output.sra_file} || \
+                wget {params.wget_paths[1]}/{wildcards.accession}/{wildcards.accession} -O \
+                    {output.sra_file} || \
+                wget {params.wget_paths[2]}/{wildcards.accession}/{wildcards.accession} -O \
+                    {output.sra_file}
+                acc="{output.sra_file}"
+            else
+                echo "not using wget for {wildcards.accession}"
+                touch {output.sra_file}
+                acc="{wildcards.accession}"
+            fi
+            fasterq-dump \
+                $acc \
+                --skip-technical \
+                --split-spot \
+                --outdir {output.fastq_dir} \
+                --threads {threads} \
+                --force \
+                --temp {output.temp_dir}
+            pigz -c -p {threads} {output.fastq_dir}/*.fastq > {output.fastq_gz}
         fi
-        fasterq-dump \
-            $acc \
-            --skip-technical \
-            --split-spot \
-            --outdir {output.fastq_dir} \
-            --threads {threads} \
-            --force \
-            --temp {output.temp_dir}
-        pigz -c -p {threads} {output.fastq_dir}/*.fastq > {output.fastq_gz}
         """
 
 rule sra_file_info:
@@ -153,7 +169,8 @@ rule sra_file_info:
     input:
         sra_files=expand(rules.download_sra.output.sra_file,
                          accession=[acc for d in samples.values()
-                                    for acc in d['accessions']])
+                                    for acc in d['accessions']
+                                    if acc not in config['alternative_fastq_locations']])
     output: csv='results/sra_file_info.csv'
     conda: 'environment.yml'
     script: 'scripts/sra_file_info.py'
@@ -161,9 +178,9 @@ rule sra_file_info:
 rule preprocess_fastq:
     """Pre-process the FASTQ files by trimming adaptors etc with ``fastp``."""
     input:
-        fastq_gz=rules.download_sra.output.fastq_gz
+        fastq_gz=rules.download_sra.output.fastq_gz,
     output:
-        fastq_gz=temp("results/preprocessed_fastqs/{accession}.fastq.gz"),
+        fastq_gz="results/preprocessed_fastqs/{accession}.fastq.gz",
         html="results/preprocessed_fastqs/{accession}.html",
         json="results/preprocessed_fastqs/{accession}.json",
     params:
@@ -179,7 +196,7 @@ rule preprocess_fastq:
             -i {input.fastq_gz} \
             -q {params.minq} \
             -u 40 \
-            -l 20 {params.min_read_length} \
+            -l {params.min_read_length} \
             --trim_poly_g \
             --trim_poly_x \
             -o {output.fastq_gz} \
@@ -262,6 +279,15 @@ rule index_bam:
     shell:
         "samtools index -b -m {threads} {input.bam} {output.bai}"
 
+rule adapter_sites:
+    """Get all sites covered by adapters."""
+    input:
+        adapters=config['adapters_to_trim'],
+        ref_genome=rules.get_ref_genome_fasta.output.fasta
+    output: adapter_sites='results/adapter_sites/adapter_sites.csv'
+    conda: 'environment.yml'
+    script: 'scripts/adapter_sites.py'
+
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
     output:
@@ -273,7 +299,8 @@ rule bam_pileup:
         bai=lambda wc: {'bwa-mem2': rules.align_bwa_mem2.output.bam,
                         'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner] + '.bai',
-        ref_fasta=rules.get_ref_genome_fasta.output.fasta
+        ref_fasta=rules.get_ref_genome_fasta.output.fasta,
+        adapter_sites=rules.adapter_sites.output.adapter_sites,
     params:
         ref=config['ref_genome']['name'],
         minq=config['minq'],
@@ -287,6 +314,7 @@ rule bam_pileup:
             --ref_fasta {input.ref_fasta} \
             --minq {params.minq} \
             --pileup_csv {output.pileup_csv} \
+            --exclude_sites {input.adapter_sites}
         """
 
 rule consensus_from_pileup:

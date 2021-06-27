@@ -42,7 +42,7 @@
 The origin and early spread of SARS-CoV-2 remains shrouded in mystery.
 Here I identify a data set containing SARS-CoV-2 sequences from early in the Wuhan epidemic that has been deleted from the NIH's Sequence Read Archive.
 I recover the deleted files from the Google Cloud, and reconstruct partial sequences of 13 early epidemic viruses.
-Phylogenetic analysis of these sequences in the context of carefully annotated existing data suggests that the Huanan Seafood Market sequences that are the focus of the joint WHO-China report are not fully representative of the viruses in Wuhan early in the epidemic.
+Phylogenetic analysis of these sequences in the context of carefully annotated existing data supports existing data indicating that the Huanan Seafood Market sequences that are the focus of the joint WHO-China report are not fully representative of the viruses in Wuhan early in the epidemic.
 Instead, the progenitor of known SARS-CoV-2 sequences likely contained three mutations relative to the market viruses that made it more similar to SARS-CoV-2's bat coronavirus relatives. 
 \end{abstract}
 
@@ -113,17 +113,6 @@ This result has been digitally archived on the Wayback Machine at \url{https://w
 
 The SRA is designed as a permanent archive of deep sequencing data.
 The SRA documentation states that after a sequencing run is uploaded, ``neither its files can be replaced nor filenames can be changed,'' and that data can only be deleted by e-mailing SRA staff~\citep{SRA_deletion}.
-An example of this process from another study is in Figure~\ref{fig:pangolin_emails}, which shows an e-mail by the lead author of a paper on pangolin coronaviruses~\citep{xiao2020isolation} requesting deletion of two sequencing runs.
-Subsequent to March 30, 2020, a similar e-mail request must have been made to fully delete SARS-CoV-2 deep sequencing project PRJNA612766.
-
-\begin{figure}[]
-\centering
-\fbox{\includegraphics[trim={0in 0in 0in 0in},clip,width=\linewidth]{figures/pangolin_emails.jpg}}
-\caption{Example of the process to delete SRA data.
-The image shows e-mails between the lead author of the pangolin coronavirus paper~\citet{xiao2020isolation} and SRA staff excerpted from \citet{USRTK2020}.
-}
-\label{fig:pangolin_emails}
-\end{figure}
 
 \subsection{The deleted data set contains sequencing of viral samples collected early in the Wuhan epidemic}
 The metadata in the first supplementary table of \citet{farkas2020insights} indicates that the samples in deleted project PRNJA612766 were collected by Aisu Fu and Renmin Hospital of Wuhan University.
@@ -165,24 +154,24 @@ While inspecting the SRA's web interface for other sequencing accessions, I noti
 \toprule
 sample &  fraction sites called (21570-29550) &           patient group &                                        substitutions relative to proCoV2 \\
 \midrule
-A4 &                               0.9827 &        early outpatient &                                                                          none \\
-C1 &                               0.9966 &        early outpatient &  G22081A (A=924, C=4, G=9), C28144T (C=6, T=1185), T29483G (C=1, G=45, T=1) \\
-C2 &                               0.9962 &        early outpatient &                                                 C29095T (C=1, G=1, T=751)  \\
-C9 &                               0.9536 &        early outpatient &                                  C28144T (C=3, T=823), G28514T (G=1, T=36)  \\
-D9 &                               0.9585 &        early outpatient &                                                     C28144T (C=4, T=1653)  \\
-D12 &                               0.9970 &        early outpatient &                                                     C28144T (C=8, T=2400)  \\
-E1 &                               0.9759 &        early outpatient &                                                           C28144T (T=125)  \\
-E5 &                               0.9758 &        early outpatient &              C24034T (A=5, C=3, T=74), T26729C (C=12), G28077C (C=142, G=4)  \\
-E11 &                               0.9877 &        early outpatient &                                 C25460T (C=2, T=246), C28144T (C=1, T=412)  \\
-F11 &                               0.9594 &        early outpatient &                             T25304A (A=9, T=1), C28144T (C=6, G=1, T=1328)  \\
-G1 &                               0.9959 &        early outpatient &                                   none                                        \\
-G11 &                               0.9677 &        early outpatient &                                  none                                         \\
-H9 &                               0.9941 &        early outpatient &                                                     C28144T (C=2, T=1254)  \\
-R11 &                               0.9987 &  hospital patient (Feb) &                               C21707T (T=401), C28144T (A=1, C=18, T=4265)  \\
+A4 &                               0.9266 &        early outpatient &                                                                          none \\
+C1 &                               0.9396 &        early outpatient &  G22081A (A=924, C=4, G=9), C28144T (C=6, T=1185), T29483G (C=1, G=45, T=1) \\
+C2 &                               0.9397 &        early outpatient &                                                 C29095T (C=1, G=1, T=751)  \\
+C9 &                               0.9005 &        early outpatient &                                  C28144T (C=3, T=823), G28514T (G=1, T=36)  \\
+D9 &                               0.9051 &        early outpatient &                                                     C28144T (C=4, T=1653)  \\
+D12 &                               0.9400 &        early outpatient &                                                     C28144T (C=8, T=2400)  \\
+E1 &                               0.9223 &        early outpatient &                                                           C28144T (T=125)  \\
+E5 &                               0.9227 &        early outpatient &              C24034T (A=5, C=3, T=74), T26729C (C=12), G28077C (C=142, G=4)  \\
+E11 &                               0.9321 &        early outpatient &                                 C25460T (C=2, T=246), C28144T (C=1, T=412)  \\
+F11 &                               0.9054 &        early outpatient &                             T25304A (A=9, T=1), C28144T (C=6, G=1, T=1328)  \\
+G1 &                               0.9396 &        early outpatient &                                   none                                        \\
+G11 &                               0.9112 &        early outpatient &                                  none                                         \\
+H9 &                               0.9381 &        early outpatient &                                                     C28144T (C=2, T=1254)  \\
+R11 &                               0.9422 &  hospital patient (Feb) &                               C21707T (T=401), C28144T (A=1, C=18, T=4265)  \\
 \bottomrule
 \end{tabular}
 }
-\caption{Samples for which the SARS-CoV-2 sequence could be called at $\ge$95\% of sites between 21,570 and 29,550, and the substitutions in this region relative to the putative SARS-CoV-2 progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
+\caption{Samples for which the SARS-CoV-2 sequence could be called at $\ge$90\% of sites between 21,570 and 29,550, and the substitutions in this region relative to the putative SARS-CoV-2 progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
 Numbers in parentheses after each substitution give the deep sequencing reads with each nucleotide identity.
 \label{tab:mutations}
 }
@@ -192,8 +181,9 @@ Based on the hypothesis that deletion of sequencing runs by the SRA might not re
 This strategy was successful; for instance, as of June 3, 2021, going to \url{https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485} downloads the SRA file for accession SRR11313485.
 I have archived this file on the Wayback Machine at \url{https://web.archive.org/web/20210502130820/https://storage.googleapis.com/nih-sequence-read-archive/run/SRR11313485/SRR11313485}.
 
-I automated this strategy to download the SRA files for 97 of the 99 sequencing runs corresponding to the 34 SARS-CoV-2 positive early epidemic samples and the 16 hospital samples from February (files for SRR11313490 and SRR11313499 were not accessible via the cloud).
-I used the SRA Toolkit to get the object timestamp (\texttt{vdb-dump -{}-obj\_timestamp}) and time (\texttt{vdb-dump -{}-info}) for each SRA file.
+I automated this strategy to download the SRA files for 97 of the 99 sequencing runs corresponding to the 34 SARS-CoV-2 positive early epidemic samples and the 16 hospital samples from February.
+The SRA files for two runs (SRR11313490 and SRR11313499) were not accessible via the Google Cloud, but after I posted the first version of this manuscript as a pre-print, several individuals found archived data for these runs that had been downloaded when they were still available on the SRA, and I have used those data in the updated analysis described here (see Methods for details).
+I used the SRA Toolkit to get the object timestamp (\texttt{vdb-dump -{}-obj\_timestamp}) and time (\texttt{vdb-dump -{}-info}) for all SRA files.
 For all files, the object timestamp is February 15, 2020, and the time is March 16, 2020.
 Although the SRA Toolkit does not clearly document these two properties, my \emph{guess} is that the object timestamp may refer to when the SRA file was created from a FASTQ file uploaded to the SRA, and the time may refer to when the accession was made public.
 
@@ -203,11 +193,11 @@ They also sequenced a short amplicon generated by nested PCR that covered a frag
 In this paper, I only analyze the region from spike through ORF10 because this is a much longer contiguous sequence and the amplicons were generated by conventional rather than nested PCR.
 I slightly trimmed the region of interest to 21,570 to 29,550 because many samples had poor coverage at the termini.
 
-I aligned the recovered deep sequencing data to the SARS-CoV-2 genome using \texttt{minimap2}~\citep{li2018minimap2}, combining accessions for the same sample.
+I aligned the recovered deep sequencing data to the SARS-CoV-2 genome using \texttt{minimap2}~\citep{li2018minimap2}, combining accessions for the same sample, and masking regions that corresponded to the primer binding sites described in \citet{wang2020medRxiv}.
 Figure~\ref{suppfig:coverage} shows the sequencing coverage for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples over the region of interest; a comparable plot for the whole genome is in Figure~\ref{suppfig:coverage_all}.
 
 I called the consensus viral sequence for each sample at each site with coverage $\ge$3 and $>$80\% of the reads concurring on the nucleotide identity.
-With these criteria, 13 of the early outpatient samples and 1 of the February hospitalized patient samples had sufficient coverage to call the consensus sequence at $>$95\% of the sites in the region of interest (Table~\ref{tab:mutations}), and for the remainder of this paper I focus on these high-coverage samples.
+With these criteria, 13 of the early outpatient samples and 1 of the February hospitalized patient samples had sufficient coverage to call the consensus sequence at $>$90\% of the sites in the region of interest (Table~\ref{tab:mutations}), and for the remainder of this paper I focus on these high-coverage samples.
 Table~\ref{tab:mutations} also shows the mutations in each sample relative to proCoV2, which is a putative progenitor of SARS-CoV-2 inferred by \citet{kumar2021evolutionary} that differs from the widely used Wuhan-Hu-1 reference sequence by three mutations (C8782T, C18060T, and T28144C).
 Although requiring coverage of only $\ge$3 is relatively lenient, Table~\ref{tab:mutations} shows that all sites with mutations have coverage $\ge$10.
 In addition, the mutations I called from the raw sequence data in Table~\ref{tab:mutations} concord with those mentioned in \citet{wang2020small}.
@@ -369,7 +359,7 @@ Of course, future identification of additional early sequences could fully resol
 
 More broadly, the approach taken here suggests it may be possible to learn more about the origin or early spread of SARS-CoV-2 even without an international investigation.
 Minimally, it should be immediately possible for the NIH to determine the date and purported reason for deletion of the data set analyzed here, since the only way sequences can be deleted from the SRA is by an e-mail request to SRA staff~\citep{SRA_deletion}.
-In addition, I suggest it could be worthwhile to review e-mail records to identify other SRA deletions, which are already known to include SRR11119760 and SRR11119761~\citep{USRTK2020}.
+In addition, I suggest it could be worthwhile to review e-mail records to identify other SRA deletions.
 Importantly, SRA deletions do not imply any malfeasance: there are legitimate reasons for removing sequencing runs, and the SRA houses $>$13-million runs making it infeasible for its staff to validate the rationale for all requests.
 However, the current study suggests that at least in one case, the trusting structures of science have been abused to obscure sequences relevant to the early spread of SARS-CoV-2 in Wuhan.
 A careful re-evaluation of other archived forms of scientific communication, reporting, and data could shed additional light on the early emergence of the virus.
@@ -413,6 +403,12 @@ Note that I cannot guarantee that these Google Cloud links will remain active, a
 For this reason, key runs have been archived on the Wayback Machine as described above, and all downloaded SRA files relevant to this study are included in the GitHub repository.
 Note also that as described in this paper's main text, two SRA files could not be downloaded from the Google Cloud using the aforementioned method, and so are not part of this study.
 
+\subsection{FASTQ files for SRR11313490 and SRR11313499}
+I was not able to download SRA files for two runs, SRR11313490 and SRR11313499, from the Google Cloud.
+After I posted the initial version of this pre-print, I was contacted by three different individuals (see Acknowledgments) who had uncovered FASTQ or FASTA files for these two missing runs that were downloaded from the SRA prior to the deletion of PRJNA612766.
+For revised versions of the manuscript, I included analysis of the data for these two runs that I obtained from the links provided at \url{https://github.com/lifebit-ai/SARS-CoV-2/blob/master/assets/ucsc/aws_https_links.txt}.
+Inclusion of data for these two runs did not appreciably change the results of the analysis relative to that in the original version of the pre-print, since both runs corresponded to low coverage samples for which meaningful viral genetic information could not be obtained.
+
 \subsection{Alignment of recovered reads and calling of consensus sequences}
 The downloaded SRA files were converted to FASTQ files using \texttt{fasterq-dump} from the SRA Toolkit.
 The FASTQ files were pre-processed with \texttt{fastp}~\citep{chen2018fastp} to trim reads and remove low-quality ones (the exact settings using in this pre-processing are specified in the \texttt{Snakemake} file in the GitHub repository).
@@ -421,11 +417,12 @@ The reads in these FASTQ files were then aligned to a SARS-CoV-2 reference genom
 The reference genome used for the entirety of this study is proCoV2~\citep{kumar2021evolutionary}, which was generated by making the following three single-nucleotide changes to the Wuhan-Hu-1 reference (ASM985889v2) available on NCBI: C8782T, C18060T, and T28144C.
 
 I processed the resulting alignments with \texttt{samtools} and \texttt{pysam} to determine the coverage at each site by aligned nucleotides with a quality score of at least 20.
+I also masked (set to zero coverage) all sites overlapped by the primers used by \citet{wang2020medRxiv} to PCR the amplicons used for sequencing.
 These coverage plots are in Figure~\ref{suppfig:coverage} and Figure~\ref{suppfig:coverage_all}; the legends of these figures also link to interactive versions of the plots that enable zooming and mouseovers to get statistics for specific sites.
 I called the consensus sequence at a site if this coverage was $\ge$3 and $>$80\% of the reads agreed on the identity.
 These consensus sequences over the entire SARS-CoV-2 genome are available at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/raw/main/results/consensus/consensus_seqs.csv}; note that they are mostly \texttt{N} nucleotides since the sequencing approach of \citet{wang2020medRxiv} only covers part of the genome.
 
-I only used the recovered consensus sequences in the downstream analyses if it was possible to call the consensus identity at $\ge$95\% of the sites in the region of interest from site 21,570 to 29,550.
+I only used the recovered consensus sequences in the downstream analyses if it was possible to call the consensus identity at $\ge$90\% of the sites in the region of interest from site 21,570 to 29,550.
 These are the sequences listed in Table~\ref{tab:mutations}, and as described in that table, all mutation calls were at sites with coverage $\ge$10.
 These sequences in the region of interest (21,570 to 29,550) are available at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/results/recovered_seqs.fa}.
 
@@ -480,6 +477,8 @@ Interactive versions of some figures are available at \url{https://jbloom.github
 
 \section{Acknowledgments}
 I thank the citizens and scientists on Twitter who helped inspire this study and inform its background through their analyses and discussions of the early spread of SARS-CoV-2.
+I thank Brendan Larsen for pointing out that I failed to mask the primer binding site regions in the analysis described in the original pre-print (this has been fixed in this version).
+I thank Andrew Fire (Stanford University), Theo Sanderson (Crick Institute), and Francisco de Asis de Ribera (DRASTIC Research) for finding locations of downloaded data for the two accessions (SRR11313490 and SRR11313499) that I could not download from the Google Cloud and so had to omit from the analysis described in the original pre-print (they are included in the analysis in this version).
 I thank the scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
 The scientific computing infrastructure used in this work was supported by the NIH Office of Research Infrastructure Programs under S10OD028685.
 The author is an Investigator of the Howard Hughes Medical Institute.
@@ -516,7 +515,7 @@ A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\linewidth]{figures/coverage_all.pdf}
-\caption{A version of Figure~\ref{fig:coverage} that shows coverage over the full length of the SARS-CoV-2 genome.
+\caption{A version of Figure~\ref{suppfig:coverage} that shows coverage over the full length of the SARS-CoV-2 genome.
 An interactive version of this plot is at \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/coverage_all.html}.
 }
 \label{suppfig:coverage_all}
