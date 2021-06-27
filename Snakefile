@@ -161,9 +161,9 @@ rule sra_file_info:
 rule preprocess_fastq:
     """Pre-process the FASTQ files by trimming adaptors etc with ``fastp``."""
     input:
-        fastq_gz=rules.download_sra.output.fastq_gz
+        fastq_gz=rules.download_sra.output.fastq_gz,
     output:
-        fastq_gz=temp("results/preprocessed_fastqs/{accession}.fastq.gz"),
+        fastq_gz="results/preprocessed_fastqs/{accession}.fastq.gz",
         html="results/preprocessed_fastqs/{accession}.html",
         json="results/preprocessed_fastqs/{accession}.json",
     params:
@@ -179,7 +179,7 @@ rule preprocess_fastq:
             -i {input.fastq_gz} \
             -q {params.minq} \
             -u 40 \
-            -l 20 {params.min_read_length} \
+            -l {params.min_read_length} \
             --trim_poly_g \
             --trim_poly_x \
             -o {output.fastq_gz} \
@@ -262,6 +262,15 @@ rule index_bam:
     shell:
         "samtools index -b -m {threads} {input.bam} {output.bai}"
 
+rule adapter_sites:
+    """Get all sites covered by adapters."""
+    input:
+        adapters=config['adapters_to_trim'],
+        ref_genome=rules.get_ref_genome_fasta.output.fasta
+    output: adapter_sites='results/adapter_sites/adapter_sites.csv'
+    conda: 'environment.yml'
+    script: 'scripts/adapter_sites.py'
+
 rule bam_pileup:
     """Make BAM pileup CSVs with mutations."""
     output:
@@ -273,7 +282,8 @@ rule bam_pileup:
         bai=lambda wc: {'bwa-mem2': rules.align_bwa_mem2.output.bam,
                         'minimap2': rules.align_minimap2.output.bam,
                         }[wc.aligner] + '.bai',
-        ref_fasta=rules.get_ref_genome_fasta.output.fasta
+        ref_fasta=rules.get_ref_genome_fasta.output.fasta,
+        adapter_sites=rules.adapter_sites.output.adapter_sites,
     params:
         ref=config['ref_genome']['name'],
         minq=config['minq'],
@@ -287,6 +297,7 @@ rule bam_pileup:
             --ref_fasta {input.ref_fasta} \
             --minq {params.minq} \
             --pileup_csv {output.pileup_csv} \
+            --exclude_sites {input.adapter_sites}
         """
 
 rule consensus_from_pileup:
