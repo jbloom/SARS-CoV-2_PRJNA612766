@@ -333,12 +333,23 @@ One is proCoV2 described by \citet{kumar2021evolutionary}, and the other is a se
 Crucially, both putative progenitors are three mutations closer to SARS-CoV-2's bat coronavirus relatives than sequences from the Huanan Seafood Market.
 Note also that the progenitor of all known SARS-CoV-2 sequences could still be downstream of the sequence that infected patient zero depending on the transmission dynamics of the first infections.
 
+\begin{figure}
+\centerline{\fbox{\includegraphics[width=0.95\linewidth]{figures/SRA_email.png}}}
+\caption{A redacted version of the e-mails from Wuhan University to the SRA staff requesting deletion of the sequencing data.
+This e-mail was provided to me by the NIH's NCBI Director Stephen Sherry on June, 19, 2021, the day after I e-mailed the NIH an advance copy of this manuscript.
+The redactions and highlighting were done by the NIH, and I am showing the e-mail exactly as it was provided to me.
+}
+\label{fig:SRA_email}
+\end{figure}
+
 The fact that such an informative data set was deleted has implications beyond those gleaned directly from the recovered sequences.
 Samples from early outpatients in Wuhan are a gold mine for anyone seeking to understand spread of the virus.
-Even my analysis of the partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence the samples rather than surreptitiously delete the partial sequences.
-There is no plausible scientific reason for the deletion: the sequences are perfectly concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing shows no evidence of plasmid or sample-to-sample contamination.
-It therefore seems likely the sequences were deleted to obscure their existence.
-Particularly in light of the directive that labs destroy early samples~\citep{pinghui2020SCMP} and multiple orders requiring approval of publications on COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to trace early spread of the epidemic.
+Even my analysis of the partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence the samples rather than delete the partial sequence data.
+There is no scientific reason for the deletion: the sequences are concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing shows no evidence of plasmid or sample-to-sample contamination.
+After I e-mailed the NIH the original version of this manuscript, they sent me the e-mails requesting deletion of the data, which are in Figure~\ref{fig:SRA_email}.
+While I cannot rule out that the authors posted the data on some unknown website, they are not in GISAID, NCBI, or any database used by the joint WHO-China report.
+Therefore, even though the data were on the Google Cloud (as described above) and the mutations were listed in a table in the \textit{Small} paper by \citet{wang2020small}, the practical consequence of removing the data from the SRA was that nobody was aware of its existence.
+Particularly in light of the directive that labs destroy early samples~\citep{pinghui2020SCMP} and multiple orders requiring approval of publications on COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to understand the early spread of the epidemic.
 
 Another important implication is that genomic epidemiology studies of early SARS-CoV-2 need to pay as much attention to the provenance and annotation of the underlying sequences as technical considerations.
 There has been substantial scientific effort expended on topics such as phylogenetic rooting~\citep{pipes2021assessing, morel2021phylogenetic}, novel algorithms~\citep{kumar2021evolutionary}, and correction of sequencing errors~\citep{turakhia2020stability}.
