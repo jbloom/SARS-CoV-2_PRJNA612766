@@ -42,8 +42,8 @@
 The origin and early spread of SARS-CoV-2 remains shrouded in mystery.
 Here I identify a data set containing SARS-CoV-2 sequences from early in the Wuhan epidemic that has been deleted from the NIH's Sequence Read Archive.
 I recover the deleted files from the Google Cloud, and reconstruct partial sequences of 13 early epidemic viruses.
-Phylogenetic analysis of these sequences in the context of carefully annotated existing data supports existing data indicating that the Huanan Seafood Market sequences that are the focus of the joint WHO-China report are not fully representative of the viruses in Wuhan early in the epidemic.
-Instead, the progenitor of known SARS-CoV-2 sequences likely contained three mutations relative to the market viruses that made it more similar to SARS-CoV-2's bat coronavirus relatives. 
+Phylogenetic analysis of these sequences in the context of carefully annotated existing data further supports the idea that the Huanan Seafood Market sequences are not fully representative of the viruses in Wuhan early in the epidemic.
+Instead, the progenitor of currently known SARS-CoV-2 sequences likely contained three mutations relative to the market viruses that made it more similar to SARS-CoV-2's bat coronavirus relatives. 
 \end{abstract}
 
 \begin{document}
@@ -83,9 +83,9 @@ Although there is debate about exactly how SARS-CoV-2 entered the human populati
 But the earliest known SARS-CoV-2 sequences, which are mostly derived from the Huanan Seafood Market, are notably more different from these bat coronaviruses than other sequences collected at later dates outside Wuhan.
 As a result, there is a direct conflict between the two major principles used to infer an outbreak's progenitor: namely that it should be among the earliest sequences, and that it should be most closely related to deeper ancestors~\citep{pipes2021assessing}.
 
-Here I take a step towards resolving these questions by identifying and recovering a deleted data set of partial SARS-CoV-2 sequences from outpatient samples collected early in the Wuhan epidemic.
+Here I take a small step towards resolving these questions by identifying and recovering a deleted data set of partial SARS-CoV-2 sequences from outpatient samples collected early in the Wuhan epidemic.
 Analysis of these new sequences in conjunction with careful annotation of existing ones suggests that the early Wuhan samples that have been the focus of most studies including the joint WHO-China report~\citep{WHO2021origins} are not fully representative of the viruses actually present in Wuhan at that time.
-These insights help reconcile phylogenetic discrepancies, and suggest two plausible progenitor sequences, one of which is identical to that inferred by \citet{kumar2021evolutionary}.
+These insights help reconcile phylogenetic discrepancies, and suggest two plausible progenitor sequences, one of which is identical to that inferred by \citet{kumar2021evolutionary} and the other of which contains the C29095T mutation.
 Furthermore, the approach taken here hints it may be possible to advance understanding of SARS-CoV-2's origins or early spread even without further on-the-ground studies, such as by more deeply probing data archived by the NIH and other entities.
 
 \section{Results}
@@ -122,6 +122,7 @@ The study describes an approach to diagnose infection with SARS-CoV-2 and other 
 This approach involved reverse-transcription of total RNA from swab samples, followed by PCR with specific primers to generate amplicons covering portions of the viral genome.
 These amplicons were then sequenced on an Oxford Nanopore GridION, and infection was diagnosed if the sequencing yielded sufficient reads aligning to the viral genome.
 Importantly, the study notes that this approach yields information about the sequence of the virus as well enabling diagnosis of infection.
+In fact, \citet{wang2020small} even list the mutations determined from this sequencing---but because this paper was published in the chemistry journal \textit{Small}, after the sequences were removed from the SRA their existence appears to have been entirely overlooked. 
 
 The pre-print~\citep{wang2020medRxiv} says the approach was applied to ``45 nasopharyngeal swab samples from outpatients with suspected COVID-19 early in the epidemic.''
 The digital object identifier (DOI) for the pre-print indicates that it was processed by \textit{medRxiv} on March 4, 2020, which is one day after China's State Council ordered that all papers related to COVID-19 must be centrally approved~\citep{Kang2020}.
@@ -137,7 +138,7 @@ The number of accessions is approximately twice the number of early epidemic sam
  In addition, there are 7 accessions corresponding to positive and negative controls, 2 accessions corresponding to other respiratory virus samples, and 112 samples corresponding to plasmids used for benchmarking of the approach.
  Together, these samples and controls account for all 241 accessions listed for PRJNA612766 in the supplementary table of \citet{farkas2020insights}.
 
-Neither the pre-print~\citep{wang2020medRxiv} nor published manuscript~\citep{wang2020small} contain any correction or note that indicates a scientific reason for deleting the study's sequencing data from the SRA.
+Neither the pre-print~\citep{wang2020medRxiv} nor published manuscript~\citep{wang2020small} contain any correction or note that suggests a scientific reason for deleting the study's sequencing data from the SRA.
 I e-mailed both corresponding authors of \citet{wang2020medRxiv} to ask why they had deleted the deep sequencing data and to request details on the collection dates of the early outpatient samples, but received no reply.
 
 \subsection{Recovery of deleted sequencing data from the Google Cloud} 
@@ -201,6 +202,7 @@ With these criteria, 13 of the early outpatient samples and 1 of the February ho
 Table~\ref{tab:mutations} also shows the mutations in each sample relative to proCoV2, which is a putative progenitor of SARS-CoV-2 inferred by \citet{kumar2021evolutionary} that differs from the widely used Wuhan-Hu-1 reference sequence by three mutations (C8782T, C18060T, and T28144C).
 Although requiring coverage of only $\ge$3 is relatively lenient, Table~\ref{tab:mutations} shows that all sites with mutations have coverage $\ge$10.
 In addition, the mutations I called from the raw sequence data in Table~\ref{tab:mutations} concord with those mentioned in \citet{wang2020small}.
+Again, this fact emphasizes that the information contained in the deleted sequencing data is largely present in \citet{wang2020small}, but because it was only published in a table in the chemistry journal \textit{Small} rather than placed on the SRA, its existence was overlooked.
 
 I also determined the consensus sequence of the plasmid control used by \citet{wang2020medRxiv} from the recovered sequencing data, and found that it had mutations C28144T and G28085T relative to proCoV2, which means that in the region of interest this control matches Wuhan-Hu-1 with the addition of G28085T.
 Since none of the viral samples in Table~\ref{tab:mutations} contain G28085T and the samples that prove most relevant below also lack C28144T (which is a frequent natural mutation among early Wuhan sequences), plasmid contamination did not afflict the viral samples in the deleted sequencing project.
@@ -323,15 +325,15 @@ I acknowledge these arguments are purely qualitative and lack the formal statist
 \section{Discussion}
 I have identified and recovered a deleted set of partial SARS-CoV-2 sequences from the early Wuhan epidemic.
 Analysis of these sequences leads to several conclusions.
-First, the Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
+First, they provide further evidence Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
 The deleted data as well as existing sequences from Wuhan-infected patients hospitalized in Guangdong show early Wuhan sequences often carried the T29095C mutation and were less likely to carry T8782C / C28144T than sequences in the joint WHO-China report~\citep{WHO2021origins}.
 Second, given current data, there are two plausible identities for the progenitor of all known SARS-CoV-2.
 One is proCoV2 described by \citet{kumar2021evolutionary}, and the other is a sequence that carries three mutations (C8782T, T28144C, and C29095T) relative to Wuhan-Hu-1.
 Crucially, both putative progenitors are three mutations closer to SARS-CoV-2's bat coronavirus relatives than sequences from the Huanan Seafood Market.
-Note also that the progenitor of all known SARS-CoV-2 sequences could still be downstream of the sequence that infected patient zero depending on the transmission dynamics of the first infections.
+Note also that the progenitor of all known SARS-CoV-2 sequences could still be downstream of the sequence that infected patient zero---and it is possible that the future discovery of additional early SARS-CoV-2 sequences could lead to further revisions of inferences about the earliest viruses in the outbreak.
 
 \begin{figure}
-\centerline{\fbox{\includegraphics[width=0.95\linewidth]{figures/SRA_email.png}}}
+\centerline{\fbox{\includegraphics[width=\linewidth]{figures/SRA_email.png}}}
 \caption{A redacted version of the e-mails from Wuhan University to the SRA staff requesting deletion of the sequencing data.
 This e-mail was provided to me by the NIH's NCBI Director Stephen Sherry on June, 19, 2021, the day after I e-mailed the NIH an advance copy of this manuscript.
 The redactions and highlighting were done by the NIH, and I am showing the e-mail exactly as it was provided to me.
@@ -339,14 +341,14 @@ The redactions and highlighting were done by the NIH, and I am showing the e-mai
 \label{fig:SRA_email}
 \end{figure}
 
-The fact that such an informative data set was deleted has implications beyond those gleaned directly from the recovered sequences.
+The fact that this informative data set was deleted suggests implications beyond those gleaned directly from the recovered sequences.
 Samples from early outpatients in Wuhan are a gold mine for anyone seeking to understand spread of the virus.
-Even my analysis of the partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence the samples rather than delete the partial sequence data.
-There is no scientific reason for the deletion: the sequences are concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing shows no evidence of plasmid or sample-to-sample contamination.
+Even my analysis of 13 partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence all 34 samples rather than delete the partial sequence data.
+There is no obvious scientific reason for the deletion: the sequences are concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing shows no evidence of plasmid or sample-to-sample contamination.
 After I e-mailed the NIH the original version of this manuscript, they sent me the e-mails requesting deletion of the data, which are in Figure~\ref{fig:SRA_email}.
-While I cannot rule out that the authors posted the data on some unknown website, they are not in GISAID, NCBI, or any database used by the joint WHO-China report.
-Therefore, even though the data were on the Google Cloud (as described above) and the mutations were listed in a table in the \textit{Small} paper by \citet{wang2020small}, the practical consequence of removing the data from the SRA was that nobody was aware of its existence.
-Particularly in light of the directive that labs destroy early samples~\citep{pinghui2020SCMP} and multiple orders requiring approval of publications on COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to understand the early spread of the epidemic.
+While I cannot rule out that the authors posted the data on some unknown website, the sequences are not in GISAID, NCBI, or any database used by the joint WHO-China report.
+Therefore, even though the sequencing data were on the Google Cloud (as described above) and the mutations were listed in a table in the \textit{Small} paper by \citet{wang2020small}, the practical consequence of removing the data from the SRA was that nobody was aware these sequences existed.
+Particularly in light of the directive that labs destroy early samples~\citep{pinghui2020SCMP} and multiple orders requiring approval of publications on COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to maximize information about viral sequences from early in the Wuhan epidemic.
 
 Another important implication is that genomic epidemiology studies of early SARS-CoV-2 need to pay as much attention to the provenance and annotation of the underlying sequences as technical considerations.
 There has been substantial scientific effort expended on topics such as phylogenetic rooting~\citep{pipes2021assessing, morel2021phylogenetic}, novel algorithms~\citep{kumar2021evolutionary}, and correction of sequencing errors~\citep{turakhia2020stability}.
@@ -366,11 +368,10 @@ However, because the outgroups have $\sim$4\% nucleotide divergence from SARS-Co
 Of course, future identification of additional early sequences could fully resolve these questions.
 
 More broadly, the approach taken here suggests it may be possible to learn more about the origin or early spread of SARS-CoV-2 even without an international investigation.
-Minimally, it should be immediately possible for the NIH to determine the date and purported reason for deletion of the data set analyzed here, since the only way sequences can be deleted from the SRA is by an e-mail request to SRA staff~\citep{SRA_deletion}.
-In addition, I suggest it could be worthwhile to review e-mail records to identify other SRA deletions.
+I suggest it could be worthwhile for the NIH to review e-mail records to identify other SRA deletions.
 Importantly, SRA deletions do not imply any malfeasance: there are legitimate reasons for removing sequencing runs, and the SRA houses $>$13-million runs making it infeasible for its staff to validate the rationale for all requests.
-However, the current study suggests that at least in one case, the trusting structures of science have been abused to obscure sequences relevant to the early spread of SARS-CoV-2 in Wuhan.
-A careful re-evaluation of other archived forms of scientific communication, reporting, and data could shed additional light on the early emergence of the virus.
+However, the current study suggests that at least in one case, the trusting structures of science permitted a data deletion that obscured sequences relevant to the early spread of SARS-CoV-2 in Wuhan.
+A careful re-evaluation of other archived forms of scientific communication, reporting, and data could shed light on additional overlooked information relevant to the early emergence of the virus.
 
 {\small
 
@@ -487,6 +488,7 @@ Interactive versions of some figures are available at \url{https://jbloom.github
 I thank the citizens and scientists on Twitter who helped inspire this study and inform its background through their analyses and discussions of the early spread of SARS-CoV-2.
 I thank Brendan Larsen for pointing out that I failed to mask the primer binding site regions in the analysis described in the original pre-print (this has been fixed in this version).
 I thank Andrew Fire (Stanford University), Theo Sanderson (Crick Institute), and Francisco de Asis de Ribera (DRASTIC Research) for finding locations of downloaded data for the two accessions (SRR11313490 and SRR11313499) that I could not download from the Google Cloud and so had to omit from the analysis described in the original pre-print (they are included in the analysis in this version).
+I thank Stephen Goldstein and anonymous commenter for providing critiques of the original version of the pre-print on \textit{bioRxiv} that have helped me revise the manuscript.
 I thank the scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
 The scientific computing infrastructure used in this work was supported by the NIH Office of Research Infrastructure Programs under S10OD028685.
 The author is an Investigator of the Howard Hughes Medical Institute.
