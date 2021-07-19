@@ -302,10 +302,9 @@ The deleted sequences with C28144T (clade B) or C29095T (putative progenitor in 
  \end{figure*}
 
 Repeating the analysis of the previous section with these changes shows that several sequences from the deleted project and all sequences from patients infected in Wuhan but sequenced in Guangdong are more similar to the bat coronavirus outgroup than sequences from the Huanan Seafood Market (Figure~\ref{fig:deltadist_jitter}).
-This fact suggests that the market sequences, which are the primary focus of the genomic epidemiology in the joint WHO-China report~\citep{WHO2021origins}, are not representative of the viruses that were circulating in Wuhan in late December of 2019 and early January of 2020.
 
 Furthermore, it is immediately apparent that the discrepancy between outgroup rooting and the evidence that Wuhan was the origin of SARS-CoV-2 is alleviated by adding the deleted sequences and annotating Wuhan infections sequenced in Guangdong.
-The rooting of the middle tree in Figure~\ref{fig:tree_with_deleted} is now highly plausible, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node.
+The rooting of the middle tree in Figure~\ref{fig:tree_with_deleted} is now more consistent with the evidence that the pandemic originated in Wuhan, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node.
 The first known sequence identical to this putative progenitor (Guangdong/HKU-SZ-002/2020) is from a patient who developed symptoms on January 4 while visiting Wuhan~\citep{chan2020familial}.
 This putative progenitor has three mutations towards the bat coronavirus outgroup relative to Wuhan-Hu-1 (C8782T, T28144C, and C29095T), and two mutations relative to proCoV2 (T18060C away from the outgroup and C29095T towards the outgroup).
 The leftmost tree in Figure~\ref{fig:tree_with_deleted}, which has a progenitor identical to proCoV2~\citep{kumar2021evolutionary} also looks plausible, with some weight from Wuhan sequences.
@@ -315,7 +314,7 @@ The rightmost tree in Figure~\ref{fig:tree_with_deleted} looks less plausible, a
 We can also qualitatively examine the three progenitor placements in Figure~\ref{fig:tree_with_deleted} using the principle employed by \citet{worobey2020emergence} to help evaluate scenarios for emergence of SARS-CoV-2 in Europe and North America: namely that during a growing outbreak, a progenitor is likely to give rise to multiple branching lineages.
 This principle is especially likely to hold for the scenarios in Figure~\ref{fig:tree_with_deleted}, since there are multiple individuals infected with each putative progenitor sequence, implying multiple opportunities to transmit descendants with new mutations.
 Using this qualitative principle, the middle scenario in Figure~\ref{fig:tree_with_deleted} seems most plausible, the leftmost (proCoV2) scenario also seems plausible, and the rightmost scenario seems less plausible.
-I acknowledge these arguments are purely qualitative and lack the formal statistical analysis of \citet{worobey2020emergence}---but as discussed below, there may be wisdom in qualitative reasoning when there are valid concerns about the nature of the underlying data.
+I acknowledge these arguments are purely qualitative and lack the formal statistical analysis of \citet{worobey2020emergence}---but as discussed below, there may be wisdom in qualitative reasoning when there are valid concerns about the sampling distribution of the underlying data.
 
 \section{Discussion}
 I have identified and recovered a deleted set of partial SARS-CoV-2 sequences from the early Wuhan epidemic.
@@ -437,7 +436,7 @@ The GISAID accessions for these sequences are listed at \url{https://github.com/
 Sites in SARS-CoV-2 were mapped to their corresponding nucleotide identities in the bat coronavirus outgroups via a multiple sequence alignment of proCoV2 to the bat coronaviruses generated using \texttt{mafft}~\citep{katoh2013mafft}.
 
 \subsection{Curation and analysis of early SARS-CoV-2 sequences from GISAID}
-For the broader analyses of existing SARS-CoV-2 sequences, I downloaded all sequences from collected prior to March of 2020 from GISAID.
+For the broader analyses of existing SARS-CoV-2 sequences, I downloaded all sequences collected prior to March of 2020 from GISAID.
 The accessions of these sequences are at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/data/gisaid_sequences_through_Feb2020/accessions.txt}, and a table acknowledging the labs and authors is at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/data/gisaid_sequences_through_Feb2020/acknowledgments.csv}.
 
 I then used \texttt{mafft}~\citep{katoh2013mafft} to align these sequences to the proCoV2 reference described above, stripped any sites that were gapped relative to the reference, and filtered the sequences using the following criteria:
