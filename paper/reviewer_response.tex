@@ -1,0 +1,106 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+\usepackage{color}
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex	
+								
+												
+\usepackage{amssymb}
+\usepackage{hyperref} 
+\usepackage[round,semicolon]{natbib}
+
+
+\newcommand{\comment}[1]{{\color{red}[\textsl{#1}]}}
+\newcommand{\response}[1]{{\color{black}#1}}
+
+
+\title{Response to reviews of ``Recovery of deleted deep sequencing data sheds more light on the early Wuhan SARS-CoV-2 epidemic'' for \textit{Molecular Biology and Evolution}}
+\author{}
+
+\begin{document}
+\maketitle
+
+\emph{Below, the reviewer and editor comments {\color{blue} are in blue}, and may responses are in black.}
+
+\color{blue}
+
+\subsection*{Editors’ comments to the author:}
+
+I have received two reviews of your paper.  Both reviewers encourage revisions of the paper, but as you will see from the reviews, one is less positive and provide very few technical comments.  This second review is somewhat unusual as it contains very few suggestions for revisions, but it includes instead a number of value judgements of statements in the paper.  It might be difficult to address these comments directly, but I will encourage you nonetheless to try to do so.  In addition, please also address all other comments by the first reviewer.  I have also read the paper myself, and my major suggestion is for you not to imply similarity with the ancestral sequence inferred by Kumar et al. as a type of validation.  This method in Kumar et all is essentially a form of outgroup rooting that uses an outgroup to infer the sequence in the root of the tree.  So when you use outgroup rooting, it is no surprise that the implied sequence is similar to the one found by Kumar et al.
+
+\subsection*{Reviewer: 1}
+
+Comments to the Author
+The author identifies a set of SARS-CoV-2 sequences from the early days of the pandemic which has been deleted from the SRA database. He manages to recover the sequence files (but not the associated metadata) and shows that they are more similar to SARS-CoV-2's bat coronavirus relatives than sequences associated to the Huanan market, suggesting that the progenitor of all known SARS-CoV-2 sequences was three mutations away from the Huanan market sequences.
+
+Even though the phylogeny reconstruction is simple and mostly qualitative, and does not include any statistical test to evaluate the statistical robustness of each tree, the analysis is worth publishing as it is. Indeed, the phylogenetic signal derived from early SARS-CoV-2 sequences is unavoidably low, with only a few informative mutations. Establishing the root of such starting outbreak is thus a difficult and complex problem, and we cannot expect the current paper to solve this issue with a few extra analyses. As highlighted by the author, it will be important in the future to take into account the information from metadata, such as epidemiological relationships between patients, date of contamination, date of sampling, etc. to better assess the root of all known SARS-CoV-2 sequences. I hope that the COVID-19 pandemic will lead to new approaches (such as the one developped by Kumar et al.) and new statistical methods to infer the root of sequences from an outbreak.
+
+The text is very well written. The results have already been widely covered in the media, both for the general public and in scientific journals such as Nature and Science. The main findings are (1) that several informative early SARS-CoV-2 sequences have been removed from databases and (2) that these sequences provide further support that circulation within the human population started at least a few weeks before the Huanan market outbreak (three mutations away).
+
+Minor comments
+
+1) In the introduction the author should make it clearer that the dataset he recovered has not been used in recent thorough phylogenetic analyses of the SARS-CoV-2 outbreak: Pipes et al. 2021; Morel et al. 2021; Kumar et al. 2021; Turakhia et al. 2020; Pekar et al. 2021.
+
+2) In the discussion or the results section it should also be mentioned that there is no mechanism for deleting a pre-print (unlike for SRA data). So the authors were committed to having their preprint permanently available after it was posted in March.
+
+3) page 4, right column, line 54: it is mentioned that the author limited "the analysis to sequences with at least two observations among strains". To include potentially more sequences into the analysis and still take into account sequencing errors, would it be possible to exclude sites (when a particular nucleotide is found in only one single sequence) on specific sequences and thus to keep the corresponding sequence into the analysis (as in Kumar et al. 2021)? 
+
+4) In addition to Figures 2 and 4 it would be informative to show a haplotype network combining these early SARS-CoV-2 sequences and RaTG13, with different colors according to where the virus sequences were collected as in Figure 5.
+
+
+Suggestions for manuscript text and figures revision
+
+page 4, left column, line 43: "plasmid contamination did not afflict the viral samples in the deleted sequencing project" seems a bit long and complicated. Maybe replace by something like "plasmid contamination of viral samples is unlikely".
+
+page 4, Fig. 2 legend: replace "false/true" by something like "associated with Huanan Seafood Market/not associated with Huanan Seafood Market".
+
+page 4, Fig. 2: The distinction between squares and circles is hard to see on the Figure. One suggestion is to put the data points associated with the market in black.
+
+page 4, Fig. 2: The legend reads "Mutational distances are relative to the putative progenitor proCoV2 inferred by Kumar et al. (2021)." This is a bit confusing. I am guessing that the author means that the mutational distance of the putative progenitor proCoV2 inferred by Kumar et al. (2021) is set to zero and other values are adjusted accordingly. My suggestion would be to show the absolute mutational distance from the outgroup RaTG13 (even if it is in the order of 1000) and to indicate the position of proCoV2 in the figure or in the legend (with an arrow for example). But I don't feel strongly about this suggestion.
+
+page 6, Fig. 4 legend: same comment as above, it is surprising to see values below 0. 
+
+page 4, right column, line 45-47: I would suggest to remove "a fact that is difficult to reconcile with the idea that the market was the original location of spread of a bat coron- avirus into humans" as this is redundant with the previous paragraph and it is better in the results section to focus on observations.
+
+page 5, right column, line 42-45: The following sentence: "However, neither the sophisticated algorithm of Kumar et al. (2021) nor my more simplistic approach explain why the progenitor should be so different from the earliest sequences reported from Wuhan" is not clear. My suggestion would be something likee: "The sophisticated algorithm of Kumar et al. (2021) and my more simplistic approach do not take into account sampling dates and they both find that the inferred progenitor is three mutations away from the earliest sequences reported from Wuhan. A possible explanation is that the sampling of early cases is biased and not representative of the initial dynamics of the outbreak."
+
+page 6, Figure 4: instead of jittering points, another possibility would be to show circles whose area is proportional to the number of observations.
+
+page 6, left column, lines 52-56: I would suggest to remove "This fact suggests that the market sequences, which are the primary focus of the genomic epidemiology in the joint WHO-China report (WHO 2021), are not representative of the viruses that were circulating in Wuhan in late December of 2019 and early January of 2020." as this should go in to the discussion part and is not useful here.
+
+page 6, right column, line 6: "The rooting of the middle tree in Figure 5 is now highly plausible, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node." This statement is rather qualitative so maybe change  "is now highly plausible" into something like "is now more supported than the previous one in Figure 3".
+
+page 6, right column, line 33: I would suggest to replace "valid concerns about the nature of the underlying data" by "valid concerns about the sampling distribution of the underlying data".
+
+page 9, right colmun, line 11: remove "from" in "I downloaded all sequences from collected prior to March of 2020"
+
+page 11, left column, line 27: The hyper link for \url{https://web.archive.org/web/20210103124552/https://www.scmp.com/news/china/society/article/3084635/china-confirms-unauthorised-labs-were-told-destroy-early}  contains an extra space that should be removed.
+
+
+\subsection*{Reviewer: 2}
+
+Comments to the Author
+The primary shortcoming of this work is its significance. The author has recovered from Google Cloud raw sequence files that had been deleted from the SRA at the request of the authors of Wang et al, cited in the manuscript. However, the relevant data points, notably the SARS-CoV-2 SNPs that distinguish early lineages A and B, are reported in that paper, published June 2020 in Small. Additionally, it was already known that two lineages of SARS-CoV-2 were present in Wuhan early in the epidemic. These sequences confirm that both lineages circulated contemporaneously in late 2019-early 2020 in Wuhan, but do not change the timeline of SARS-CoV-2 introduction nor provide new information as to the route or routes of introduction. These sequences post-date the likely introduction of SARS-CoV-2 into the human population by several weeks up to 2 months, and thus do not provide new information regarding the earliest human infection events.
+
+The author casts doubt on the timing and distribution of early cases based on media reports of unknown reliability. It is impossible for the reader to interpret this.
+
+The author describes a conundrum whereas the first sequences (Dec 2019) seem more distant from related bat viruses than do later sequences (Jan-Feb 2020), suggesting this is nearly impossible. However, sequencing is highly biased to case identification, and it is known that lineage B infections were preferentially identified due to the amplification of early transmission at the Huanan market. Additionally, this presupposes early diversity in SARS-CoV-2 is due to the emergence of SNPs during human to human transmission, rather than in a putative intermediate host. The author additionally notes that "unusual mutational processes" might explain an ancestral position for lineage B, and indeed C>T, T>C mutations are frequently observed in SARS-CoV-2, complicating the inference of directional relationships between viral lineages dependent on these SNPs.
+
+Rooting SARS-CoV-2 trees continues to be problematic but the author's efforts do not resolve this problem. The available bat viruses are too distant to reliably root the tree and while the proCoV-2 sequence the author also uses is appropriately close, it was inferred based on the too-distant bat viruses, making this a somewhat circular process. There is simply too much uncertainty currently, and it may be as likely as otherwise that the root falls between lineages A and B, rather than in either one of them. Alternatively, the author cannot exclude A>B directionality occurring in an intermediate host rather than in humans, unless one discounts the possibility of an intermediate host. The author acknowledges the problematic nature of the rooting issue, but nevertheless heavily weights the conclusions on this analysis.
+
+The author states that multiple spillover events is a less parsimonious start of the outbreak than a single introduction but does not explain this analysis. The phylogenetic analysis would be greatly strengthened by a more thorough discussion of this matter. If A>B directionality in humans is presumed, it depends on a single introduction event, which the author should make the case for.
+
+Figure 6 does not add to the data analysis and only serves to drive home what seems to be the primary objective of the manuscript - that the sequences were deleted from the SRA.
+
+The acknowledgement of "twitter citizens" risks highlighting commentary by individuals who have directed abuse and threats at the author's colleagues. I encourage the author to reconsider, or specify who he refers to in particular in order to avoid granting inadvertent credibility to nefarious individuals.
+
+\color{black}
+\bibliographystyle{mbe}
+{\small
+\bibliography{references.bib}
+}
+
+
+\end{document}  
