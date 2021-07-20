@@ -200,7 +200,7 @@ In addition, the mutations I called from the raw sequence data in Table~\ref{tab
 Again, this fact emphasizes that the information contained in the deleted sequencing data is largely present in \citet{wang2020small}, but because it was only published in a table in the chemistry journal \textit{Small} rather than placed on the SRA, its existence was overlooked.
 
 I also determined the consensus sequence of the plasmid control used by \citet{wang2020medRxiv} from the recovered sequencing data, and found that it had mutations C28144T and G28085T relative to proCoV2, which means that in the region of interest this control matches Wuhan-Hu-1 with the addition of G28085T.
-Since none of the viral samples in Table~\ref{tab:mutations} contain G28085T and the samples that prove most relevant below also lack C28144T (which is a frequent natural mutation among early Wuhan sequences), plasmid contamination did not afflict the viral samples in the deleted sequencing project.
+Since none of the viral samples in Table~\ref{tab:mutations} contain G28085T and the samples that prove most relevant below also lack C28144T (which is a frequent natural mutation among early Wuhan sequences), plasmid contamination of the viral samples is unlikely.
 
 \begin{figure*}
 \centering
@@ -228,7 +228,7 @@ One would therefore expect the first reported SARS-CoV-2 sequences to be the mos
 This conundrum is illustrated in Figure~\ref{fig:deltadist_RaTG13}, which plots the collection date of SARS-CoV-2 sequences in GISAID versus the relative number of mutational differences from RaTG13~\citep{zhou2020pneumonia}, which is the bat coronavirus with the highest full-genome sequence identity to SARS-CoV-2.
 The earliest SARS-CoV-2 sequences were collected in Wuhan in December, but these sequences are more distant from RaTG13 than sequences collected in January from other locations in China or even other countries (Figure~\ref{fig:deltadist_RaTG13}).
 The discrepancy is especially pronounced for sequences from patients who had visited the Huanan Seafood Market~\citep{WHO2021origins}.
-All sequences associated with this market differ from RaTG13 by at least three more mutations than sequences subsequently collected at various other locations (Figure~\ref{fig:deltadist_RaTG13})---a fact that is difficult to reconcile with the idea that the market was the original location of spread of a bat coronavirus into humans.
+All sequences associated with this market differ from RaTG13 by at least three more mutations than sequences subsequently collected at various other locations (Figure~\ref{fig:deltadist_RaTG13}).
 Importantly, all these observations also hold true if SARS-CoV-2 is compared to other related bat coronaviruses~\citep{lytras2021exploring} such as RpYN06~\citep{zhou2021identification} or RmYN02~\citep{zhou2020novel} rather than RaTG13 (Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}).
 
  \begin{figure*}
@@ -261,7 +261,7 @@ Several plausible explanations have been proposed for the discordance of phyloge
 \citet{pipes2021assessing} discuss the conundrum in detail, and suggest that phylogenetic rooting could be incorrect due to technical reasons such as high divergence of the outgroup or unusual mutational processes not captured in substitution models.
 \citet{kumar2021evolutionary} agree that phylogenetic rooting is problematic, and circumvent this problem by using an alternative algorithm to infer a progenitor for SARS-CoV-2 that they name proCoV2.
 Notably, proCoV2 turns out to be identical to one of the putative progenitors yielded by my approach in Figure~\ref{fig:tree_RaTG13} of simply placing the root at the nodes closest to the outgroup.
-However, neither the sophisticated algorithm of \citet{kumar2021evolutionary} nor my more simplistic approach explain \emph{why} the progenitor should be so different from the earliest sequences reported from Wuhan.
+However, the sophisticated algorithm of \citet{kumar2021evolutionary} and my more simplistic approach both ignore sampling dates, which is probably a major reason that they both infer a progenitor that is three mutations away from the earliest sequences reported from Wuhan.
 
 Another explanation that I consider less plausible is offered by \citet{garry2021early}: that there were multiple zoonoses from distinct markets, with the Huanan Seafood Market being the source of viruses in clade B, and some other market being the source of viruses that lack T8782C and C28144T (Figure~\ref{fig:tree_RaTG13}).
 However, this explanation requires positing zoonoses in two markets by two progenitors differing by just two mutations, which seems non-parsimonious in the absence of direct evidence for zoonosis in any market.
