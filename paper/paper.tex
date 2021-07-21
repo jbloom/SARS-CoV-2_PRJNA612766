@@ -206,8 +206,9 @@ Since none of the viral samples in Table~\ref{tab:mutations} contain G28085T and
 \centering
 \includegraphics[width=\linewidth]{figures/deltadist_RaTG13.pdf}
 \caption{The reported collection dates of SARS-CoV-2 sequences in GISAID versus their relative mutational distances from the RaTG13 bat coronavirus outgroup.
-Mutational distances are relative to the putative progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
-The plot shows sequences in GISAID collected no later than February 28, 2020.
+Mutational distances are relative to the putative progenitor proCoV2 inferred by \citet{kumar2021evolutionary}, which itself differs from RaTG13 by 1,132 mutations---so a sequence with a relative mutational distance of 2 actually has 1,134 differences from RaTG13.
+Note that the lower-right point in the middle (green) panel corresponds to a sequence (Guangdong/FS-30-P00502/2020) reportedly collected in late February that is actually two mutations more similar to RaTG13 than proCoV2.
+The plot shows only sequences in GISAID collected no later than February 28, 2020.
 Sequences that the joint WHO-China report~\citep{WHO2021origins} describes as being associated with the Wuhan Seafood Market are plotted with squares.
 Points are slightly jittered on the y-axis.
 Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist.html} for an interactive version of this plot that enables toggling of the outgroup to RpYN06 and RmYN02, mouseovers to see details for each point including strain name and mutations relative to proCoV2, and adjustment of the y-axis jittering.
@@ -276,6 +277,7 @@ Since these patients were clearly infected in Wuhan even though they were sequen
 \includegraphics[width=0.75\linewidth]{figures/deltadist_jitter.png}
 \caption{
 Relative mutational distance from RaTG13 bat coronavirus outgroup calculated \emph{only} over the region of the SARS-CoV-2 genome covered by sequences from the deleted data set (21,570--29,550).
+Because the calculated distances here are only over a portion of the genome, there are more negative points than in Figure~\ref{fig:deltadist_RaTG13}.
 The plot shows sequences in GISAID collected before February of 2020, as well as the 13 early Wuhan epidemic sequences in Table~\ref{tab:mutations}.
 Mutational distance is calculated relative to proCoV2, and points are jittered on the y-axis.
 Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist_jitter.html} for an interactive version of this plot that enables toggling the outgroup to RpYN06 or RmYN02, mouseovers to see details for each point, and adjustment of jittering.
