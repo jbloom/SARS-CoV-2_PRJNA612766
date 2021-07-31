@@ -236,24 +236,25 @@ Importantly, all these observations also hold true if SARS-CoV-2 is compared to 
  \centerline{
  \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RaTG13_without_deleted_seqs.pdf}
  \hspace{0.02\linewidth}
- \includegraphics[width=0.33\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_without_deleted_seqs.pdf}
+ \includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_without_deleted_seqs.pdf}
   \hspace{0.02\linewidth}
  \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_without_deleted_seqs.pdf}
  }
  \caption{
- Phylogenetic trees of SARS-CoV-2 sequences in GISAID with multiple observations among viruses collected before Februrary, 2020.
+ Phylogenetic trees of SARS-CoV-2 sequences in GISAID collected before February, 2020.
  The trees are identical except they are rooted to make the progenitor each of the three sequences with highest identity to the RaTG13 bat coronavirus outgroup.
 Nodes are shown as pie charts with areas proportional to the number of observations of that sequence, and colored by where the viruses were collected.
 The mutations on each branch are labeled, with mutations towards the nucleotide identity in the outgroup in purple.
 The labels at the top of each tree give the first known virus identical to each putative progenitor, as well as mutations in that progenitor relative to proCoV2~\citep{kumar2021evolutionary} and Wuhan-Hu-1.
 The monophyletic group containing C28144T is collapsed into a node labeled ``clade B'' in concordance with the naming scheme of \citet{rambaut2020dynamic}; this clade contains Wuhan-Hu-1.
- Figure~\ref{suppfig:tree_RpYN06_RmYN02} shows identical results are obtained if the outgroup is RpYN06 or RmYN02.
+Singleton mutations (mutations observed only once in the sequence set) are removed as described in more detail in the Methods.
+ Figures~\ref{suppfig:tree_RpYN06} and \ref{suppfig:tree_RmYN02} shows identical results are obtained if the outgroup is RpYN06 or RmYN02.
 \label{fig:tree_RaTG13}
  }
  \end{figure*}
 
 This conundrum can be visualized in a phylogenetic context by rooting a tree of early SARS-CoV-2 sequences so that the progenitor sequence is closest to the bat coronavirus outgroup.
-If we limit the analysis to sequences with at least two observations among strains collected no later than January 2020, there are three ways to root the tree in this fashion since there are three different sequences equally close to the outgroup (Figure~\ref{fig:tree_RaTG13}, Figure~\ref{suppfig:tree_RpYN06_RmYN02}).
+If we limit the analysis to sequences collected no later than January 2020 and remove singleton mutations observed only once in the sequence set, then there are three ways to root the tree in this fashion since there are three different sequences equally close to the outgroup (Figure~\ref{fig:tree_RaTG13}, Figure~\ref{suppfig:tree_RpYN06}, Figure~\ref{suppfig:tree_RmYN02}).
 Importantly, none of these rootings place any Huanan Seafood Market viruses (or other Wuhan viruses from December 2019) in the progenitor node---and only one of the rootings has any virus from Wuhan in the progenitor node (in the leftmost tree in Figure~\ref{fig:tree_RaTG13}, the progenitor node contains Wuhan/0126-C13/2020, which was reportedly collected on January 26, 2020).
 Therefore, inferences about the progenitor of SARS-CoV-2 based on comparison to related bat viruses are inconsistent with other evidence suggesting the progenitor is an early virus from Wuhan~\citep{pipes2021assessing}.
 
@@ -289,7 +290,7 @@ Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist_jitter.html
  \centerline{
  \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RaTG13_with_deleted_seqs.pdf}
  \hspace{0.02\linewidth}
- \includegraphics[width=0.33\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_with_deleted_seqs.pdf}
+ \includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_with_deleted_seqs.pdf}
   \hspace{0.02\linewidth}
  \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_with_deleted_seqs.pdf}
  }
@@ -298,7 +299,7 @@ Phylogenetic trees like those in Figure~\ref{fig:tree_RaTG13} with the addition 
 Because the deleted sequences are partial, they cannot all be placed unambiguously on the tree.
 Therefore, they are added to each compatible node proportional to the number of sequences already in that node.
 The deleted sequences with C28144T (clade B) or C29095T (putative progenitor in middle tree) can be placed relatively unambiguously as defining mutations occur in the sequenced region, but those that lack either of these mutations are compatible with a large number of nodes including the proCoV2 putative progenitor.
- Figure~\ref{suppfig:tree_RpYN06_RmYN02} demonstrates that the results are identical if RpYN06 or RmYN02 is instead used as the outgroup.
+ Figures~\ref{suppfig:tree_RpYN06} and \ref{suppfig:tree_RmYN02} demonstrates that the results are identical if RpYN06 or RmYN02 is instead used as the outgroup.
 \label{fig:tree_with_deleted}
  }
  \end{figure*}
@@ -465,7 +466,7 @@ The plot in Figure~\ref{fig:deltadist_jitter} shows the filtered GISAID sequence
 
 \subsection{Phylogenetic analyses}
 The phylogenetic trees were inferred using the GISAD sequences after the filtering and annotations described above, only considering sequences with $\ge$95\% coverage over the region of interest that were collected before February of 2020.
-In addition, after generating this sequence set I removed any sequence variants with a combination of mutations that was not observed at least twice so the analysis only includes multiply observed sequence variants.
+In addition, after generating this sequence set I removed any mutations from sequences that were singletons in the sense that they were only observed once in the sequence set---a similar approach was used by \citet{kumar2021evolutionary}, and this approach should eliminate rare mutations that could be sequencing errors.
 A file indicating the unique sequences used for the phylogenetic analysis, their mutations relative to proCoV2, and other sequences in that cluster is at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/results/phylogenetics/all_alignment.csv}.
 
 I then used \texttt{IQ-Tree}~\citep{minh2020iq} to infer a maximum-likelihood phylogenetic tree using a GTR nucleotide substitution model with empirical nucleotide frequencies, and collapsing zero-length branches to potentially allow a multifurcating tree.
@@ -537,29 +538,35 @@ An interactive version of this plot is at \url{https://jbloom.github.io/SARS-CoV
 \end{figure}
 
  \begin{figure}[h!]
- {\bf \LARGE A} \\
  \centerline{
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RpYN06_without_deleted_seqs.pdf}
+ \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RpYN06_without_deleted_seqs.pdf}
  \hspace{0.04\linewidth}
  \includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RpYN06_without_deleted_seqs.pdf}
   \hspace{0.04\linewidth}
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RpYN06_without_deleted_seqs.pdf}
+ \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RpYN06_without_deleted_seqs.pdf}
  }
- \\
-  {\bf \LARGE B} \\
- \centerline{
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RmYN02_without_deleted_seqs.pdf}
+ \caption{
+ A version of Figure~\ref{fig:tree_RaTG13} but rooting using an outgroup of RpYN06.
+ The tree topologies are identical to those obtained using RaTG13 in Figure~\ref{fig:tree_RaTG13}, with the only differences being a few minor changes in which mutations on branches are towards the outgroup (purple mutation labels).
+\label{suppfig:tree_RpYN06}
+ }
+ \end{figure}
+ 
+  \begin{figure}[h!]
+\centerline{
+ \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RmYN02_without_deleted_seqs.pdf}
  \hspace{0.04\linewidth}
  \includegraphics[width=0.32\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RmYN02_without_deleted_seqs.pdf}
   \hspace{0.04\linewidth}
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RmYN02_without_deleted_seqs.pdf}
+ \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RmYN02_without_deleted_seqs.pdf}
  }
  \caption{
- A version of Figure~\ref{fig:tree_RaTG13} but rooting using an outgroup of (A) RpYN06 or (B) RmYN02 outgroups.
+ A version of Figure~\ref{fig:tree_RaTG13} but rooting using an outgroup of RmYN02 outgroups.
  The tree topologies are identical to those obtained using RaTG13 in Figure~\ref{fig:tree_RaTG13}, with the only differences being a few minor changes in which mutations on branches are towards the outgroup (purple mutation labels).
-\label{suppfig:tree_RpYN06_RmYN02}
+\label{suppfig:tree_RmYN02}
  }
  \end{figure}
+
 
 
 
