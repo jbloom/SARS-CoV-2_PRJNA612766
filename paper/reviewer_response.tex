@@ -30,22 +30,38 @@
 
 I have received two reviews of your paper.  Both reviewers encourage revisions of the paper, but as you will see from the reviews, one is less positive and provide very few technical comments.  This second review is somewhat unusual as it contains very few suggestions for revisions, but it includes instead a number of value judgements of statements in the paper.  It might be difficult to address these comments directly, but I will encourage you nonetheless to try to do so.  In addition, please also address all other comments by the first reviewer.  I have also read the paper myself, and my major suggestion is for you not to imply similarity with the ancestral sequence inferred by Kumar et al. as a type of validation.  This method in Kumar et all is essentially a form of outgroup rooting that uses an outgroup to infer the sequence in the root of the tree.  So when you use outgroup rooting, it is no surprise that the implied sequence is similar to the one found by Kumar et al.
 
-\response{Thanks for the helpful comments. I have addressed all of the comments from Reviewer \#1 and all the comments from Reviewer \#2 that I am able to address in the context of the limitations of the study. Also, thanks for the point about Kumar et al's proCoV2 inference also essentially being an outgroup method. I still mention this prominently to credit their excellent work, but also make clear that there are some shared assumptions of the two methods, so the concordance does not represent a validation of those assumptions but only an indication of reaching similar inferences under some of the same assumptions.}
+\response{Thanks for the helpful comments. I have addressed the comments from Reviewer \#1, and all the comments from Reviewer \#2 that I can address in the context of the limitations of the study. Also, thanks for the point about Kumar et al's proCoV2 inference also essentially being an outgroup method. I still mention this study prominently to credit its excellent work, but also make clear that the two methods share the outgroup assumption, so the concordance does not represent a validation of those assumptions but only an indication of reaching similar inferences under similar assumptions.
+
+In addition, subsequent to the posting of this pre-print, the Chinese Health Council addressed the \textit{bioRxiv} pre-print of my manuscript in response to a question that was asked during a July news conference in which China rejected the WHO's request for further investigations into the origins of COVID-19.
+At that news conference, the Chinese Health Council offered a new explanation for the deletion of the sequences that was distinct from the explanation originally given by the authors to the SRA.
+This new explanation is that the sequences were deleted in response to an editorial error in which the journal \textit{Small} mistakenly deleted the data availability statement for the paper, apparently making the authors feel compelled to delete the data itself.
+In the revised Discussion, I now note this new explanation alongside the one originally offered to the SRA by the authors.
+I also now note that subsequent to the publication of this pre-print, the deleted sequences were made available on the Chinese NGDC database on July-8-2021.
+Finally, I note that at its news conference, the Chinese Health Council updated the description of the sequences from collected ``early in the epidemic'' (as they were described in the pre-print) to all collected on or after January 30.
+Because I do not have the information necessary to distinguish the veracity of the original versus new explanations / descriptions, I provide both in the Discussion.
+}
 
 \subsection*{Reviewer: 1}
 
 Comments to the Author
+
 The author identifies a set of SARS-CoV-2 sequences from the early days of the pandemic which has been deleted from the SRA database. He manages to recover the sequence files (but not the associated metadata) and shows that they are more similar to SARS-CoV-2's bat coronavirus relatives than sequences associated to the Huanan market, suggesting that the progenitor of all known SARS-CoV-2 sequences was three mutations away from the Huanan market sequences.
 
 Even though the phylogeny reconstruction is simple and mostly qualitative, and does not include any statistical test to evaluate the statistical robustness of each tree, the analysis is worth publishing as it is. Indeed, the phylogenetic signal derived from early SARS-CoV-2 sequences is unavoidably low, with only a few informative mutations. Establishing the root of such starting outbreak is thus a difficult and complex problem, and we cannot expect the current paper to solve this issue with a few extra analyses. As highlighted by the author, it will be important in the future to take into account the information from metadata, such as epidemiological relationships between patients, date of contamination, date of sampling, etc. to better assess the root of all known SARS-CoV-2 sequences. I hope that the COVID-19 pandemic will lead to new approaches (such as the one developped by Kumar et al.) and new statistical methods to infer the root of sequences from an outbreak.
 
 The text is very well written. The results have already been widely covered in the media, both for the general public and in scientific journals such as Nature and Science. The main findings are (1) that several informative early SARS-CoV-2 sequences have been removed from databases and (2) that these sequences provide further support that circulation within the human population started at least a few weeks before the Huanan market outbreak (three mutations away).
 
+\response{Thank you for the summary of the manuscript.}
+
 Minor comments
 
 1) In the introduction the author should make it clearer that the dataset he recovered has not been used in recent thorough phylogenetic analyses of the SARS-CoV-2 outbreak: Pipes et al. 2021; Morel et al. 2021; Kumar et al. 2021; Turakhia et al. 2020; Pekar et al. 2021.
 
+\response{This is a good suggestion that I have incorporated.}
+
 2) In the discussion or the results section it should also be mentioned that there is no mechanism for deleting a pre-print (unlike for SRA data). So the authors were committed to having their preprint permanently available after it was posted in March.
+
+\response{I have added mention of this fact to to the revised Discussion}
 
 3) page 4, right column, line 54: it is mentioned that the author limited "the analysis to sequences with at least two observations among strains". To include potentially more sequences into the analysis and still take into account sequencing errors, would it be possible to exclude sites (when a particular nucleotide is found in only one single sequence) on specific sequences and thus to keep the corresponding sequence into the analysis (as in Kumar et al. 2021)? 
 
@@ -53,6 +69,9 @@ Minor comments
 
 4) In addition to Figures 2 and 4 it would be informative to show a haplotype network combining these early SARS-CoV-2 sequences and RaTG13, with different colors according to where the virus sequences were collected as in Figure 5.
 
+\response{I apologize, but I have been unable to identify software that enables visualization of haplotype networks that enables both pie-chart coloring of nodes and sizing of nodes based on number of sequences.
+If the reviewer is able to suggest specific software that enables this task, I would be happy to do add such a network.
+} 
 
 Suggestions for manuscript text and figures revision
 
@@ -112,19 +131,96 @@ page 11, left column, line 27: The hyper link for \url{https://web.archive.org/w
 \subsection*{Reviewer: 2}
 
 Comments to the Author
+
 The primary shortcoming of this work is its significance. The author has recovered from Google Cloud raw sequence files that had been deleted from the SRA at the request of the authors of Wang et al, cited in the manuscript. However, the relevant data points, notably the SARS-CoV-2 SNPs that distinguish early lineages A and B, are reported in that paper, published June 2020 in Small. Additionally, it was already known that two lineages of SARS-CoV-2 were present in Wuhan early in the epidemic. These sequences confirm that both lineages circulated contemporaneously in late 2019-early 2020 in Wuhan, but do not change the timeline of SARS-CoV-2 introduction nor provide new information as to the route or routes of introduction. These sequences post-date the likely introduction of SARS-CoV-2 into the human population by several weeks up to 2 months, and thus do not provide new information regarding the earliest human infection events.
+
+\response{I fully agree that that this study does not discover the existence of two lineages, and have made certain that the revised version fully acknowledges that this study simply provides more sequences that fall into these lineages.
+I do note, however, that this study does provide more evidence for T29095 possibly being present in the most ancestral form of lineage A at least based on outgroup rooting.
+
+I also fully agree that the SNPs were reported in \textit{Small}, and have made sure to mention this point several times in the revised version.
+However, it is also undeniably true that the sequences had been completely overlooked in any phylogenetic analyses due to their absence in any sequence database after the deletion.
+
+I also fully acknowledge the point about the uncertain timing of collection.
+I have included a paragraph in the Discussion beginning "There are several caveats to this study...'' that discusses this limitation among others.
+Also, I have provided more detail about what has been stated about the collection dates of the sequences.
+These dates were originally described in the pre-print as ``early in the epidemic.''
+These dates were then updated in the final paper to ``early in the epidemic (January 2020).''
+Then in a recent press conference by the China Health Council, this description was further updated to no earlier than January 30.
+I have provided all three descriptions in the revised manuscript.
+
+Finally, I fully acknowledge that these data do not decisively answer questions about the rooting or timing of the introduction---and certainly not the route of introduction (the manuscript does not even touch on this last point).
+As far as rooting and timing, I do think that the addition of even partial data is informative since what we have to work with is so meager, and I also think that this manuscript has productively sparked more discussion and analysis of the rooting question.
+But certainly I recognize the limitations, and have made revisions to ensure they are adequately conveyed.}
 
 The author casts doubt on the timing and distribution of early cases based on media reports of unknown reliability. It is impossible for the reader to interpret this.
 
-The author describes a conundrum whereas the first sequences (Dec 2019) seem more distant from related bat viruses than do later sequences (Jan-Feb 2020), suggesting this is nearly impossible. However, sequencing is highly biased to case identification, and it is known that lineage B infections were preferentially identified due to the amplification of early transmission at the Huanan market. Additionally, this presupposes early diversity in SARS-CoV-2 is due to the emergence of SNPs during human to human transmission, rather than in a putative intermediate host. The author additionally notes that "unusual mutational processes" might explain an ancestral position for lineage B, and indeed C>T, T>C mutations are frequently observed in SARS-CoV-2, complicating the inference of directional relationships between viral lineages dependent on these SNPs.
+\response{I agree that the poor reliability of data about early cases is unfortunate.
+However, I think it is important to include both media and scientific-literature reports.
+For instance, the joint WHO-China report itself was recently revised in response to an article in the \textit{Washington Post} (\url{https://www.washingtonpost.com/world/asia_pacific/covid-wuhan-outbreak-who/2021/07/15/51e7e8a6-e2c6-11eb-88c5-4fd6382c47cb_story.html}), indicating that in at least some cases media reports can be as accurate as scientific literature.
 
-Rooting SARS-CoV-2 trees continues to be problematic but the author's efforts do not resolve this problem. The available bat viruses are too distant to reliably root the tree and while the proCoV-2 sequence the author also uses is appropriately close, it was inferred based on the too-distant bat viruses, making this a somewhat circular process. There is simply too much uncertainty currently, and it may be as likely as otherwise that the root falls between lineages A and B, rather than in either one of them. Alternatively, the author cannot exclude A>B directionality occurring in an intermediate host rather than in humans, unless one discounts the possibility of an intermediate host. The author acknowledges the problematic nature of the rooting issue, but nevertheless heavily weights the conclusions on this analysis.
+Therefore, I have simply cited all of the competing reports that seem of reasonable reliability, and taken pains not to present any of them as the absolute truth.}
 
-The author states that multiple spillover events is a less parsimonious start of the outbreak than a single introduction but does not explain this analysis. The phylogenetic analysis would be greatly strengthened by a more thorough discussion of this matter. If A>B directionality in humans is presumed, it depends on a single introduction event, which the author should make the case for.
+The author describes a conundrum whereas the first sequences (Dec 2019) seem more distant from related bat viruses than do later sequences (Jan-Feb 2020), suggesting this is nearly impossible. However, sequencing is highly biased to case identification, and it is known that lineage B infections were preferentially identified due to the amplification of early transmission at the Huanan market. Additionally, this presupposes early diversity in SARS-CoV-2 is due to the emergence of SNPs during human to human transmission, rather than in a putative intermediate host. The author additionally notes that "unusual mutational processes" might explain an ancestral position for lineage B, and indeed C$\rightarrow$T, T$\rightarrow$C mutations are frequently observed in SARS-CoV-2, complicating the inference of directional relationships between viral lineages dependent on these SNPs.
+
+\response{The reviewer makes an excellent point that some early case definitions of COVID-19 included exposure to the Huanan Seafood Market, and that this could bias case ascertainment and follow-on sequencing.
+In fact, this explanation would make special sense given that the sequences analyzed here are from suspected outpatients---which might be more likely to be the status of early infected individuals who didn't meet a market-associate case definition.
+I have added text that mentions this point as another possible explanation for the preponderance of lineage B (market-associated) viruses among the early sequences.
+(Note that although I agree with this point and have seen various reports of market exposure being part of the case definition, I was unable to find any citations for this point so if the reviewer knows any to suggest, I would be happy to add them upon further revision.)
+
+I mention the mutation-bias explanation as it was mentioned by Pipes et al (2021), but mutation biases are unlikely to fully explain the conundrums related to outgroup versus date-based rooting.
+For instance, site 29095 is C in SARS-CoV-2, but conserved as T in \emph{all} other related sarbecoviruses indicating that it is phylogenetically informative (if its mutation rate was saturatingly high, it would not be conserved as T in all related sarbecoviruses).
+
+Regarding the possible role of an intermediate host, see my response to the next point.
+}
+
+Rooting SARS-CoV-2 trees continues to be problematic but the author's efforts do not resolve this problem. The available bat viruses are too distant to reliably root the tree and while the proCoV-2 sequence the author also uses is appropriately close, it was inferred based on the too-distant bat viruses, making this a somewhat circular process. There is simply too much uncertainty currently, and it may be as likely as otherwise that the root falls between lineages A and B, rather than in either one of them. Alternatively, the author cannot exclude A$\rightarrow$B directionality occurring in an intermediate host rather than in humans, unless one discounts the possibility of an intermediate host. The author acknowledges the problematic nature of the rooting issue, but nevertheless heavily weights the conclusions on this analysis.
+
+\response{I fully agree with the reviewer that the currently available outgroups (RaTG13, RmYN02, etc) are more diverged than ideal for rooting, and the confidence in rooting would be greatly improved if the outgroup was more similar.
+Unfortunately, no higher-identity outgroup is known.
+I have been sure to mention the high divergence of the outgroup as a possible limitation in rooting.
+Nonetheless, outgroup rooting with any of the available outgroups consistently places the root in lineage A (specifically, one of the three lineage A variants that is 3 mutations closer to the outgroup than lineage B), so this cannot be entirely dismissed.
+In any case, it's important to discuss these limitations as many other authors (for instance, Rambaut et al (2020)) placed the root in lineage A with rather high confidence in their published work.
+
+I agree using proCoV2 to root is circular, and I meant to only indicate that my outgroup rooting was similar to that of Kumar et al when they proposed proCoV2. I have clarified this point, as also suggested by the editor.
+
+As far as an intermediate host, that doesn't really change the conundrum.
+The rooting isn't dependent on which host the virus is replicating in, but only on the assumption that the deeper ancestors are bat coronaviruses.
+Even if the virus went through an intermediate host, or even multiple intermediate hosts, lineage A is still ancestral to lineage B on any tree that uses outgroup rooting.
+}
+
+The author states that multiple spillover events is a less parsimonious start of the outbreak than a single introduction but does not explain this analysis. The phylogenetic analysis would be greatly strengthened by a more thorough discussion of this matter. If A$\rightarrow$B directionality in humans is presumed, it depends on a single introduction event, which the author should make the case for.
+
+\response{
+The reviewer is correct that I am assuming a single introduction, and I have made this assumption explicit in the revised manuscript.
+I would note that a single introduction has been implicitly or explicitly assumed in all the other major published work on this topic, including Rambaut et al (2020), Pipes et al (2021), and Kumar et al (2021).
+
+It is accurate to say that a single introduction is the most parsimonious explanation.
+The definition of parsimony is to assume no more events than necessary to explain the data, and because there is not explicit documentary evidence for even a single introduction (although clearly an introduction did happen), it is certainly more parsimonious to assume just one introduction rather than two.
+In addition, all of the currently known early variants of SARS-CoV-2 are within 2 mutations of each other, which is well within the span of genetic divergence routinely observed in single introduction outbreaks of SARS-CoV-2.
+}
 
 Figure 6 does not add to the data analysis and only serves to drive home what seems to be the primary objective of the manuscript - that the sequences were deleted from the SRA.
 
+\response{
+I recognize different readers may have different views of the relevance of this aspect.
+But I think in the end the manuscript is both about the sequences themselves and the fact that they were not readily available, which is a fact that could reasonably inform views of data sharing practices.
+
+In the end, much of the feedback I have received elsewhere is very curious about this aspect.
+For instance, I received comments from Stephen Goldstein (\url{http://disq.us/p/2hwabcu}) where he explicitly asked (comment 8) for inclusion of the reason for the removal.
+In addition, as mentioned in the response to the editor, this point has been further raised by the Chinese Health Council.
+
+Therefore, I think it would be a glaring omission to at least some readers to not provide the explanations given for the data deletion.
+}
+
 The acknowledgement of "twitter citizens" risks highlighting commentary by individuals who have directed abuse and threats at the author's colleagues. I encourage the author to reconsider, or specify who he refers to in particular in order to avoid granting inadvertent credibility to nefarious individuals.
+
+\response{I certainly recognize that there are some individuals who post inaccurate or negative information on Twitter, but there are also many individuals who post useful information.
+This includes three individuals (one a professor, one a postdoc, and one a non-scientist) who sent me information about the two accessions I could not recover from the cloud after I Tweeted about the original pre-print.
+However, all three preferred not to be acknowledged by name.
+
+My understanding of many aspects of SARS-CoV-2 (including its early evolution, later evolution, and antigenicity) have been greatly informed by postings on Twitter, including from scientists, journalists, policy makers, and others whose professions are unknown to me.
+Therefore, I think it is appropriate to acknowledge this fact---recognizing of course that Twitter has millions of users, who range in their intentions and credibility.
+}
 
 \color{black}
 \bibliographystyle{mbe}
