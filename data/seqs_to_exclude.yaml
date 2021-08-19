@@ -11,3 +11,7 @@ gisaid:
   EPI_ISL_407214: duplicate version of WA-1, using EPI_ISL_404895
   EPI_ISL_407215: duplicate version of WA-1, using EPI_ISL_404895
   EPI_ISL_596386: duplicate version of WA-1, using EPI_ISL_404895
+  EPI_ISL_407073: duplicate version of hCoV-19/England/2/2020
+  EPI_ISL_2296538: appears to be duplicate of another Hong Kong sequence
+  EPI_ISL_412028: appears to be duplicate of another Hong Kong sequence
+  EPI_ISL_451337: appears to be spurious based on tree placement
