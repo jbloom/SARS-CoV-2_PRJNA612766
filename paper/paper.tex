@@ -20,11 +20,6 @@
 	% N.B.: floatpagefraction MUST be less than topfraction !!
     \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
 
-%\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
-%\hypersetup{draft}  % comment out hyperlinks for now to deal with line-breaking issue in references
-
-\articletype{inv} 
-
 \title{Recovery of deleted deep sequencing data sheds more light on the early Wuhan SARS-CoV-2 epidemic}
 
 \author[]{\Large Jesse D. Bloom}
@@ -68,7 +63,7 @@ The \textit{South China Morning Post} described nine cases from November 2019 in
 Professor Yu Chuanhua of Wuhan University told the \textit{Health Times} that records he reviewed showed two cases in mid-November, and one suspected case on September 29~\citep{healthtimes2020}.
 At about the same time as Professor Chuanhua's interview, the Chinese CDC issued an order forbidding sharing of information about the COVID-19 epidemic without approval~\citep{chinacdc2020}, and shortly thereafter Professor Chuanhua re-contacted the \textit{Health Times} to say the November cases could not be confirmed~\citep{healthtimes2020}.
 Then China's State Council issued a much broader order requiring central approval of all publications related to COVID-19 to ensure they were coordinated ``like moves in a game of chess''~\citep{Kang2020}.
-In 2021, the joint WHO-China report dismissed all reported cases prior to December 8 as not COVID-19, and revived the theory that the virus might have originated at the Huanan Seafood Market~\citep{WHO2021origins}.
+In 2021, the joint WHO-China report dismissed all reported cases prior to December 8 as not COVID-19, reviving the theory that the virus might have originated at the Huanan Seafood Market~\citep{WHO2021origins}.
 
 In other outbreaks where direct identification of early cases has been stymied, it has increasingly become possible to use genomic epidemiology to infer the timing and dynamics of spread from analysis of viral sequences.
 For instance, analysis of SARS-CoV-2 sequences has enabled reconstruction of the initial spread of SARS-CoV-2 in North America and Europe~\citep{bedford2020cryptic, worobey2020emergence, deng2020genomic, fauver2020coast}.
@@ -103,7 +98,8 @@ These searches returned messages indicating that the sequencing runs had been re
 
 \begin{figure}[]
 \centering
-\fbox{\includegraphics[trim={0.2in 0 0 9in},clip,width=\linewidth]{figures/acc_removed.png}}
+%\fbox{\includegraphics[trim={0.2in 0 0 9in},clip,width=\linewidth]{figures/acc_removed.png}}
+\fbox{\includegraphics[trim={0.2in 0 0 9in},clip,width=\linewidth]{figures/Figure_1.jpg}}
 \caption{Accessions from deep sequencing project PRJNA612766 have been removed from the SRA.
 Shown is the result of searching for ``SRR11313485'' in the SRA search toolbar.
 This result has been digitally archived on the Wayback Machine at \url{https://web.archive.org/web/20210502131630/https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11313485}.
@@ -195,7 +191,7 @@ In this paper, I only analyze the region from spike through ORF10 because this i
 I slightly trimmed the region of interest to 21,570 to 29,550 because many samples had poor coverage at the termini.
 
 I aligned the recovered deep sequencing data to the SARS-CoV-2 genome using \texttt{minimap2}~\citep{li2018minimap2}, combining accessions for the same sample, and masking regions that corresponded to the primer binding sites described in \citet{wang2020medRxiv}.
-Figure~\ref{suppfig:coverage} shows the sequencing coverage for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples over the region of interest; a comparable plot for the whole genome is in Figure~\ref{suppfig:coverage_all}.
+Figure~S1 shows the sequencing coverage for the 34 virus-positive early epidemic samples and the 16 hospitalized patient samples over the region of interest; a comparable plot for the whole genome is in Figure~S2.
 
 I called the consensus viral sequence for each sample at each site with coverage $\ge$3 and $>$80\% of the reads concurring on the nucleotide identity.
 With these criteria, 13 of the early outpatient samples and 1 of the February hospitalized patient samples had sufficient coverage to call the consensus sequence at $>$90\% of the sites in the region of interest (Table~\ref{tab:mutations}), and for the remainder of this paper I focus on these high-coverage samples.
@@ -205,18 +201,20 @@ In addition, the mutations I called from the raw sequence data in Table~\ref{tab
 Again, this fact emphasizes that the information contained in the deleted sequencing data is largely present in \citet{wang2020small}, but because it was only published in a table in the chemistry journal \textit{Small} rather than placed on the SRA, its existence was overlooked.
 
 I also determined the consensus sequence of the plasmid control used by \citet{wang2020medRxiv} from the recovered sequencing data, and found that it had mutations C28144T and G28085T relative to proCoV2, which means that in the region of interest this control matches Wuhan-Hu-1 with the addition of G28085T.
-Since none of the viral samples in Table~\ref{tab:mutations} contain G28085T and the samples that prove most relevant below also lack C28144T (which is a frequent natural mutation among early Wuhan sequences), plasmid contamination did not afflict the viral samples in the deleted sequencing project.
+Since none of the viral samples in Table~\ref{tab:mutations} contain G28085T and the samples that prove most relevant below also lack C28144T (which is a frequent natural mutation among early Wuhan sequences), plasmid contamination of the viral samples is unlikely.
 
 \begin{figure*}
 \centering
-\includegraphics[width=\linewidth]{figures/deltadist_RaTG13.pdf}
+%\includegraphics[width=\linewidth]{figures/deltadist_RaTG13.pdf}
+\includegraphics[width=\linewidth]{figures/Figure_2.pdf}
 \caption{The reported collection dates of SARS-CoV-2 sequences in GISAID versus their relative mutational distances from the RaTG13 bat coronavirus outgroup.
-Mutational distances are relative to the putative progenitor proCoV2 inferred by \citet{kumar2021evolutionary}.
-The plot shows sequences in GISAID collected no later than February 28, 2020.
+Mutational distances are relative to the putative progenitor proCoV2 inferred by \citet{kumar2021evolutionary}, which itself differs from RaTG13 by 1,132 mutations---so a sequence with a relative mutational distance of 2 actually has 1,134 differences from RaTG13.
+Note that the lower-right point in the middle (green) panel corresponds to a sequence (Guangdong/FS-30-P00502/2020) reportedly collected in late February that is actually two mutations more similar to RaTG13 than proCoV2.
+The plot shows only sequences in GISAID collected no later than February 28, 2020.
 Sequences that the joint WHO-China report~\citep{WHO2021origins} describes as being associated with the Wuhan Seafood Market are plotted with squares.
 Points are slightly jittered on the y-axis.
 Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist.html} for an interactive version of this plot that enables toggling of the outgroup to RpYN06 and RmYN02, mouseovers to see details for each point including strain name and mutations relative to proCoV2, and adjustment of the y-axis jittering.
-Static versions of the plot with RpYN06 and RmYN02 outgroups are in Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}.
+Static versions of the plot with RpYN06 and RmYN02 outgroups are in Figure~S3.
 }
 \label{fig:deltadist_RaTG13}
 \end{figure*}
@@ -233,31 +231,33 @@ One would therefore expect the first reported SARS-CoV-2 sequences to be the mos
 This conundrum is illustrated in Figure~\ref{fig:deltadist_RaTG13}, which plots the collection date of SARS-CoV-2 sequences in GISAID versus the relative number of mutational differences from RaTG13~\citep{zhou2020pneumonia}, which is the bat coronavirus with the highest full-genome sequence identity to SARS-CoV-2.
 The earliest SARS-CoV-2 sequences were collected in Wuhan in December, but these sequences are more distant from RaTG13 than sequences collected in January from other locations in China or even other countries (Figure~\ref{fig:deltadist_RaTG13}).
 The discrepancy is especially pronounced for sequences from patients who had visited the Huanan Seafood Market~\citep{WHO2021origins}.
-All sequences associated with this market differ from RaTG13 by at least three more mutations than sequences subsequently collected at various other locations (Figure~\ref{fig:deltadist_RaTG13})---a fact that is difficult to reconcile with the idea that the market was the original location of spread of a bat coronavirus into humans.
-Importantly, all these observations also hold true if SARS-CoV-2 is compared to other related bat coronaviruses~\citep{lytras2021exploring} such as RpYN06~\citep{zhou2021identification} or RmYN02~\citep{zhou2020novel} rather than RaTG13 (Figure~\ref{suppfig:deltadist_RpYN06_RmYN02}).
+All sequences associated with this market differ from RaTG13 by at least three more mutations than sequences subsequently collected at various other locations (Figure~\ref{fig:deltadist_RaTG13}).
+Importantly, all these observations also hold true if SARS-CoV-2 is compared to other related bat coronaviruses~\citep{lytras2021exploring} such as RpYN06~\citep{zhou2021identification} or RmYN02~\citep{zhou2020novel} rather than RaTG13 (Figure~S3).
 
  \begin{figure*}
  \centerline{
- \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RaTG13_without_deleted_seqs.pdf}
- \hspace{0.02\linewidth}
- \includegraphics[width=0.33\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_without_deleted_seqs.pdf}
-  \hspace{0.02\linewidth}
- \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_without_deleted_seqs.pdf}
+ \includegraphics[width=\linewidth]{figures/Figure_3.pdf}
+ %\includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RaTG13_without_deleted_seqs.pdf}
+ %\hspace{0.02\linewidth}
+ %\includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_without_deleted_seqs.pdf}
+  %\hspace{0.02\linewidth}
+ %\includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_without_deleted_seqs.pdf}
  }
  \caption{
- Phylogenetic trees of SARS-CoV-2 sequences in GISAID with multiple observations among viruses collected before Februrary, 2020.
+ Phylogenetic trees of SARS-CoV-2 sequences in GISAID collected before February, 2020.
  The trees are identical except they are rooted to make the progenitor each of the three sequences with highest identity to the RaTG13 bat coronavirus outgroup.
 Nodes are shown as pie charts with areas proportional to the number of observations of that sequence, and colored by where the viruses were collected.
 The mutations on each branch are labeled, with mutations towards the nucleotide identity in the outgroup in purple.
 The labels at the top of each tree give the first known virus identical to each putative progenitor, as well as mutations in that progenitor relative to proCoV2~\citep{kumar2021evolutionary} and Wuhan-Hu-1.
 The monophyletic group containing C28144T is collapsed into a node labeled ``clade B'' in concordance with the naming scheme of \citet{rambaut2020dynamic}; this clade contains Wuhan-Hu-1.
- Figure~\ref{suppfig:tree_RpYN06_RmYN02} shows identical results are obtained if the outgroup is RpYN06 or RmYN02.
+Singleton mutations (mutations observed only once in the sequence set) are removed as described in more detail in the Methods.
+ Figures~S4 and S5 shows identical results are obtained if the outgroup is RpYN06 or RmYN02.
 \label{fig:tree_RaTG13}
  }
  \end{figure*}
 
 This conundrum can be visualized in a phylogenetic context by rooting a tree of early SARS-CoV-2 sequences so that the progenitor sequence is closest to the bat coronavirus outgroup.
-If we limit the analysis to sequences with at least two observations among strains collected no later than January 2020, there are three ways to root the tree in this fashion since there are three different sequences equally close to the outgroup (Figure~\ref{fig:tree_RaTG13}, Figure~\ref{suppfig:tree_RpYN06_RmYN02}).
+If we limit the analysis to sequences collected no later than January 2020 and remove singleton mutations observed only once in the sequence set, then there are three ways to root the tree in this fashion since there are three different sequences equally close to the outgroup (Figure~\ref{fig:tree_RaTG13}, Figure~S4, Figure~S5).
 Importantly, none of these rootings place any Huanan Seafood Market viruses (or other Wuhan viruses from December 2019) in the progenitor node---and only one of the rootings has any virus from Wuhan in the progenitor node (in the leftmost tree in Figure~\ref{fig:tree_RaTG13}, the progenitor node contains Wuhan/0126-C13/2020, which was reportedly collected on January 26, 2020).
 Therefore, inferences about the progenitor of SARS-CoV-2 based on comparison to related bat viruses are inconsistent with other evidence suggesting the progenitor is an early virus from Wuhan~\citep{pipes2021assessing}.
 
@@ -265,8 +265,8 @@ Several plausible explanations have been proposed for the discordance of phyloge
 \citet{rambaut2020dynamic} suggest that viruses from the clade labeled ``B'' in Figure~\ref{fig:tree_RaTG13} may just ``happen'' to have been sequenced first, but that other SARS-CoV-2 sequences are really more ancestral as implied by phylogenetic rooting.
 \citet{pipes2021assessing} discuss the conundrum in detail, and suggest that phylogenetic rooting could be incorrect due to technical reasons such as high divergence of the outgroup or unusual mutational processes not captured in substitution models.
 \citet{kumar2021evolutionary} agree that phylogenetic rooting is problematic, and circumvent this problem by using an alternative algorithm to infer a progenitor for SARS-CoV-2 that they name proCoV2.
-Notably, proCoV2 turns out to be identical to one of the putative progenitors yielded by my approach in Figure~\ref{fig:tree_RaTG13} of simply placing the root at the nodes closest to the outgroup.
-However, neither the sophisticated algorithm of \citet{kumar2021evolutionary} nor my more simplistic approach explain \emph{why} the progenitor should be so different from the earliest sequences reported from Wuhan.
+Notably, proCoV2 turns out to be identical to one of the putative progenitors yielded by my approach in Figure~\ref{fig:tree_RaTG13} of simply placing the root at the nodes closest to the outgroup---a perhaps unsurprising result, since both approaches  use outgroups but ignore sampling dates.
+It is also possible that there was an early ascertainment bias towards market-associated viruses (clade B), since some early case definitions included exposure to the Huanan Seafood Market.
 
 Another explanation that I consider less plausible is offered by \citet{garry2021early}: that there were multiple zoonoses from distinct markets, with the Huanan Seafood Market being the source of viruses in clade B, and some other market being the source of viruses that lack T8782C and C28144T (Figure~\ref{fig:tree_RaTG13}).
 However, this explanation requires positing zoonoses in two markets by two progenitors differing by just two mutations, which seems non-parsimonious in the absence of direct evidence for zoonosis in any market.
@@ -278,9 +278,11 @@ Since these patients were clearly infected in Wuhan even though they were sequen
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\linewidth]{figures/deltadist_jitter.png}
+%\includegraphics[width=0.75\linewidth]{figures/deltadist_jitter.png}
+\includegraphics[width=0.75\linewidth]{figures/Figure_4.jpg}
 \caption{
 Relative mutational distance from RaTG13 bat coronavirus outgroup calculated \emph{only} over the region of the SARS-CoV-2 genome covered by sequences from the deleted data set (21,570--29,550).
+Because the calculated distances here are only over a portion of the genome, there are more negative points than in Figure~\ref{fig:deltadist_RaTG13}.
 The plot shows sequences in GISAID collected before February of 2020, as well as the 13 early Wuhan epidemic sequences in Table~\ref{tab:mutations}.
 Mutational distance is calculated relative to proCoV2, and points are jittered on the y-axis.
 Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist_jitter.html} for an interactive version of this plot that enables toggling the outgroup to RpYN06 or RmYN02, mouseovers to see details for each point, and adjustment of jittering.
@@ -290,27 +292,27 @@ Go to \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/deltadist_jitter.html
 
  \begin{figure*}
  \centerline{
- \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RaTG13_with_deleted_seqs.pdf}
- \hspace{0.02\linewidth}
- \includegraphics[width=0.33\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_with_deleted_seqs.pdf}
-  \hspace{0.02\linewidth}
- \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_with_deleted_seqs.pdf}
+ \includegraphics[width=\linewidth]{figures/Figure_5.pdf}
+% \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RaTG13_with_deleted_seqs.pdf}
+% \hspace{0.02\linewidth}
+% \includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RaTG13_with_deleted_seqs.pdf}
+ % \hspace{0.02\linewidth}
+% \includegraphics[width=0.31\linewidth, valign=t, clip=true, trim=0in 6.75in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RaTG13_with_deleted_seqs.pdf}
  }
  \caption{
 Phylogenetic trees like those in Figure~\ref{fig:tree_RaTG13} with the addition of the early Wuhan epidemic sequences from the deleted data set, and Guangdong patients infected in Wuhan prior to January 5 annotated separately.
 Because the deleted sequences are partial, they cannot all be placed unambiguously on the tree.
 Therefore, they are added to each compatible node proportional to the number of sequences already in that node.
 The deleted sequences with C28144T (clade B) or C29095T (putative progenitor in middle tree) can be placed relatively unambiguously as defining mutations occur in the sequenced region, but those that lack either of these mutations are compatible with a large number of nodes including the proCoV2 putative progenitor.
- Figure~\ref{suppfig:tree_RpYN06_RmYN02} demonstrates that the results are identical if RpYN06 or RmYN02 is instead used as the outgroup.
+ Figures~S4 and S5 demonstrates that the results are identical if RpYN06 or RmYN02 is instead used as the outgroup.
 \label{fig:tree_with_deleted}
  }
  \end{figure*}
 
 Repeating the analysis of the previous section with these changes shows that several sequences from the deleted project and all sequences from patients infected in Wuhan but sequenced in Guangdong are more similar to the bat coronavirus outgroup than sequences from the Huanan Seafood Market (Figure~\ref{fig:deltadist_jitter}).
-This fact suggests that the market sequences, which are the primary focus of the genomic epidemiology in the joint WHO-China report~\citep{WHO2021origins}, are not representative of the viruses that were circulating in Wuhan in late December of 2019 and early January of 2020.
 
 Furthermore, it is immediately apparent that the discrepancy between outgroup rooting and the evidence that Wuhan was the origin of SARS-CoV-2 is alleviated by adding the deleted sequences and annotating Wuhan infections sequenced in Guangdong.
-The rooting of the middle tree in Figure~\ref{fig:tree_with_deleted} is now highly plausible, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node.
+The rooting of the middle tree in Figure~\ref{fig:tree_with_deleted} is now more consistent with the evidence that the pandemic originated in Wuhan, as half its progenitor node is derived from early Wuhan infections, which is more than any other equivalently large node.
 The first known sequence identical to this putative progenitor (Guangdong/HKU-SZ-002/2020) is from a patient who developed symptoms on January 4 while visiting Wuhan~\citep{chan2020familial}.
 This putative progenitor has three mutations towards the bat coronavirus outgroup relative to Wuhan-Hu-1 (C8782T, T28144C, and C29095T), and two mutations relative to proCoV2 (T18060C away from the outgroup and C29095T towards the outgroup).
 The leftmost tree in Figure~\ref{fig:tree_with_deleted}, which has a progenitor identical to proCoV2~\citep{kumar2021evolutionary} also looks plausible, with some weight from Wuhan sequences.
@@ -319,13 +321,13 @@ The rightmost tree in Figure~\ref{fig:tree_with_deleted} looks less plausible, a
 
 We can also qualitatively examine the three progenitor placements in Figure~\ref{fig:tree_with_deleted} using the principle employed by \citet{worobey2020emergence} to help evaluate scenarios for emergence of SARS-CoV-2 in Europe and North America: namely that during a growing outbreak, a progenitor is likely to give rise to multiple branching lineages.
 This principle is especially likely to hold for the scenarios in Figure~\ref{fig:tree_with_deleted}, since there are multiple individuals infected with each putative progenitor sequence, implying multiple opportunities to transmit descendants with new mutations.
-Using this qualitative principle, the middle scenario in Figure~\ref{fig:tree_with_deleted} seems most plausible, the leftmost (proCoV2) scenario also seems plausible, and the rightmost scenario seems less plausible.
-I acknowledge these arguments are purely qualitative and lack the formal statistical analysis of \citet{worobey2020emergence}---but as discussed below, there may be wisdom in qualitative reasoning when there are valid concerns about the nature of the underlying data.
+Using this qualitative principle, the middle and leftmost scenarios in Figure~\ref{fig:tree_with_deleted} seem more plausible than the rightmost scenario, where the progenitor lacks branching descendants.
+I acknowledge these arguments are purely qualitative and lack the formal statistical analysis of \citet{worobey2020emergence}---but as discussed below, there may be wisdom in qualitative reasoning when there are valid concerns about the sampling distribution of the underlying data.
 
 \section{Discussion}
 I have identified and recovered a deleted set of partial SARS-CoV-2 sequences from the early Wuhan epidemic.
 Analysis of these sequences leads to several conclusions.
-First, they provide further evidence Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
+First, they provide further evidence that the Huanan Seafood Market sequences that were the focus of the joint WHO-China report~\citep{WHO2021origins} are not representative of all SARS-CoV-2 in Wuhan early in the epidemic.
 The deleted data as well as existing sequences from Wuhan-infected patients hospitalized in Guangdong show early Wuhan sequences often carried the T29095C mutation and were less likely to carry T8782C / C28144T than sequences in the joint WHO-China report~\citep{WHO2021origins}.
 Second, given current data, there are two plausible identities for the progenitor of all known SARS-CoV-2.
 One is proCoV2 described by \citet{kumar2021evolutionary}, and the other is a sequence that carries three mutations (C8782T, T28144C, and C29095T) relative to Wuhan-Hu-1.
@@ -333,7 +335,8 @@ Crucially, both putative progenitors are three mutations closer to SARS-CoV-2's 
 Note also that the progenitor of all known SARS-CoV-2 sequences could still be downstream of the sequence that infected patient zero---and it is possible that the future discovery of additional early SARS-CoV-2 sequences could lead to further revisions of inferences about the earliest viruses in the outbreak.
 
 \begin{figure}
-\centerline{\fbox{\includegraphics[width=\linewidth]{figures/SRA_email.png}}}
+%\centerline{\fbox{\includegraphics[width=\linewidth]{figures/SRA_email.png}}}
+\centerline{\fbox{\includegraphics[width=\linewidth]{figures/Figure_6.jpg}}}
 \caption{A redacted version of the e-mails from Wuhan University to the SRA staff requesting deletion of the sequencing data.
 This e-mail was provided to me by the NIH's NCBI Director Stephen Sherry on June, 19, 2021, the day after I e-mailed the NIH an advance copy of this manuscript.
 The redactions and highlighting were done by the NIH, and I am showing the e-mail exactly as it was provided to me.
@@ -345,12 +348,19 @@ The fact that this informative data set was deleted suggests implications beyond
 Samples from early outpatients in Wuhan are a gold mine for anyone seeking to understand spread of the virus.
 Even my analysis of 13 partial sequences is revealing, and it clearly would have been more scientifically informative to fully sequence all 34 samples rather than delete the partial sequence data.
 There is no obvious scientific reason for the deletion: the sequences are concordant with the samples described in \citet{wang2020medRxiv,wang2020small}, there are no corrections to the paper, the paper states human subjects approval was obtained, and the sequencing shows no evidence of plasmid or sample-to-sample contamination.
-After I e-mailed the NIH the original version of this manuscript, they sent me the e-mails requesting deletion of the data, which are in Figure~\ref{fig:SRA_email}.
-While I cannot rule out that the authors posted the data on some unknown website, the sequences are not in GISAID, NCBI, or any database used by the joint WHO-China report.
-Therefore, even though the sequencing data were on the Google Cloud (as described above) and the mutations were listed in a table in the \textit{Small} paper by \citet{wang2020small}, the practical consequence of removing the data from the SRA was that nobody was aware these sequences existed.
-Particularly in light of the directive that labs destroy early samples~\citep{pinghui2020SCMP} and multiple orders requiring approval of publications on COVID-19~\citep{chinacdc2020, Kang2020}, this suggests a less than wholehearted effort to maximize information about viral sequences from early in the Wuhan epidemic.
+After I e-mailed the NIH the original version of this manuscript, they sent me the e-mail requesting deletion of the data, which is in Figure~\ref{fig:SRA_email}.
+Despite the statement in the deletion-request e-mail that the sequences were being uploaded to ``another website'' (Figure~\ref{fig:SRA_email}), I could find no evidence that they were actually uploaded to any other public website---and certainly they were not posted to GISAID, NCBI, or any database used by the joint WHO-China report.
+Therefore, even though the sequencing data were listed in a table in the \textit{Small} paper by \citet{wang2020small}, the practical consequence of removing the data from the SRA was that nobody was aware these sequences existed.
+Notably, it is \emph{not} possible to delete pre-prints from \textit{bioRxiv} and \textit{medRxiv}, so once \citet{wang2020medRxiv} had posted their pre-print, it was permanently committed to the public record (withdrawn pre-prints are still accessible, for instance see \citet{yang2020epidemiological}).
+Particularly in light of the directive that labs destroy early samples~\citep{pinghui2020SCMP} and multiple orders requiring approval of publications on COVID-19~\citep{chinacdc2020, Kang2020}, the deletion of the data from the SRA suggests a less than wholehearted effort to maximize availability of information about viral sequences from early in the Wuhan epidemic.
 
-Another important implication is that genomic epidemiology studies of early SARS-CoV-2 need to pay as much attention to the provenance and annotation of the underlying sequences as technical considerations.
+However, about a month after I publicly posted this manuscript to \textit{bioRxiv} as a pre-print, the deleted sequence data were discussed in a July 21, 2021, press conference by the vice minister of China's National Health Commission and subsequently in two blog posts by a China state-affiliated reporter~\citep{wang2021exclusive,wang2021why}.
+The press conference and blog posts stated that the sequence data were removed from the SRA because the journal \textit{Small} had mistakenly deleted the data availability statement in the paper of \citet{wang2020small}, leading the authors to think that they should also delete the actual data.
+Confusingly, this explanation is inconsistent with the reason provided by the authors to the SRA (Figure~\ref{fig:SRA_email}), and I am unable to reconcile the discrepancy.
+The press conference and blog posts also stated that the sequences were all collected on or after January 30, 2020, rather than ``early in the epidemic'' as originally described in \citet{wang2020medRxiv,wang2020small}.
+Finally, the press conference and blog noted that on July 8, 2021, the deleted data were made available on the Chinese NGDC database under accession PRJCA005725.
+
+Regardless of exactly why the data were deleted, another important implication of this study is that genomic epidemiology studies of early SARS-CoV-2 need to pay as much attention to the provenance and annotation of the underlying sequences as technical considerations.
 There has been substantial scientific effort expended on topics such as phylogenetic rooting~\citep{pipes2021assessing, morel2021phylogenetic}, novel algorithms~\citep{kumar2021evolutionary}, and correction of sequencing errors~\citep{turakhia2020stability}.
 Future studies should devote equal effort to going beyond the annotations in GISAID to carefully trace the location of patient infection and sample sequencing.
 The potential importance of such work is revealed by the observation that many of the sequences closest to SARS-CoV-2's bat coronavirus relatives are from early patients who were infected in Wuhan, but then sequenced in and attributed to Guangdong.
@@ -358,7 +368,6 @@ The potential importance of such work is revealed by the observation that many o
 There are several caveats to this study.
 Most obviously, the sequences recovered from the deleted data set are partial and lack full metadata.
 Therefore, it is impossible to unambiguously place them phylogenetically, or determine exactly when they were collected.
-However, little can be done to mitigate this caveat beyond my unsuccessful attempt to contact the corresponding authors of \citet{wang2020medRxiv}.
 It is also important to note that my phylogenetic analyses use relatively simple methods to draw qualitative conclusions without formal statistical testing.
 Further application of more advanced methods would be a welcome advance.
 However, qualitative and visual analyses do have advantages when the key questions relate more to the underlying data than the sophistication of the inferences.
@@ -427,7 +436,7 @@ The reference genome used for the entirety of this study is proCoV2~\citep{kumar
 
 I processed the resulting alignments with \texttt{samtools} and \texttt{pysam} to determine the coverage at each site by aligned nucleotides with a quality score of at least 20.
 I also masked (set to zero coverage) all sites overlapped by the primers used by \citet{wang2020medRxiv} to PCR the amplicons used for sequencing.
-These coverage plots are in Figure~\ref{suppfig:coverage} and Figure~\ref{suppfig:coverage_all}; the legends of these figures also link to interactive versions of the plots that enable zooming and mouseovers to get statistics for specific sites.
+These coverage plots are in Figure~S1 and Figure~S2; the legends of these figures also link to interactive versions of the plots that enable zooming and mouseovers to get statistics for specific sites.
 I called the consensus sequence at a site if this coverage was $\ge$3 and $>$80\% of the reads agreed on the identity.
 These consensus sequences over the entire SARS-CoV-2 genome are available at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/raw/main/results/consensus/consensus_seqs.csv}; note that they are mostly \texttt{N} nucleotides since the sequencing approach of \citet{wang2020medRxiv} only covers part of the genome.
 
@@ -442,7 +451,7 @@ The GISAID accessions for these sequences are listed at \url{https://github.com/
 Sites in SARS-CoV-2 were mapped to their corresponding nucleotide identities in the bat coronavirus outgroups via a multiple sequence alignment of proCoV2 to the bat coronaviruses generated using \texttt{mafft}~\citep{katoh2013mafft}.
 
 \subsection{Curation and analysis of early SARS-CoV-2 sequences from GISAID}
-For the broader analyses of existing SARS-CoV-2 sequences, I downloaded all sequences from collected prior to March of 2020 from GISAID.
+For the broader analyses of existing SARS-CoV-2 sequences, I downloaded all sequences collected prior to March of 2020 from GISAID.
 The accessions of these sequences are at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/data/gisaid_sequences_through_Feb2020/accessions.txt}, and a table acknowledging the labs and authors is at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/data/gisaid_sequences_through_Feb2020/acknowledgments.csv}.
 
 I then used \texttt{mafft}~\citep{katoh2013mafft} to align these sequences to the proCoV2 reference described above, stripped any sites that were gapped relative to the reference, and filtered the sequences using the following criteria:
@@ -469,7 +478,7 @@ The plot in Figure~\ref{fig:deltadist_jitter} shows the filtered GISAID sequence
 
 \subsection{Phylogenetic analyses}
 The phylogenetic trees were inferred using the GISAD sequences after the filtering and annotations described above, only considering sequences with $\ge$95\% coverage over the region of interest that were collected before February of 2020.
-In addition, after generating this sequence set I removed any sequence variants with a combination of mutations that was not observed at least twice so the analysis only includes multiply observed sequence variants.
+In addition, after generating this sequence set I removed any mutations from sequences that were singletons in the sense that they were only observed once in the sequence set---a similar approach was used by \citet{kumar2021evolutionary}, and this approach should eliminate rare mutations that could be sequencing errors.
 A file indicating the unique sequences used for the phylogenetic analysis, their mutations relative to proCoV2, and other sequences in that cluster is at \url{https://github.com/jbloom/SARS-CoV-2_PRJNA612766/blob/main/results/phylogenetics/all_alignment.csv}.
 
 I then used \texttt{IQ-Tree}~\citep{minh2020iq} to infer a maximum-likelihood phylogenetic tree using a GTR nucleotide substitution model with empirical nucleotide frequencies, and collapsing zero-length branches to potentially allow a multifurcating tree.
@@ -486,6 +495,7 @@ Interactive versions of some figures are available at \url{https://jbloom.github
 
 \section{Acknowledgments}
 I thank the citizens and scientists on Twitter who helped inspire this study and inform its background through their analyses and discussions of the early spread of SARS-CoV-2.
+I thank two anonymous reviewers for helpful comments on the manuscript.
 I thank Brendan Larsen for pointing out that I failed to mask the primer binding site regions in the analysis described in the original pre-print (this has been fixed in this version).
 I thank Stephen Goldstein and anonymous commenter for providing critiques of the original version of the pre-print on \textit{bioRxiv} that have helped me revise the manuscript.
 I thank the scientists and labs who contributed sequences used in this study to the GISAID database; the names of these scientists and labs are listed in the tables linked to in the Methods.
@@ -498,73 +508,5 @@ The author consults for Moderna on SARS-CoV-2 evolution and epidemiology, consul
 }
 
 \bibliography{references}
-
-\clearpage
-\onecolumn
-\renewcommand{\thepage}{S\arabic{page}}
-\setcounter{page}{1}
-\renewcommand{\thefigure}{S\arabic{figure}}
-\setcounter{figure}{0}
-
-\section{Supplementary Material}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=\linewidth]{figures/coverage_region.pdf}
-\caption{Sequencing depth over the SARS-CoV-2 genome from site 21,570 to 29,550 for the 34 virus-positive early epidemic samples and the 16 samples from hospitalized patients in February.
-Depth is the number of aligned reads that cover that site with a quality score $\ge$20.
-The dashed gray line is the minimum coverage required to call a consensus identity at a site.
-Note that the y-axis uses a symlog scale.
-An interactive version of this plot that enables zooming into specific site ranges and mouseovers to see read count statistics at each site is at \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/coverage_region.html}.
-A version of the plot where the x-axis spans the entire SARS-CoV-2 genome is in Figure~\ref{suppfig:coverage_all}.
-}
-\label{suppfig:coverage}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=\linewidth]{figures/coverage_all.pdf}
-\caption{A version of Figure~\ref{suppfig:coverage} that shows coverage over the full length of the SARS-CoV-2 genome.
-An interactive version of this plot is at \url{https://jbloom.github.io/SARS-CoV-2_PRJNA612766/coverage_all.html}.
-}
-\label{suppfig:coverage_all}
-\end{figure}
-
-\begin{figure}[h!]
-{\bf \LARGE A} \\
-\centerline{\includegraphics[width=\linewidth]{figures/deltadist_RpYN06.pdf}}
-{\bf \LARGE B} \\
-\centerline{\includegraphics[width=\linewidth]{figures/deltadist_RmYN02.pdf}}
-\caption{Versions of Figure~\ref{fig:deltadist_RaTG13} but calculating the relative mutational distances using an outgroup of (A) RpYN06 or (B) RmYN02.
-}
-\label{suppfig:deltadist_RpYN06_RmYN02}
-\end{figure}
-
- \begin{figure}[h!]
- {\bf \LARGE A} \\
- \centerline{
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RpYN06_without_deleted_seqs.pdf}
- \hspace{0.04\linewidth}
- \includegraphics[width=0.32\linewidth, valign=t, clip=true]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RpYN06_without_deleted_seqs.pdf}
-  \hspace{0.04\linewidth}
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RpYN06_without_deleted_seqs.pdf}
- }
- \\
-  {\bf \LARGE B} \\
- \centerline{
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-USA-WA1-2020_RmYN02_without_deleted_seqs.pdf}
- \hspace{0.04\linewidth}
- \includegraphics[width=0.32\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Guangdong-HKU-SZ-002-2020_RmYN02_without_deleted_seqs.pdf}
-  \hspace{0.04\linewidth}
- \includegraphics[width=0.3\linewidth, valign=t, clip=true, trim=0in 4.4in 0in 0in]{figures/tree_images/hCoV-19-Shandong-LY005-2-2020_RmYN02_without_deleted_seqs.pdf}
- }
- \caption{
- A version of Figure~\ref{fig:tree_RaTG13} but rooting using an outgroup of (A) RpYN06 or (B) RmYN02 outgroups.
- The tree topologies are identical to those obtained using RaTG13 in Figure~\ref{fig:tree_RaTG13}, with the only differences being a few minor changes in which mutations on branches are towards the outgroup (purple mutation labels).
-\label{suppfig:tree_RpYN06_RmYN02}
- }
- \end{figure}
-
-
 
 \end{document}
