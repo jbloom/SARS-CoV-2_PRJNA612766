@@ -66,9 +66,10 @@
 % \makeatother
 \renewcommand\Authands{ and }
 
-% Choose article type
-\newcommand*{\articletype}[1]{%
-  \RequirePackage{styles/#1}}
+% Set article type name for header
+\newcommand*{\articletypename}{INVESTIGATION}
+
+% Set colors
   
 % Copyright statement
 \RequirePackage{textcomp} % For copyright symbol styling
@@ -104,6 +105,7 @@
 \definecolor{black50}{gray}{0.5} % 50% black for hrules
 \definecolor{color0}{RGB}{0,0,0} % Base color
 \definecolor{color1}{RGB}{59,90,198} % unused
+\definecolor{color2}{RGB}{54,117,174} % color
 % color2 defined by the specific article type style file
 
 % Bibliography
