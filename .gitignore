@@ -23,5 +23,8 @@ results/phylogenetics/*
 !results/ref_genome
 results/ref_genome/*
 !results/ref_genome/ref_genome.fa
+!results/early_sequences
+results/early_sequences/*
+!results/early_sequences/deltadist.csv
 
 report.html
