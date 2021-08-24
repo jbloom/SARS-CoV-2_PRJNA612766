@@ -12,6 +12,6 @@ Specifically:
  
  - <a href="coverage_all.html" title="Figure S2: sequencing coverage for deleted samples over all sites">Figure S2: sequencing coverage for deleted samples over all sites</a>
  
- - <a href="deltadist.html" title="Figure 3: reported collection date versus relative mutational distance to bat coronavirus outgroup">Figure 3: reported collection date versus relative mutational distance to bat coronavirus outgroup</a>
+ - <a href="deltadist.html" title="Figure 2: reported collection date versus relative mutational distance to bat coronavirus outgroup">Figure 3: reported collection date versus relative mutational distance to bat coronavirus outgroup</a>
  
- - <a href="deltadist_jitter.html" title="Figure 5: relative mutational distance to bat coronavirus outgroup calculated only over the region covered by sequences from the deleted data set (21,570 to 29,550)">Figure 5: relative mutational distance to bat coronavirus outgroup calculated only over the region covered by sequences from the deleted data set (21,570 to 29,550)</a>
+ - <a href="deltadist_jitter.html" title="Figure 4: relative mutational distance to bat coronavirus outgroup calculated only over the region covered by sequences from the deleted data set (21,570 to 29,550)">Figure 5: relative mutational distance to bat coronavirus outgroup calculated only over the region covered by sequences from the deleted data set (21,570 to 29,550)</a>
