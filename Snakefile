@@ -33,6 +33,9 @@ plasmid_samples = {sample: sample_info for sample, sample_info in
 samples_to_accessions = {sample: sample_info['accessions'] for
                          sample, sample_info in
                          list(samples.items()) + list(plasmid_samples.items())}
+# get all accessions
+accessions = [acc for accs in samples_to_accessions.values()
+              for acc in accs]
 
 #----------------------------------------------------------------------------
 # helper functions
@@ -101,12 +104,12 @@ checkpoint list_bigd_ftp:
     conda: 'environment.yml'
     script: 'scripts/list_ftp.py'
 
-def bigd_fastq_list(wildcards):
+def bigd_fastq_acc(wildcards):
     """List of FASTQs to get from BIGD."""
     with checkpoints.list_bigd_ftp.get(**wildcards).output.dirs.open() as f:
         accessions = [os.path.basename(line.strip())
                       for line in f.readlines()]
-    return [f"results/bigd_files/{acc}.fastq.gz" for acc in accessions]
+    return accessions
 
 rule get_bigd_fastq:
     """Download a file from BIGD (GSA)."""
@@ -119,11 +122,12 @@ rule get_bigd_fastq:
     conda: 'environment.yml'
     shell: "wget {params.path} -O {output.fastq}"
 
-rule aggregate_bigd_fastq:
-    input: bigd_fastq_list
-    output: '_temp.txt'
+rule sorted_bigd_reads:
+    """Get just sequences from BIGD FASTQ, sorted."""
+    input: fastq=rules.get_bigd_fastq.output.fastq
+    output: fasta="results/sorted_reads/bigd/{bigd_acc}.fasta"
     conda: 'environment.yml'
-    shell: 'echo "not implemented"'
+    script: 'scripts/sorted_reads.py'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -698,3 +702,20 @@ rule visualize_trees:
     conda: 'environment_ete3.yml'
     log: notebook='results/logs/notebooks/visualize_trees.ipynb'
     notebook: 'notebooks/visualize_trees.py.ipynb'
+
+rule sorted_sra_reads:
+    """Get just sequences from SRA FASTQ, sorted."""
+    input: fastq=rules.download_sra.output.fastq_gz
+    output: fasta="results/sorted_reads/sra/{accession}.fasta"
+    conda: 'environment.yml'
+    script: 'scripts/sorted_reads.py'
+
+rule compare_bigd_sra:
+    input:
+        bigd=lambda wc: [f"results/sorted_reads/bigd/{bigd_acc}.fasta"
+                         for bigd_acc in bigd_fastq_acc(wc)],
+        sra=lambda wc: [f"results/sorted_reads/sra/{sra_acc}.fasta"
+                        for sra_acc in accessions],
+    output: '_temp.txt'
+    conda: 'environment.yml'
+    shell: 'echo "not implemented"'
