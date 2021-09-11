@@ -86,10 +86,9 @@ rule all:
         'results/phylogenetics/all_alignment_no_filter_rare.fa',
         'results/phylogenetics/all_alignment_no_filter_rare.csv',
         'results/consensus/consensus_seqs.csv',
-        'results/bigd_files/files.txt',
-        'results/bigd_files/dirs.txt',
+        '_temp.txt',
 
-rule list_bigd_ftp:
+checkpoint list_bigd_ftp:
     """List details from BIGD GSA FTP site."""
     output:
         files='results/bigd_files/files.txt',
@@ -101,6 +100,30 @@ rule list_bigd_ftp:
         password=config['bigd_password'],
     conda: 'environment.yml'
     script: 'scripts/list_ftp.py'
+
+def bigd_fastq_list(wildcards):
+    """List of FASTQs to get from BIGD."""
+    with checkpoints.list_bigd_ftp.get(**wildcards).output.dirs.open() as f:
+        accessions = [os.path.basename(line.strip())
+                      for line in f.readlines()]
+    return [f"results/bigd_files/{acc}.fastq.gz" for acc in accessions]
+
+rule get_bigd_fastq:
+    """Download a file from BIGD (GSA)."""
+    output: fastq="results/bigd_files/{bigd_acc}.fastq.gz"
+    params:
+        path=os.path.join('ftp://' + config['bigd_host'],
+                          config['bigd_path'],
+                          "{bigd_acc}",
+                          "{bigd_acc}.fastq.gz")
+    conda: 'environment.yml'
+    shell: "wget {params.path} -O {output.fastq}"
+
+rule aggregate_bigd_fastq:
+    input: bigd_fastq_list
+    output: '_temp.txt'
+    conda: 'environment.yml'
+    shell: 'echo "not implemented"'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
