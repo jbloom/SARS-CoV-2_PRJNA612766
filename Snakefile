@@ -4,6 +4,7 @@ Written by Jesse Bloom.
 """
 
 
+import hashlib
 import itertools
 import os
 
@@ -89,7 +90,7 @@ rule all:
         'results/phylogenetics/all_alignment_no_filter_rare.fa',
         'results/phylogenetics/all_alignment_no_filter_rare.csv',
         'results/consensus/consensus_seqs.csv',
-        '_temp.txt',
+        'results/gsa_sra_matches.csv',
 
 checkpoint list_bigd_ftp:
     """List details from BIGD GSA FTP site."""
@@ -716,6 +717,27 @@ rule compare_bigd_sra:
                          for bigd_acc in bigd_fastq_acc(wc)],
         sra=lambda wc: [f"results/sorted_reads/sra/{sra_acc}.fasta"
                         for sra_acc in accessions],
-    output: '_temp.txt'
-    conda: 'environment.yml'
-    shell: 'echo "not implemented"'
+    output: matches='results/gsa_sra_matches.csv'
+    run:
+        # reads entire files, so only works with small files
+        bigd = {}
+        for bigd_file in input.bigd:
+            acc = os.path.splitext(os.path.basename(bigd_file))[0]
+            with open(bigd_file) as f:
+                contents = f.read()
+            assert contents not in bigd
+            bigd[contents] = acc
+        matches = {}
+        for sra_file in input.sra:
+            sra_acc = os.path.splitext(os.path.basename(sra_file))[0]
+            with open(sra_file) as f:
+                contents = f.read()
+            if contents in bigd:
+                matches[sra_acc] = bigd[contents]
+            else:
+                raise ValueError(f"no match for {sra_acc}")
+        print(f"Found {len(matches)} matches")
+        with open(output.matches, 'w') as f:
+            f.write('GSA_accession,SRA_accession\n')
+            for sra, gsa in matches.items():
+                f.write(f"{gsa},{sra}\n")
