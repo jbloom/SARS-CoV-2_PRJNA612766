@@ -6,6 +6,14 @@ max_cpus: 4  # max CPUs for any single job
 scratch_dir: results/_scratch/  # put scratch files here
 
 # -----------------------------------------------------------------
+# Details for comparison to GSA upload of data
+# -----------------------------------------------------------------
+bigd_host: download.big.ac.cn
+bigd_path: gsa/CRA004499
+bigd_user: anonymous
+bigd_password: ''
+
+# -----------------------------------------------------------------
 # Viral reference genomes
 # -----------------------------------------------------------------
 

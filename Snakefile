@@ -86,6 +86,21 @@ rule all:
         'results/phylogenetics/all_alignment_no_filter_rare.fa',
         'results/phylogenetics/all_alignment_no_filter_rare.csv',
         'results/consensus/consensus_seqs.csv',
+        'results/bigd_files/files.txt',
+        'results/bigd_files/dirs.txt',
+
+rule list_bigd_ftp:
+    """List details from BIGD GSA FTP site."""
+    output:
+        files='results/bigd_files/files.txt',
+        dirs='results/bigd_files/dirs.txt'
+    params:
+        host=config['bigd_host'],
+        path=config['bigd_path'],
+        user=config['bigd_user'],
+        password=config['bigd_password'],
+    conda: 'environment.yml'
+    script: 'scripts/list_ftp.py'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
