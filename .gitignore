@@ -26,5 +26,6 @@ results/ref_genome/*
 !results/early_sequences
 results/early_sequences/*
 !results/early_sequences/deltadist.csv
+!results/gsa_sra_matches.csv
 
 report.html
