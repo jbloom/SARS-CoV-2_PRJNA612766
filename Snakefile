@@ -4,6 +4,7 @@ Written by Jesse Bloom.
 """
 
 
+import hashlib
 import itertools
 import os
 
@@ -33,6 +34,9 @@ plasmid_samples = {sample: sample_info for sample, sample_info in
 samples_to_accessions = {sample: sample_info['accessions'] for
                          sample, sample_info in
                          list(samples.items()) + list(plasmid_samples.items())}
+# get all accessions
+accessions = [acc for accs in samples_to_accessions.values()
+              for acc in accs]
 
 #----------------------------------------------------------------------------
 # helper functions
@@ -86,6 +90,45 @@ rule all:
         'results/phylogenetics/all_alignment_no_filter_rare.fa',
         'results/phylogenetics/all_alignment_no_filter_rare.csv',
         'results/consensus/consensus_seqs.csv',
+        'results/gsa_sra_matches.csv',
+
+checkpoint list_bigd_ftp:
+    """List details from BIGD GSA FTP site."""
+    output:
+        files='results/bigd_files/files.txt',
+        dirs='results/bigd_files/dirs.txt'
+    params:
+        host=config['bigd_host'],
+        path=config['bigd_path'],
+        user=config['bigd_user'],
+        password=config['bigd_password'],
+    conda: 'environment.yml'
+    script: 'scripts/list_ftp.py'
+
+def bigd_fastq_acc(wildcards):
+    """List of FASTQs to get from BIGD."""
+    with checkpoints.list_bigd_ftp.get(**wildcards).output.dirs.open() as f:
+        accessions = [os.path.basename(line.strip())
+                      for line in f.readlines()]
+    return accessions
+
+rule get_bigd_fastq:
+    """Download a file from BIGD (GSA)."""
+    output: fastq="results/bigd_files/{bigd_acc}.fastq.gz"
+    params:
+        path=os.path.join('ftp://' + config['bigd_host'],
+                          config['bigd_path'],
+                          "{bigd_acc}",
+                          "{bigd_acc}.fastq.gz")
+    conda: 'environment.yml'
+    shell: "wget {params.path} -O {output.fastq}"
+
+rule sorted_bigd_reads:
+    """Get just sequences from BIGD FASTQ, sorted."""
+    input: fastq=rules.get_bigd_fastq.output.fastq
+    output: fasta="results/sorted_reads/bigd/{bigd_acc}.fasta"
+    conda: 'environment.yml'
+    script: 'scripts/sorted_reads.py'
 
 rule get_ref_genome_fasta:
     """Download reference genome fasta."""
@@ -660,3 +703,41 @@ rule visualize_trees:
     conda: 'environment_ete3.yml'
     log: notebook='results/logs/notebooks/visualize_trees.ipynb'
     notebook: 'notebooks/visualize_trees.py.ipynb'
+
+rule sorted_sra_reads:
+    """Get just sequences from SRA FASTQ, sorted."""
+    input: fastq=rules.download_sra.output.fastq_gz
+    output: fasta="results/sorted_reads/sra/{accession}.fasta"
+    conda: 'environment.yml'
+    script: 'scripts/sorted_reads.py'
+
+rule compare_bigd_sra:
+    input:
+        bigd=lambda wc: [f"results/sorted_reads/bigd/{bigd_acc}.fasta"
+                         for bigd_acc in bigd_fastq_acc(wc)],
+        sra=lambda wc: [f"results/sorted_reads/sra/{sra_acc}.fasta"
+                        for sra_acc in accessions],
+    output: matches='results/gsa_sra_matches.csv'
+    run:
+        # reads entire files, so only works with small files
+        bigd = {}
+        for bigd_file in input.bigd:
+            acc = os.path.splitext(os.path.basename(bigd_file))[0]
+            with open(bigd_file) as f:
+                contents = f.read()
+            assert contents not in bigd
+            bigd[contents] = acc
+        matches = {}
+        for sra_file in input.sra:
+            sra_acc = os.path.splitext(os.path.basename(sra_file))[0]
+            with open(sra_file) as f:
+                contents = f.read()
+            if contents in bigd:
+                matches[sra_acc] = bigd[contents]
+            else:
+                raise ValueError(f"no match for {sra_acc}")
+        print(f"Found {len(matches)} matches")
+        with open(output.matches, 'w') as f:
+            f.write('GSA_accession,SRA_accession\n')
+            for sra, gsa in matches.items():
+                f.write(f"{gsa},{sra}\n")
