@@ -11,6 +11,7 @@ dependencies:
   - bwa-mem2=2.2.1
   - entrez-direct=13.9
   - fastp=0.20.1
+  - ftputil=5.0.1
   - iqtree=2.1.2
   - jupyterlab>=3
   - mafft=7.475
