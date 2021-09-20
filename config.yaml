@@ -39,6 +39,8 @@ comparator_genomes:
     gisaid: EPI_ISL_1699446
   RmYN02:
     gisaid: EPI_ISL_412977
+  BANAL_20_52:
+    genbank: MZ937000
 # directories with GISAID augur format downloads of comparator genomes
 gisaid_comparator_dirs:
   - data/comparator_genomes_gisaid
