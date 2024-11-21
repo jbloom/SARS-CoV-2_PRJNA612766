@@ -2,7 +2,7 @@
 
 ## GISAID sequences
 Due to [GISAID data sharing terms](https://www.gisaid.org/help/faq/), the actual FASTA sequences are not tracked in this repo.
-However, the subdirectories with GISAID sequences contain `*.tsv.xz` files that list the accessions, as well as acknowledging the originating and submitting labs.
+However, the subdirectories with GISAID sequences contain files that list the accessions, as well as acknowledging the originating and submitting labs.
 These are tracked.
 
 - [./comparator_genomes_gisaid/](comparator_genomes_gisaid) contains bat virus comparator genomes as downloaded from GISAID on May-31-2021.
