@@ -47,3 +47,18 @@ The code used to process the Excel supplementary table of accessions from projec
 
 ## Paper
 The LaTex source for the paper and its figures are found in the [./paper/](paper) subdirectory.
+
+## Updates to repo in late 2024 at request of GISAID compliance
+In late 2024, I received a request from GISAID compliance to remove certain files in which they said they had been made aware of files in the repo that violated their data sharing.
+I therefore made the following changes:
+
+On-Nov-21-2024, I made commit `e9d972519` which removed these files from the current state of the repository.
+
+On Dec-7-2024, I fully removed the files from the `git` history with the following commands:
+```
+git filter-repo --path data/gisaid_sequences_through_Feb2020/1622384383620.metadata.tsv.xz --invert-paths
+git filter-repo --path data/comparator_genomes_gisaid/1622468911409.metadata.tsv.xz --invert-paths
+git filter-repo --path results/early_sequences/deltadist.csv --invert-paths
+```
+I then made and committed new version of [results/early_sequences/deltadist.csv](results/early_sequences/deltadist.csv) where I had removed all columns that contained mutations, and committed it and this update to the README.
+I then force-pushed these changes with `git push --force`.
