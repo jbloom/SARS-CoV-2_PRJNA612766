@@ -62,3 +62,15 @@ git filter-repo --path results/early_sequences/deltadist.csv --invert-paths
 ```
 I then made and committed new version of [results/early_sequences/deltadist.csv](results/early_sequences/deltadist.csv) where I had removed all columns that contained mutations, and committed it and this update to the README.
 I then force-pushed these changes with `git push --force`.
+
+## Updates to repo on May-2025 at request of GISAID compliance
+On May-20-2025, I received a request from GISAID compliance to remove additoinal files that they said had GISAID metadata, and about which they had received a complaint from a contributor of the data.
+Note that these were not files in the current state of the repo, but apparently were accessible in the history.
+
+On May-21-2025, therefore made the following changes to fully remove the files from the `git` history:
+```
+git filter-repo --path data/comparator_genomes_gisaid/1621180534800.metadata.tsv.xz --invert-paths
+git filter-repo --path data/gisaid_mutations/metadata.tsv.gz --invert-paths
+```
+
+I then force-pushed these changes with `git push --force origin main`.
