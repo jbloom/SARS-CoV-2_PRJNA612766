@@ -74,3 +74,8 @@ git filter-repo --path data/gisaid_mutations/metadata.tsv.gz --invert-paths
 ```
 
 I then force-pushed these changes with `git push --force origin main`.
+
+## GISAID EpiSet identifier
+At the time this project was performed in 2021, GISAID had not yet introduced EpiSet identifiers.
+
+However, on May-29-2025, GISAID Compliance generated an EpiSet identifier of `EPI_SET_210531sk` (doi: [10.55876/gis8.210531sk](https://epicov.org/epi3/epi_set/210531sk?main=true)) that I have now added here to acknowledge the GISAID submitters.
